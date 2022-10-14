@@ -22,6 +22,7 @@ $(document).ready(function () {
 
     });
 
+    cartCount();
     // add cart number show 
     function cartCount(){
         $.ajax({
@@ -33,4 +34,3 @@ $(document).ready(function () {
         });
     }
 });
-cartCount();

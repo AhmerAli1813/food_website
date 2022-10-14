@@ -179,7 +179,7 @@ function dishes(){
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <span>'.$row['p_prize'].'</span>
+                <span>PKR '.$row['p_prize'].'</span> <br>
                 <div class="btn-group" role="group" aria-label="Basic example">
                         <a  href="add_to_card.php?p_id='.$row['p_id'].'" type="button" id="add_card" class="btn  btn-outline-success"><i class="fas fa-cart-arrow-down"></i></a>
                         <button role="button" id="CartBtn" data-id="'.$row["p_id"].'"  class="btn btn-outline-success">add to cart</button>
