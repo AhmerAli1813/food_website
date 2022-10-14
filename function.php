@@ -82,8 +82,8 @@
         <div class="icons">
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"> <span class="badge bg-success">0</span></a>
-            <a href="#" class="fas fa-shopping-cart"></a>
+            <a href="#" class="fas fa-heart"> </a>
+            <a href="#" id="CartCount" class="fas fa-shopping-cart"></a>
             
         </div>
     <div class="user">'.$user_html.'</div>
@@ -159,15 +159,15 @@ function dishes(){
         while($row = mysqli_fetch_assoc($result)){
             $output .= '
             
-            <form     id="cart_form"  class=" col-12 col-sm-6 col-md-4 box">
+            <div  class=" col-12 col-sm-6 col-md-4 box">
                 <button  role="button" class="'.$row['action'].' fa-heart" onclick="add_to_whitelist_btn()" name"heat"  ></button>
                 <a href="category.php?cat_id='.$row['cat_id'].'" class="fas fa-eye" ></a>
                 
                 <input type="hidden" name="Product_id" value='.$row["p_id"].'>
-                <input type="hidden" name="image" value='.$row["p_image"].'>
-                <input type="hidden" name="title" value="'.$row["p_title"].'">
-                <input type="hidden" name="prize" value='.$row["p_prize"].'>
-                <input type="hidden" name="qty" value="1">
+                <input type="hidden" id="image'.$row["p_id"].'" value='.$row["p_image"].'>
+                <input type="hidden" id="title'.$row["p_id"].'" value="'.$row["p_title"].'">
+                <input type="hidden" id="prize'.$row["p_id"].'" value='.$row["p_prize"].'>
+                <input type="hidden" id="qty'.$row["p_id"].'" value="1">
                 
                 <img src="images/'.$row['p_image'].'" alt="">
                 <h3>'.$row['p_title'].'</h3>
@@ -182,11 +182,11 @@ function dishes(){
                 <span>'.$row['p_prize'].'</span>
                 <div class="btn-group" role="group" aria-label="Basic example">
                         <a  href="add_to_card.php?p_id='.$row['p_id'].'" type="button" id="add_card" class="btn  btn-outline-success"><i class="fas fa-cart-arrow-down"></i></a>
-                        <button role="button" onclick="add_to_card_btn(this)"  class="btn btn-outline-success">add to cart</button>
+                        <button role="button" id="CartBtn" data-id="'.$row["p_id"].'"  class="btn btn-outline-success">add to cart</button>
                         
                     </div>
                 
-            </form>';
+            </div>';
         }
     }else{
         echo $output = 'no record found ';
@@ -201,7 +201,7 @@ function dishes(){
         <h1 class="heading"> popular dishes </h1>
         
     
-        <div class="alert alert-success" id="p_message" role="alert">message</div>
+        <div  id="p_message"></div>
         <div class="box-container" id="dishes_containers">
                 <div class="row">
                 '.$output.'
@@ -777,7 +777,8 @@ function sign_in(){
     <script src="js/script.js"></script>
     <script src="js/jquery.js"></script>
        
-    <script src="database/database.js"></script>    
+    <script src="database/js/database.js"></script>  
+    <script src="database/js/ajax.js"></script>  
     <script>
     
       
