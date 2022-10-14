@@ -61,7 +61,9 @@ function indexPage () {
                                     let data2 = xhr.response;
                                     if(data2 === "success"){
                                         window.location.href = "index.php";
+                                        console.log(data2)
                                     }else{
+                                        console.log(data2)
                                         $("#message").fadeIn("fast").html(data2).delay(2000).fadeOut(1000);  
                                     }
                                 }

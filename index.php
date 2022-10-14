@@ -3,6 +3,7 @@ include 'function.php';
 headers();
 banners();
 dishes();
+loadtabel();
 introduction();
 special_menu();
 review();

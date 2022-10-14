@@ -83,7 +83,7 @@
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-search" id="search-icon"></i>
             <a href="#" class="fas fa-heart"> </a>
-            <a href="#" id="CartCount" class="fas fa-shopping-cart"></a>
+            <a href="cartshopping.php" id="CartCount" class="fas fa-shopping-cart"></a>
             
         </div>
     <div class="user">'.$user_html.'</div>
@@ -148,6 +148,33 @@ function banners(){
             <!-- home section ends -->
             ';
 };
+function loadtabel(){
+    echo '<div class="container mt-5">
+    <div class="table-responsive " id="cart_tabel">
+        <table  class="table table-striped-columns
+        ">
+            <thead class="tabel-info bg-success ">
+                <caption>Your cart Tabel</caption>
+                
+                <tr class="bg-success text-white">
+                    <th>Sno:</th>
+                    <th>image</th>
+                    <th>title</th>
+                    <th>qty</th>
+                    <th>prize</th>
+                    <th>Total prize</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="" id="cart_data_show">
+                    
+                </tbody>
+              
+        </table>
+    </div>
+    
+    </div>';
+}
 function dishes(){
     session_start();
     include 'database/conf.php';
@@ -181,7 +208,7 @@ function dishes(){
                 </div>
                 <span>PKR '.$row['p_prize'].'</span> <br>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                        <a  href="add_to_card.php?p_id='.$row['p_id'].'" type="button" id="add_card" class="btn  btn-outline-success"><i class="fas fa-cart-arrow-down"></i></a>
+                        <button role="button"  type="button" id="card_shop_btn" class=" btn  btn-outline-success"><i class="fas fa-cart-arrow-down"></i></button>
                         <button role="button" id="CartBtn" data-id="'.$row["p_id"].'"  class="btn btn-outline-success">add to cart</button>
                         
                     </div>
