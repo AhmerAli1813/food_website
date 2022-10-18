@@ -1,6 +1,8 @@
 <?php 
- function headers(){
-    session_start();
+session_start();
+
+function headers(){
+
     include 'database/conf.php';
     
     error_reporting(0);
@@ -83,7 +85,7 @@
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-search" id="search-icon"></i>
             <a href="#" class="fas fa-heart"> </a>
-            <a href="cartshopping.php" id="CartCount" class="fas fa-shopping-cart"></a>
+            <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
             
         </div>
     <div class="user">'.$user_html.'</div>
@@ -163,20 +165,19 @@ function loadtabel(){
                     <th>qty</th>
                     <th>prize</th>
                     <th>Total prize</th>
-                    <th>Action</th>
+                    <th><button class="btn btn-danger" id="delete_all"> Delete All</button> </th>
                 </tr>
                 </thead>
                 <tbody class="" id="cart_data_show">
                     
                 </tbody>
-              
-        </table>
+         </table>
     </div>
     
     </div>';
 }
 function dishes(){
-    session_start();
+    
     include 'database/conf.php';
     
     $output = '';
@@ -190,11 +191,11 @@ function dishes(){
                 <button  role="button" class="'.$row['action'].' fa-heart" onclick="add_to_whitelist_btn()" name"heat"  ></button>
                 <a href="category.php?cat_id='.$row['cat_id'].'" class="fas fa-eye" ></a>
                 
-                <input type="hidden" name="Product_id" value='.$row["p_id"].'>
+               
                 <input type="hidden" id="image'.$row["p_id"].'" value='.$row["p_image"].'>
                 <input type="hidden" id="title'.$row["p_id"].'" value="'.$row["p_title"].'">
                 <input type="hidden" id="prize'.$row["p_id"].'" value='.$row["p_prize"].'>
-                <input type="hidden" id="qty'.$row["p_id"].'" value="1">
+               
                 
                 <img src="images/'.$row['p_image'].'" alt="">
                 <h3>'.$row['p_title'].'</h3>
@@ -206,9 +207,10 @@ function dishes(){
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
+                <div class="d-flex"> <button class="btn  "  data-id="'.$row["p_id"].'" id="up_val"><i class="fas fa-angle-up"></i></button><input  type="text" id="qty_input'.$row["p_id"].'" min="0" max="5" name=""  class="text-center " disabled  value="1"> <button data-id="'.$row["p_id"].'" id="down_val" class="btn "><i class="fas fa-angle-down"></i></button> </div> 
                 <span>PKR '.$row['p_prize'].'</span> <br>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                        <button role="button"  type="button" id="card_shop_btn" class=" btn  btn-outline-success"><i class="fas fa-cart-arrow-down"></i></button>
+                        <button role="button"  type="button"  class=" btn  btn-outline-success cart_show"><i class="fas fa-cart-arrow-down"></i></button>
                         <button role="button" id="CartBtn" data-id="'.$row["p_id"].'"  class="btn btn-outline-success">add to cart</button>
                         
                     </div>
@@ -793,22 +795,37 @@ function sign_in(){
     
 
      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     
      <!-- End plugin js for this page -->
     
    
     <!-- custom js file link  -->
     <script src="js/script.js"></script>
-    <script src="js/jquery.js"></script>
+    
        
     <script src="database/js/database.js"></script>  
     <script src="database/js/ajax.js"></script>  
     <script>
-    
-      
+    // $(document).on("click" , "#Delete" , function(e){
+    //     e.preventDefault();
+    //     id = $(this).attr("data-delete");
+        
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "database/del.php",
+    //         data: {"p_id": id , "action" : "delete"},
+            
+    //         success: function (response) {
+    //             console.log(response)
+    //         },
+    //         error: function (response) {
+    //             console.log(response)
+    //         }
+    //     });
+    // });
     </script>
     
     

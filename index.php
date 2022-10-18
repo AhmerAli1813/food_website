@@ -2,8 +2,8 @@
 include 'function.php';
 headers();
 banners();
-dishes();
 loadtabel();
+dishes();
 introduction();
 special_menu();
 review();
