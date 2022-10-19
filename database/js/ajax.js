@@ -110,17 +110,26 @@ var qty = 1;
  
 
 //  add to cart delete button ajax
-$(document).on("click" , "#Delete" , function(e){
-    e.preventDefault();
-    id = $(this).attr("data-delete");
+$(document).on("click" , "#Delete" , function(){
     
+    id = $(this).attr("data-delete");
+    var data = "";
+    $("#cart_data_show").html(data);
     $.ajax({
         type: "POST",
-        url: "database/del.php",
+        url: "database/cart.php",
         data: {"p_id": id , "action" : "delete"},
         
         success: function (response) {
+            cartCount();
             console.log(response)
+            $("#cart_data_show").html(response)
+            $(".cart_tabel").show();
+            if(response = "delete"){
+                $(".cart_tabel").hide();
+                
+            }
+            
         },
         error: function (response) {
             console.log(response)
@@ -129,8 +138,8 @@ $(document).on("click" , "#Delete" , function(e){
 });
 
 
-$(document).on("click" , "#delete_all" , function(e){
-  e.preventDefault();
+$(document).on("click" , "#delete_all" , function(){
+  
 //   alert("delelte all sessaion")
  deleteAll();
 });
@@ -139,16 +148,43 @@ function deleteAll(){
 
     $.ajax({
         type: "POST",
-      url: "database/cart.php",
-      data: { "action" : "del_all"},
+        url: "database/cart.php",
+        data: { "action" : "del_all"},
       
-      success: function (response) {
-          console.log(response)
-        //   window.location.href = "index.php"
+        success: function (response) {
+            console.log(response)
+            cartCount();
+            $(".cart_tabel").show();
+            // window.location.href = "index.php"
+            $("#cart_data_show").html(response)
       },
       error: function (response2) {
           console.log(response2)
       }
   });
 }
+//  confirm to buying
+$(document).on("click" , "#buy_cart" , function(){
+    $.ajax({
+        type: "POST",
+        url: "database/cart.php",
+        data: {"action":"buy"},
+        success: function (response) {
+          if(response == "login"){
+            window.location.href = "login.php";
+            }else{
+                 
+              $("#cart_tabel").html(response);
+              console.log(response)
+            }
+            },
+        error: function (response) {
+            console.log(response)
+        }
+    });
+})
 }); // main barkect of jquery
+
+
+
+

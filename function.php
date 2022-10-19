@@ -155,9 +155,8 @@ function loadtabel(){
     <div class="table-responsive " id="cart_tabel">
         <table  class="table table-striped-columns
         ">
-            <thead class="tabel-info bg-success ">
-                <caption>Your cart Tabel</caption>
-                
+        <thead class="tabel-info bg-success ">
+        
                 <tr class="bg-success text-white">
                     <th>Sno:</th>
                     <th>image</th>
@@ -166,10 +165,11 @@ function loadtabel(){
                     <th>prize</th>
                     <th>Total prize</th>
                     <th><button class="btn btn-danger" id="delete_all"> Delete All</button> </th>
-                </tr>
-                </thead>
-                <tbody class="" id="cart_data_show">
+                    </tr>
+                    </thead>
+                    <tbody class="" id="cart_data_show">
                     
+                    <caption class="w-100"><span class = "ml-5  ">  Grand total: 2000<span> <button role="button" id="buy_cart" class=" mr-5 float-right btn btn-success">buying</button></caption>
                 </tbody>
          </table>
     </div>
@@ -809,23 +809,7 @@ function sign_in(){
     <script src="database/js/database.js"></script>  
     <script src="database/js/ajax.js"></script>  
     <script>
-    // $(document).on("click" , "#Delete" , function(e){
-    //     e.preventDefault();
-    //     id = $(this).attr("data-delete");
-        
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "database/del.php",
-    //         data: {"p_id": id , "action" : "delete"},
-            
-    //         success: function (response) {
-    //             console.log(response)
-    //         },
-    //         error: function (response) {
-    //             console.log(response)
-    //         }
-    //     });
-    // });
+    
     </script>
     
     
