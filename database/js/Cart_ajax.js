@@ -1,3 +1,57 @@
+// fecthig data form database 
+
+$(document).ready(function () {
+    banner();
+    AllProduct();
+    productOneWeekOld();
+    function productOneWeekOld(){
+
+        $.ajax({
+            type: "POST",
+            url: "database/weeklyProduct.php",
+            data : {"action" : "OneWeekData"},
+            success: function (response) {
+                // console.log(response);
+                $("#WeeklyProGall").html(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function AllProduct(){
+
+        $.ajax({
+            type: "POST",
+            url: "database/Product.php",
+            data : {"action" : "shwAllPro"},
+            success: function (response) {
+                
+                $("#product_gallery").html(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function banner(){
+        $.ajax({
+            type: "POST",
+            url: "database/banner.php",
+            data: {"action":"ShwBanner"},
+            
+            success: function (response) {
+                $("#banner_Container").html(response);    
+            },
+            
+            error: function (response) {
+                console.log(response);
+                $("#banner_Container").html("serve is slow");    
+            }
+        });
+    }
+});
+//add to cart ajax start here
 $(document).ready(function () {
  
     $(document).on("click" , "#CartBtn" , function(){
@@ -22,6 +76,7 @@ if(qty <=5){
                $("#p_message").show().fadeIn("fast").html(response).delay(3000).fadeOut("slow");
                cartCount();
                loadcartTabel();
+               grandTotal();
             }
         });
         
@@ -54,12 +109,13 @@ function loadcartTabel(){
         success: function (response) {
             $("#cart_data_show").html(response)
             $(".cart_tabel").show();
+            grandTotal();
             
-            console.log(response)
         }
-    })
+
+    });
     
-}
+};
 $(document).on("click" , ".cart_show " , function(e){
     $("#cart_tabel").show();
     e.preventDefault();
@@ -77,12 +133,7 @@ var qty = 1;
 
   qty = qty_val.val();
      qty++
-     
-      //calculate total prize
-      var Total_Prize = $("#total_prize" + id);
-      var item_prize = $("#prize" + id).attr("data-prize");
-      var total = qty * item_prize;
-      Total_Prize.html(total);  
+       
      if(qty <6 && qty >0){
        qty_val.val(qty)
       }
@@ -99,15 +150,54 @@ var qty = 1;
    if(qty >0 || qty>1){
        qty_val.val(qty)
    }
-  
-      //calculate total prize
-      var Total_Prize = $("#total_prize" + id);
-      var item_prize = $("#prize" + id).attr("data-prize");
-      var total = qty * item_prize;
-      Total_Prize.html(total);  
+    
  });
+   $(document).on("click" , "#WkProUpVAl",function () {
+       var id = $(this).attr("data-id");
+       console.log(id)
+     var qty_val = $("#WkProQtyInput" + id);
+
+  qty = qty_val.val();
+     qty++
+       
+     if(qty <6 && qty >0){
+       qty_val.val(qty)
+      }
+
+  });
+  
+  // decrease the value of qty filed
+
+  $(document).on("click" , "#WkProDownVAl",function () {
+      var id = $(this).attr("data-id");
+      console.log(id)
+     var qty_val = $("#WkProQtyInput" + id);
+      qty = qty_val.val();
+   qty--;
+   if(qty >0 || qty>1){
+       qty_val.val(qty)
+   }
+    
+ });
+
  
+ function grandTotal(){
+    $.ajax({
+        type: "POST",
+        url: "database/cart.php",
+        data: {"action" : "gTotal"},
+        success: function (response) {
+            
+            $("#g_total").html(response)
+        },
+        error: function (response) {
+            
+            $("#g_total").html(response)
+        }
+    });
  
+ }
+  
 
 //  add to cart delete button ajax
 $(document).on("click" , "#Delete" , function(){
@@ -122,7 +212,9 @@ $(document).on("click" , "#Delete" , function(){
         
         success: function (response) {
             cartCount();
-            console.log(response)
+            grandTotal();
+            
+            
             $("#cart_data_show").html(response)
             $(".cart_tabel").show();
             if(response = "delete"){
@@ -132,7 +224,7 @@ $(document).on("click" , "#Delete" , function(){
             
         },
         error: function (response) {
-            console.log(response)
+            
         }
     });
 });
@@ -152,8 +244,9 @@ function deleteAll(){
         data: { "action" : "del_all"},
       
         success: function (response) {
-            console.log(response)
+            
             cartCount();
+            grandTotal();
             $(".cart_tabel").show();
             // window.location.href = "index.php"
             $("#cart_data_show").html(response)
@@ -173,9 +266,12 @@ $(document).on("click" , "#buy_cart" , function(){
           if(response == "login"){
             window.location.href = "login.php";
             }else{
-                 
-              $("#cart_tabel").html(response);
-              console.log(response)
+               
+                 cartCount();
+              $("#cart_tabel").html(response).delay(3000).fadeOut("slow");
+
+              
+        
             }
             },
         error: function (response) {
@@ -183,6 +279,7 @@ $(document).on("click" , "#buy_cart" , function(){
         }
     });
 })
+
 }); // main barkect of jquery
 
 

@@ -104,6 +104,5 @@ function fadeOut(){
 
 //  heart styling
 
-
 // window.onload = fadeOut;
 //  form

@@ -107,38 +107,15 @@ function headers(){
 function banners(){
     
     
-    include 'database/conf.php';
-    $banner_output = '';
-    $result = $conn -> query("SELECT * FROM `banner`");
-    if(mysqli_num_rows($result)>0){
-        
-        while($banner_row = mysqli_fetch_assoc($result)){
-            $banner_output .= '
-             <div class="swiper-slide slide">
-            <div class="content">
-                <span>'.$banner_row['b_subtitle'].'</span>
-                <h3>'.$banner_row['b_title'].'</h3>
-                <p>'.$banner_row['b_desc'].'</p>
-                <a href="category.php?banner_id='.$banner_row['b_id'].'" class="btn btn-outline-success">order now</a>
-            </div>
-            <div class="image">
-                <img src="images/'.$banner_row['b_image'].'" alt="">
-            </div>
-        </div>
-        ';
-                };
-            }else{
-                $banner_output = "no recod";
-            }
             echo ' <!-- home section starts  -->
 
             <section class="home" id="home">
             
                 <div class="swiper-container home-slider " style="overflow-x:hidden ;">
             
-                    <div class="swiper-wrapper wrapper" >
+                    <div id="banner_Container" class="swiper-wrapper wrapper" >
             
-            '.$banner_output.'
+            
                     </div>
             
                     <div class="swiper-pagination"></div>
@@ -169,7 +146,10 @@ function loadtabel(){
                     </thead>
                     <tbody class="" id="cart_data_show">
                     
-                    <caption class="w-100"><span class = "ml-5  ">  Grand total: 2000<span> <button role="button" id="buy_cart" class=" mr-5 float-right btn btn-success">buying</button></caption>
+                    <caption class="w-100">
+                    <span id="g_total" class= "ml-5">   Grand total: 2000 </span>
+                     <button role="button" id="buy_cart" class=" mr-5 float-right btn btn-success">buying</button>
+                     </caption>
                 </tbody>
          </table>
     </div>
@@ -178,48 +158,6 @@ function loadtabel(){
 }
 function dishes(){
     
-    include 'database/conf.php';
-    
-    $output = '';
-    $result = $conn -> query("SELECT * FROM `product`");
-    if(mysqli_num_rows($result)>0){
-
-        while($row = mysqli_fetch_assoc($result)){
-            $output .= '
-            
-            <div  class=" col-12 col-sm-6 col-md-4 box">
-                <button  role="button" class="'.$row['action'].' fa-heart" onclick="add_to_whitelist_btn()" name"heat"  ></button>
-                <a href="category.php?cat_id='.$row['cat_id'].'" class="fas fa-eye" ></a>
-                
-               
-                <input type="hidden" id="image'.$row["p_id"].'" value='.$row["p_image"].'>
-                <input type="hidden" id="title'.$row["p_id"].'" value="'.$row["p_title"].'">
-                <input type="hidden" id="prize'.$row["p_id"].'" value='.$row["p_prize"].'>
-               
-                
-                <img src="images/'.$row['p_image'].'" alt="">
-                <h3>'.$row['p_title'].'</h3>
-                <h4 class="text-muted">'.$row['p_subtitle'].'</h4>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <div class="d-flex"> <button class="btn  "  data-id="'.$row["p_id"].'" id="up_val"><i class="fas fa-angle-up"></i></button><input  type="text" id="qty_input'.$row["p_id"].'" min="0" max="5" name=""  class="text-center " disabled  value="1"> <button data-id="'.$row["p_id"].'" id="down_val" class="btn "><i class="fas fa-angle-down"></i></button> </div> 
-                <span>PKR '.$row['p_prize'].'</span> <br>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                        <button role="button"  type="button"  class=" btn  btn-outline-success cart_show"><i class="fas fa-cart-arrow-down"></i></button>
-                        <button role="button" id="CartBtn" data-id="'.$row["p_id"].'"  class="btn btn-outline-success">add to cart</button>
-                        
-                    </div>
-                
-            </div>';
-        }
-    }else{
-        echo $output = 'no record found ';
-    }
     echo '
 
     <!-- dishes section starts  -->
@@ -232,8 +170,8 @@ function dishes(){
     
         <div  id="p_message"></div>
         <div class="box-container" id="dishes_containers">
-                <div class="row">
-                '.$output.'
+                <div class="row" id="product_gallery">
+                
 
                 </div>
         </div>
@@ -387,187 +325,11 @@ function special_menu(){
                 <h3 class="sub-heading"> our menu </h3>
                 <h1 class="heading"> today`s speciality </h1>
 
-                <div class="box-container">
+                <div class="box-container" id="menu_container">
+                <div class="row" id="WeeklyProGall">
+                
 
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-1.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn" style="font-size:1.5rem !important;">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-2.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-3.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-4.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-5.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-6.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-7.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-8.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="image">
-                            <img src="images/menu-9.jpg" alt="">
-                            <a href="#" class="fas fa-heart"></a>
-                        </div>
-                        <div class="content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <h3>delicious food</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
-                            <a href="#" class="btn">add to cart</a>
-                            <span class="price">$12.99</span>
-                        </div>
-                    </div>
+                </div>
 
                 </div>
 
@@ -807,7 +569,8 @@ function sign_in(){
     
        
     <script src="database/js/database.js"></script>  
-    <script src="database/js/ajax.js"></script>  
+    <script src="database/js/Cart_ajax.js"></script>  
+    <script src="database/js/fetching.js"></script>  
     <script>
     
     </script>

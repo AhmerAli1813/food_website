@@ -8,10 +8,4 @@ introduction();
 special_menu();
 review();
 order_contact();
-?>
-<script>
-    
-</script>
-<?php
 footers();
-?>

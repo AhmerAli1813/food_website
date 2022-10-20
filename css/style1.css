@@ -404,7 +404,7 @@ header .dropdown-menu{transform: translate(-27%, 35%) !important;
     height: 100%;
     width: 100%;
     border-radius: .5rem;
-    object-fit: cover;
+    
 }
 
 .menu .box-container .box .image .fa-heart{

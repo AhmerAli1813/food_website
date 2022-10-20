@@ -31,21 +31,22 @@ if ($_POST["action"] == "count") {
 }
 // show data of cart in table
 if ($_POST["action"] == "show") {
-   $output = '';
    $biil = 0;
+   $output = '';
    if (isset($_SESSION["cart"])) {
       $sno = 1;
+
       foreach ($_SESSION["cart"] as $key  => $item) {
-         $biil .= $biil + ($item["prize"] * $item["qty"]);
+         $biil += $biil + intval($item["prize"] * $item["qty"]);
          $output .= '<tr class="table-primary" >
            
-           <td scope="row">' . $sno++ . '</td>
-           <td scope="row"><img src="images/' . $item["image"] . '" width="70px" height="70px" alt=""></td>
-           <td scope="row">' . $item["title"] . '</td>
-           <td scope="row">' . $item["qty"] . '</td>
-           
-           <td scope="row" id="prize' . $item["id"] . '" data-prize="' . $item["prize"] . '" >' . $item["prize"] . '</td>
-           <td id="total_prize' . $item["id"] . '" data-bill="'.$biil.'">  ' . $item["prize"] * $item["qty"] . '</td>
+         <td scope="row">' . $sno++ . '</td>
+         <td scope="row"><img src="images/' . $item["image"] . '" width="70px" height="70px" alt=""></td>
+         <td scope="row">' . $item["title"] . '</td>
+         <td scope="row">' . $item["qty"] . '</td>
+         
+         <td scope="row" id="prize' . $item["id"] . '" data-prize="' . $item["prize"] . '" >' . $item["prize"] . '</td>
+         <td id="total_prize' . $item["id"] . '" data-bill="' . $biil . '">  ' . $item["prize"] * $item["qty"] . '</td>
            <td><a role="button" class="btn btn-outline-danger" id="Delete" data-delete="' . $item["id"] . '">Delete</a></td>
                </tr>
        ';
@@ -53,23 +54,35 @@ if ($_POST["action"] == "show") {
    }
    echo $output;
 }
+
+if ($_POST["action"] == "gTotal") {
+   $bill = 0;
+   if (isset($_SESSION["cart"])) {
+      foreach ($_SESSION["cart"] as $key  => $item) {
+         $bill = $bill + intval($item["prize"] * $item["qty"]);
+      }
+      echo "Grand Total : ".$bill;
+   }else{
+      echo "Grand Total : 0";
+   }
+}
 if ($_POST["action"] == "delete") {
-   
-   
-   foreach($_SESSION["cart"] as $key => $item){
+
+
+   foreach ($_SESSION["cart"] as $key => $item) {
       $id = $_POST["p_id"];
-         if($item["id"] == $id  ){
-            unset($_SESSION["cart"][$key]);
-            echo " All record have been deleted!";
-            
-            $biil =0;
-            $output = '';
-            if (isset($_SESSION["cart"])) {
-               $sno = 1;
-               
-               foreach ($_SESSION["cart"] as $key  => $item) {
-                  $biil = ($item["prize"] * $item["qty"]);
-                  $output .= '<tr class="table-primary" >
+      if ($item["id"] == $id) {
+         unset($_SESSION["cart"][$key]);
+         echo " All record have been deleted!";
+
+         $biil = 0;
+         $output = '';
+         if (isset($_SESSION["cart"])) {
+            $sno = 1;
+
+            foreach ($_SESSION["cart"] as $key  => $item) {
+               $biil = ($item["prize"] * $item["qty"]);
+               $output .= '<tr class="table-primary" >
                     
                     <td scope="row">' . $sno++ . '</td>
                     <td scope="row"><img src="images/' . $item["image"] . '" width="70px" height="70px" alt=""></td>
@@ -77,54 +90,55 @@ if ($_POST["action"] == "delete") {
                     <td scope="row">' . $item["qty"] . '</td>
                     
                     <td scope="row" id="prize' . $item["id"] . '" data-prize="' . $item["prize"] . '" >' . $item["prize"] . '</td>
-                    <td id="total_prize' . $item["id"] . '" data-bill="'.$biil.'">  ' . $item["prize"] * $item["qty"] . '</td>
+                    <td id="total_prize' . $item["id"] . '" data-bill="' . $biil . '">  ' . $item["prize"] * $item["qty"] . '</td>
                     <td><a role="button" class="btn btn-outline-danger" id="Delete" data-delete="' . $item["id"] . '">Delete</a></td>
                     
                         </tr>
                         
                 ';
-               }
-               $output .='  ';
             }
-            echo $output;
+            $output .= '  ';
          }
+         echo $output;
+      }
    }
- 
 }
 if ($_POST["action"] == "del_all") {
-   
-      echo " No record found";
-      unset($_SESSION["cart"]);
 
-   
+   echo " No record found";
+   unset($_SESSION["cart"]);
 }
-if($_POST["action"] == "buy"){
-   
-   if(isset($_SESSION["unique_id"])){
-     $user_id = $_SESSION["u_id"];
-      if(isset($_SESSION["cart"])){
-         foreach($_SESSION["cart"] as $key => $item){
-              $product_id = $item["id"];
-              $qty = $item["qty"];
-              
-              $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = $product_id");
-               if($q){
-                  $result = mysqli_fetch_assoc($q);
-                 $cat_id =  $result["cat_id"];
-                 $scat_id =  $result["scat_id"];
-                 $p_prize =  $item["prize"];
-                 $sts = "purchasing";
+if ($_POST["action"] == "buy") {
+
+   if (isset($_SESSION["unique_id"])) {
+      $user_id = $_SESSION["u_id"];
+      if (isset($_SESSION["cart"])) {
+         foreach ($_SESSION["cart"] as $key => $item) {
+            $product_id = $item["id"];
+            $qty = $item["qty"];
+
+            $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = $product_id");
+            if ($q) {
+               $result = mysqli_fetch_assoc($q);
                
-                  $q2 = $conn->query("INSERT INTO `card`( `cat_id`, `scat_id`, `pro_id`, `u_id`, `qty`, `prize`, `status`) VALUES($cat_id ,$scat_id ,$product_id , $user_id ,$qty , $p_prize , '$sts' ) ");
-                  
-                  if($q2){
-                        unset($_SESSION["cart"]);
-                           echo '<div class="alert alert-success" id="p_message" role="alert">Thanks for punching ' . $item["title"] . '  </div>';
-                  }
+               $cat_id =  $result["cat_id"];
+               $scat_id =  $result["scat_id"];
+               $p_prize =  $result["p_prize"];
+               $sts = "purchasing";
+               $now = new DateTime();
+               $time = $now->format('Y-m-d h:i:s');
+               
+               $q2 = $conn->query("INSERT INTO `card`( `cat_id`, `scat_id`, `pro_id`, `u_id`, `qty`, `prize`, `date`, `status`) 
+               VALUES($cat_id ,$scat_id ,$product_id , $user_id ,$qty , $p_prize , '$time', '$sts' ) ");
+
+               if ($q2) {
+                  unset($_SESSION["cart"]);
+                  echo '<div class="alert alert-success" id="p_message" role="alert">Thanks for punching ' . $item["title"] . '  </div>';
                }
+            }
          }
       }
-   }else{
+   } else {
       echo "login";
    }
 }
