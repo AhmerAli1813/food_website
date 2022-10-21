@@ -4,6 +4,7 @@ $(document).ready(function () {
     banner();
     AllProduct();
     productOneWeekOld();
+    OrderFormHtml();
     function productOneWeekOld(){
 
         $.ajax({
@@ -50,6 +51,23 @@ $(document).ready(function () {
             }
         });
     }
+    function OrderFormHtml(){
+        $.ajax({
+            type: "POST",
+            url: "database/orderFormHtml.php",
+            data: {"action" : "orderFormHtml"},
+            
+            success: function (response) {
+                console.log(response);    
+            $("#ShowOrderFormHtml").html(response);    
+            },
+             
+            error: function (response) {
+            console.log(response);    
+            }
+        });
+    }
+
 });
 //add to cart ajax start here
 $(document).ready(function () {

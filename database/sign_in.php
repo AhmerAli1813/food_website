@@ -9,22 +9,24 @@ $output = '';
 
                 if(!empty($email) && !empty($pass)){
                         if(filter_var($email , FILTER_VALIDATE_EMAIL)){
-                                $q = $conn->query("SELECT email FROM `register` WHERE `email` = '$email' ") or die("first query faild ");
-                        if(mysqli_num_rows($q)>0){
-                                        $q2 = $conn->query("SELECT * FROM `register` WHERE `email` = '$email' && `password` = '$pass' ") or die("second query failed");
-                                                if($q2 == true){
-                                                                $result = mysqli_fetch_assoc($q2);
+                                $q = $conn->query("SELECT * FROM `register` WHERE `email` = '$email' ") or die("first query faild ");
+                              
+                                if(mysqli_num_rows($q)>0){
+                                        
+                                        $result = mysqli_fetch_assoc($q);
+                                                if($result["password"] == $pass ){
+                                                        echo "success";
+                                                       
                                                                 $q3 = $conn->query("UPDATE `register` SET `status`='active now' WHERE `email` = '$email'") or die("update query failed");
                                                                 $_SESSION["unique_id"] = $result["unique_id"];
                                                                 $_SESSION["u_id"] = $result["u_id"];
                                                                 $_SESSION["role_id"] = $result["role_id"];
-                                                                echo "success";
                                                 }else{
                                                         echo $output = "Password is not match !";
                                                 }
 
                                 }else{
-                                echo $output =  " we are could not find email ";
+                                echo $output =  " we  could not find your email ";
                         }
                         }else{
                                 echo $output = $email."This email is not Valid ! ";

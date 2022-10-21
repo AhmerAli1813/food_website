@@ -47,11 +47,12 @@ function indexPage () {
         
                 let sign_in_alert_msg = document.getElementById("message");
                 
-                login_form.onsubmit = (e) =>{
-                    e.preventDefault(); // preventing form from submitting  , matalb form ab submit kr sagta hy
-                }
                 $("#message").hide()
                 function login(){
+                    login_form.onsubmit = (e) =>{
+                        e.preventDefault(); // preventing form from submitting  , matalb form ab submit kr sagta hy
+                    }
+    
                     // let start ajax 
                     let xhr =  new XMLHttpRequest();
                     xhr.open("POST" , "database/sign_in.php", true);
@@ -102,44 +103,3 @@ function indexPage () {
         }
         
 //  add to whitelist ajax
-function add_to_whitelist_btn(){
-            // let start ajax 
-            $(document).ready(function () {
-                $.ajax({
-                    url : "database/add_to_whitelist.php",
-                    type : "POST",
-                    success : function (data){
-                        console.log(data);
-                    }
-
-
-                })
-
-            });
-};
-
-
-
-
-
-// function add_to_card_btn(card){
-//     alert()
-//     const Cart_Form = document.getElementById("cart_form");
-//     Cart_Form.addEventListener("submit" , (e)=> {
-//         e.preventDefault(); // preventing form from submitting  , form without refresh form submit ho ga
-//     });
-//             // let start ajax 
-//             let xhr =  new XMLHttpRequest();
-//             xhr.open("POST" , "database/cart.php", true);
-//             xhr.onload = () =>{
-//                     if(xhr.readyState === XMLHttpRequest.DONE){
-//                         if(xhr.status === 200){
-//                             let data = xhr.response;
-//                             document.getElementById("p_message").innerHTML = data;
-//                         }
-//                     }
-//             };
-//             var form_data = new FormData(Cart_Form);
-//                  xhr.send(form_data);   
-//         };   
-

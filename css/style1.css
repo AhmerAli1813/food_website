@@ -520,6 +520,7 @@ header .dropdown-menu{transform: translate(-27%, 35%) !important;
 }
 
 .order form .inputBox .input{
+    position: relative;
     width:49%;
 }
 
@@ -531,18 +532,29 @@ header .dropdown-menu{transform: translate(-27%, 35%) !important;
 }
 
 .order form .inputBox .input input,
+.order form .inputBox .input select,
 .order form .inputBox .input textarea{
-    background:#eee;
-    border-radius: .5rem;
-    padding:1rem;
-    font-size: 1.6rem;
-    color:var(--black);
-    text-transform: none;
-    margin-bottom: 1rem;
-    width:100%;
+    background:#eee !important;
+    border-radius: .5rem !important;
+    padding:1rem !important;
+    font-size: 1.6rem !important;
+    color:var(--black) !important;
+    text-transform: none !important;
+    margin-bottom: 1rem !important;
+    width:100% !important;
+    cursor: pointer;
 }
-
+.order form .inputBox  .fa-angle-down{
+    position: absolute;
+    top: 55%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    color: green;
+    right: 10%;
+    pointer-events: none;
+}
 .order form .inputBox .input input:focus,
+.order form .inputBox .input select:focus,
 .order form .inputBox .input textarea:focus{
     border:.1rem solid var(--green);
 }
