@@ -6,9 +6,16 @@ session_start();
 include 'conf.php';
 // echo "hello";
 if ($_POST["action"] == "shwAllPro") {
-    $output = '';
-    
-    $result = $conn->query("SELECT * FROM `product`");
+    $output = '';   
+        $limit_per_page  = 3;
+        $page = "";
+        if(isset($_POST["page_no"])){
+            $page = $_POST["page_no"];
+        }else{
+            $page = 1;
+        };
+        $offset = ($page - 1) * $limit_per_page;   
+    $result = $conn->query("SELECT * FROM `product` LIMIT {$offset} , {$limit_per_page}");
     if (mysqli_num_rows($result) > 0) {
 
         while ($row = mysqli_fetch_assoc($result)) {
@@ -43,8 +50,31 @@ if ($_POST["action"] == "shwAllPro") {
                 </div>
             
         </div>';
-        }
-        echo $output;
+        };
+        $q2 = $conn->query("SELECT * FROM `product`");
+        $total_record = mysqli_num_rows($q2);
+        $total_page = ceil($total_record/$limit_per_page);
+         $output .= '<nav aria-label="Page navigation example my-5" class="d-flex justify-content-center mt-5" style="cursor: pointer; font-size:1.5rem;" >
+        <ul class="pagination">';
+        if($page >1 ){
+            $output.='<li class="page-item"><a class="page-link" id="pageNo" data-id="'.($page -1).'">Previous</a></li>';
+
+        };
+            for($i=1; $i<=$total_page; $i++){
+                    if($i == $page){
+                        $className = "active";
+                    }else{
+                        $className = "";
+                    }
+                $output.='<li class="page-item  '.$className.'"><a class="page-link " id="pageNo" data-id="'.$i.'">'.$i.'</a></li>';
+            };
+            if($total_page > $page){
+
+                $output.='<li class="page-item"><a class="page-link" id="pageNo" data-id="'.($page +1).'">Next</a></li>';
+            }
+        $output.='</ul>
+                </nav>';
+      echo $output;
     } else {
         echo $output = 'no record found ';
     }

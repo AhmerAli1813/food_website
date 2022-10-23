@@ -1,0 +1,22 @@
+[
+    {
+        "u_id": "2",
+        "unique_id": "1357678",
+        "Name": "ahmer ali",
+        "email": "ahmer@gmail.com",
+        "password": "123",
+        "image": "1663618898face21.jpg",
+        "status": "offline",
+        "role_id": "1"
+    },
+    {
+        "u_id": "3",
+        "unique_id": "1133030496",
+        "Name": "samuel",
+        "email": "samuel@gmail.com",
+        "password": "123",
+        "image": "1663620050face8.jpg",
+        "status": "Active Now",
+        "role_id": "1"
+    }
+]

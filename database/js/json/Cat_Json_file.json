@@ -1,0 +1,38 @@
+[
+    {
+        "cat_id": "1",
+        "u_id": "2",
+        "cat_name": "burger",
+        "status": ""
+    },
+    {
+        "cat_id": "2",
+        "u_id": "2",
+        "cat_name": "meat",
+        "status": ""
+    },
+    {
+        "cat_id": "3",
+        "u_id": "3",
+        "cat_name": "pizza",
+        "status": ""
+    },
+    {
+        "cat_id": "4",
+        "u_id": "2",
+        "cat_name": "rots",
+        "status": ""
+    },
+    {
+        "cat_id": "5",
+        "u_id": "2",
+        "cat_name": "ice cream",
+        "status": ""
+    },
+    {
+        "cat_id": "6",
+        "u_id": "2",
+        "cat_name": "noodles",
+        "status": ""
+    }
+]

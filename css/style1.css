@@ -532,9 +532,8 @@ header .dropdown-menu{transform: translate(-27%, 35%) !important;
 }
 
 .order form .inputBox .input input,
-.order form .inputBox .input select,
-.order form .inputBox .input textarea{
-    background:#eee !important;
+.order form .inputBox .input select{
+    background:#eee ;
     border-radius: .5rem !important;
     padding:1rem !important;
     font-size: 1.6rem !important;
@@ -543,6 +542,9 @@ header .dropdown-menu{transform: translate(-27%, 35%) !important;
     margin-bottom: 1rem !important;
     width:100% !important;
     cursor: pointer;
+}
+.order form .inputBox .input select:disabled{
+    background-color: rgba(255, 255, 255, 0.904) !important;
 }
 .order form .inputBox  .fa-angle-down{
     position: absolute;

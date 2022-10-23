@@ -1,0 +1,72 @@
+[
+    {
+        "p_id": "1",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "zinger burger",
+        "p_subtitle": "so Delicious",
+        "p_desc": "zinger buger is very nice",
+        "p_prize": "80",
+        "p_image": "dish1.png",
+        "status": "good",
+        "action": "far",
+        "date": "2022-10-18 12:44:55.000000"
+    },
+    {
+        "p_id": "2",
+        "cat_id": "4",
+        "scat_id": "4",
+        "u_id": "3",
+        "p_title": "roster moster",
+        "p_subtitle": "small roster",
+        "p_desc": "this is roster",
+        "p_prize": "110",
+        "p_image": "dish-2.png",
+        "status": "nicee",
+        "action": "far",
+        "date": "2022-10-17 08:15:25.000000"
+    },
+    {
+        "p_id": "3",
+        "cat_id": "3",
+        "scat_id": "3",
+        "u_id": "2",
+        "p_title": "down pizza",
+        "p_subtitle": "so Delicious",
+        "p_desc": "pizza is  is very nice",
+        "p_prize": "280",
+        "p_image": "dish-4.png",
+        "status": "special",
+        "action": "far",
+        "date": "2022-10-17 08:20:25.089000"
+    },
+    {
+        "p_id": "4",
+        "cat_id": "4",
+        "scat_id": "4",
+        "u_id": "3",
+        "p_title": "legs roster",
+        "p_subtitle": "larger roster",
+        "p_desc": "this is roster",
+        "p_prize": "160",
+        "p_image": "dish-6.png",
+        "status": "nicee",
+        "action": "far",
+        "date": "2022-10-13 09:48:57.000000"
+    },
+    {
+        "p_id": "5",
+        "cat_id": "5",
+        "scat_id": "5",
+        "u_id": "2",
+        "p_title": "black ice cream",
+        "p_subtitle": "so Delicious",
+        "p_desc": "ice cream is nice",
+        "p_prize": "140",
+        "p_image": "dish-5.png",
+        "status": "special",
+        "action": "far",
+        "date": "2022-10-10 09:13:23.000000"
+    }
+]

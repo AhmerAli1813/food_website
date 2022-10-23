@@ -1,10 +1,11 @@
-// fecthig data form database 
+ 
 
 $(document).ready(function () {
     banner();
     AllProduct();
     productOneWeekOld();
     OrderFormHtml();
+    jsonFilesUpdate();
     function productOneWeekOld(){
 
         $.ajax({
@@ -20,12 +21,12 @@ $(document).ready(function () {
             }
         });
     }
-    function AllProduct(){
+    function AllProduct(page){
 
         $.ajax({
             type: "POST",
             url: "database/Product.php",
-            data : {"action" : "shwAllPro"},
+            data : {"action" : "shwAllPro" , "page_no" : page},
             success: function (response) {
                 
                 $("#product_gallery").html(response);
@@ -50,7 +51,13 @@ $(document).ready(function () {
                 $("#banner_Container").html("serve is slow");    
             }
         });
-    }
+    };
+    $(document).on("click" , "#pageNo" , function(e){
+        e.preventDefault();
+        
+        var id = $(this).attr("data-id");
+        AllProduct(id);
+    })
     function OrderFormHtml(){
         $.ajax({
             type: "POST",
@@ -58,7 +65,7 @@ $(document).ready(function () {
             data: {"action" : "orderFormHtml"},
             
             success: function (response) {
-                console.log(response);    
+                  
             $("#ShowOrderFormHtml").html(response);    
             },
              
@@ -66,12 +73,43 @@ $(document).ready(function () {
             console.log(response);    
             }
         });
-    }
+    };
+    
+    function jsonFilesUpdate(){
+        $.ajax({
+            type: "POST",
+            url : "database/jsonFile.php",
+            data: {"json_file" : ["catJson","sctJson","userJson","bannerJson","productJson","cartJson"]},
+            success: function (response) {
+                console.log(response);    
+                
+            },
+             
+            error: function (response) {
+            console.log(response);    
+            }
+        });
+    };
+    
 
 });
 //add to cart ajax start here
 $(document).ready(function () {
- 
+    checkUserLogin();
+    function checkUserLogin(){
+        $.ajax({
+            type: "POST",
+            url: "database/user_check_login.php",
+            success: function (response) {
+            $("#user_login_header").html(response);
+                
+            },
+            error : function(response){
+                    console.log(response)
+            }
+
+        });
+    }
     $(document).on("click" , "#CartBtn" , function(){
         $("#p_message").hide();
         var id = $(this).attr("data-id");
@@ -284,7 +322,7 @@ $(document).on("click" , "#buy_cart" , function(){
           if(response == "login"){
             window.location.href = "login.php";
             }else{
-               
+
                  cartCount();
               $("#cart_tabel").html(response).delay(3000).fadeOut("slow");
 
@@ -297,9 +335,115 @@ $(document).on("click" , "#buy_cart" , function(){
         }
     });
 })
+ 
+$(document).on("click" , "#orderBtn" ,function(e){
+    
+    e.preventDefault();
+        var data = $("#orderForm").serialize()
+        
+        $.ajax({
+            type: "POST",
+            url: "database/DirectOrder.php",
+            data: data,
+            
+            beforesend: function () {
+                $("#order_response").html("<div class='alert alert-primary' role='alert'>please wait....</div>");
+            },
+            success: function (response) {
+                if(response == "reset"){
+                    checkUserLogin();
+                    $("#orderForm").trigger("reset");
+                    
+                }
+                $("#order_response").fadeIn("fast").html(response).delay(2000).fadeOut();
+                console.log(response);
+                checkUserLogin();
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
 
+})
 }); // main barkect of jquery
+// this ajax used to register new user
+function indexPage() {
 
+  register_form.reset();
+  window.location.href = "index.php";
+};
+function register_function() {
+    let alert_Message = document.getElementById("message");
+    const register_form = document.getElementById("register-form");
+    register_form.addEventListener("submit", (e) => {
+    e.preventDefault(); // preventing form from submitting  , form without refresh form submit ho ga
+  });
 
+  // let start ajax
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "database/sign_up.php", true);
+  xhr.onload = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        let data = xhr.response;
+        if (data == true) {
+          indexPage();
+        } else {
+          alert_Message.style.display = "block";
+          alert_Message.innerHTML = data;
+        }
+      }
+    }
+  };
+  var form_data = new FormData(register_form);
+  xhr.send(form_data);
+};
+$("#message").hide();
+function login() {
+    const  login_form = document.getElementById("login-form");
+    login_form.onsubmit = (e) => {
+    e.preventDefault(); // preventing form from submitting  , matalb form ab submit kr sagta hy
+  };
+
+  // let start ajax
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "database/sign_in.php", true);
+  xhr.onload = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        let data2 = xhr.response;
+        if (data2 === "success") {
+          window.location.href = "index.php";
+          console.log(data2);
+        } else {
+          console.log(data2);
+          $("#message").fadeIn("fast").html(data2).delay(2000).fadeOut(1000);
+        }
+      }
+    }
+  };
+  let form_data2 = new FormData(login_form);
+  xhr.send(form_data2);
+};
+
+// logout ajax here
+//    logout_btn.addEventListener("click" , logout())
+const logout_btn = document.getElementById("logout");
+function logout() {
+  $(document).ready(function () {
+    $.ajax({
+      url: "database/logout.php",
+      type: "POST",
+      success: function (data) {
+        if (data === "success") {
+          alert("get of" + data);
+          // indexPage();
+        } else {
+          window.location.href = "index.php";
+        }
+      },
+    });
+  });
+};
 
 

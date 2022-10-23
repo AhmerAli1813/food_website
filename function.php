@@ -1,44 +1,9 @@
-<?php 
+<?php
 session_start();
 
-function headers(){
+function headers()
+{
 
-    include 'database/conf.php';
-    
-    error_reporting(0);
-    $user_html = "";
-    if(isset($_SESSION["unique_id"])){
-    $unique_id =    $_SESSION["unique_id"];
-       $result = mysqli_query($conn , "SELECT * FROM `register` WHERE unique_id =  $unique_id ");
-        if(mysqli_num_rows($result) > 0){
-            $row = mysqli_fetch_assoc($result);
-                    $user_html = '
-                    <div class="dropdown">
-                    <button class="btn  dropdown-toggle" style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                    <img id="user_img" class="card-img" src="database/upload/'.$row["image"].'" onclick="user_data_active()" alt="fas fa-user-alt">
-                            </button>
-                    <div class="dropdown-menu" style="transform: translate(-27%, 35%) !important;" aria-labelledby="triggerId">
-                        <div class="card m-auto" style="width: 200px; ">
-                            <div class="card-header d-flex justify-content-center align-items-center">
-                                <img id="user_img" class="card-img" src="database/upload/'.$row["image"].'" onclick="user_data_active()" alt="fas fa-user-alt">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-text ">'.$row["Name"].'</div>
-                                <p class="card-text text-muted">'.$row["status"].'  </p>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <button   onclick="logout()" role="button" style="cursor: pointer;" class=" btn  btn-sm w-100 text-capitalize  " onclick="logout()">sign Out </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                        ';
-        }
-    }else{
-            $user_html = "   <a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>";        
-    }
     echo ' 
     <!DOCTYPE html>
         <html lang="en">
@@ -88,7 +53,7 @@ function headers(){
             <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
             
         </div>
-    <div class="user">'.$user_html.'</div>
+    <div class="user" id="user_login_header"></div>
         
     </div>
     </header>
@@ -103,11 +68,12 @@ function headers(){
         <i class="fas fa-times" id="close"></i>
     </form>
     ';
- };
-function banners(){
-    
-    
-            echo ' <!-- home section starts  -->
+};
+function banners()
+{
+
+
+    echo ' <!-- home section starts  -->
 
             <section class="home" id="home">
             
@@ -127,7 +93,8 @@ function banners(){
             <!-- home section ends -->
             ';
 };
-function loadtabel(){
+function loadtabel()
+{
     echo '<div class="container mt-5">
     <div class="table-responsive " id="cart_tabel">
         <table  class="table table-striped-columns
@@ -156,8 +123,9 @@ function loadtabel(){
     
     </div>';
 }
-function dishes(){
-    
+function dishes()
+{
+
     echo '
 
     <!-- dishes section starts  -->
@@ -180,7 +148,8 @@ function dishes(){
     
     <!-- dishes section ends ----->';
 };
-function review(){
+function review()
+{
     echo '
     <!-- review section starts  -->
     
@@ -274,8 +243,9 @@ function review(){
     <!-- review section ends -->
     ';
 };
-function introduction(){
-            echo '<!-- about section starts  -->
+function introduction()
+{
+    echo '<!-- about section starts  -->
 
             <section class="about" id="about">
 
@@ -316,8 +286,9 @@ function introduction(){
             <!-- about section ends -->
             ';
 };
-function special_menu(){
-            echo '
+function special_menu()
+{
+    echo '
             <!-- menu section starts  -->
 
             <section class="menu" id="menu">
@@ -338,7 +309,8 @@ function special_menu(){
             <!-- menu section ends -->
             ';
 };
-function order_contact(){
+function order_contact()
+{
     echo '<!-- order section starts  -->
 
     <section class="order" id="order">
@@ -354,7 +326,8 @@ function order_contact(){
     ';
 };
 
-function sign_up(){
+function sign_up()
+{
     echo ' 
     <div class="main">
     
@@ -409,7 +382,8 @@ function sign_up(){
      <!-- main div end here -->';
 }
 
-function sign_in(){
+function sign_in()
+{
 
     echo '
     <div class="main">  
@@ -457,7 +431,8 @@ function sign_in(){
         </div>
         ';
 };
- function footers(){
+function footers()
+{
     echo ' 
     <!-- footer section starts  -->
     
@@ -521,9 +496,10 @@ function sign_in(){
    
     <!-- custom js file link  -->
     <script src="js/script.js"></script>
+    <script src="js/fetch.js"></script>
     
        
-    <script src="database/js/database.js"></script>  
+      
     <script src="database/js/ajax.js"></script>  
     
     <script>
@@ -534,5 +510,3 @@ function sign_in(){
     </body>
     </html>';
 };
-            
-?>

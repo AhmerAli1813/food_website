@@ -111,29 +111,32 @@ if ($_POST["action"] == "del_all") {
 if ($_POST["action"] == "buy") {
 
    if (isset($_SESSION["unique_id"])) {
-      $user_id = $_SESSION["u_id"];
+     
       if (isset($_SESSION["cart"])) {
          foreach ($_SESSION["cart"] as $key => $item) {
             $product_id = $item["id"];
-            $qty = $item["qty"];
+             $qty = $item["qty"];
 
             $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = $product_id");
             if ($q) {
                $result = mysqli_fetch_assoc($q);
                
-               $cat_id =  $result["cat_id"];
-               $scat_id =  $result["scat_id"];
-               $p_prize =  $result["p_prize"];
-               $sts = "purchasing";
-               $now = new DateTime();
-               $time = $now->format('Y-m-d h:i:s');
-               
-               $q2 = $conn->query("INSERT INTO `card`( `cat_id`, `scat_id`, `pro_id`, `u_id`, `qty`, `prize`, `date`, `status`) 
-               VALUES($cat_id ,$scat_id ,$product_id , $user_id ,$qty , $p_prize , '$time', '$sts' ) ");
+                $cat_id =  $result["cat_id"];
+                $scat_id =  $result["scat_id"];
+                $user_id = $_SESSION["u_id"];
+                $p_prize =  $result["p_prize"];
+                $title =  $result["p_title"];
+                $sts = "purchasing";
+                $now = new DateTime();
+                $time = $now->format('Y-m-d h:i:s');
+                           $q2 = $conn->query("INSERT INTO `card`( `cat_id`, `scat_id`, `pro_id`, `u_id`, `title`, `qty`, `prize`, `date`, `status`) 
+               VALUES($cat_id ,$scat_id ,$product_id , $user_id,'$title',$qty , '$p_prize' , '$time', '$sts' ) ");
 
                if ($q2) {
                   unset($_SESSION["cart"]);
                   echo '<div class="alert alert-success" id="p_message" role="alert">Thanks for punching ' . $item["title"] . '  </div>';
+               }else{
+                  echo "quey failed";
                }
             }
          }
