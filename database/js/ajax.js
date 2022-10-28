@@ -4,6 +4,9 @@ $(document).ready(function () {
   productOneWeekOld();
   OrderFormHtml();
   jsonFilesUpdate();
+function message( id , msg){
+    $(id).fadeIn("fast").html(msg).delay(4000).fadeOut("slow")
+}
   function productOneWeekOld() {
     $.ajax({
       type: "POST",
@@ -49,9 +52,9 @@ $(document).ready(function () {
   }
   $(document).on("click", "#pageNo", function (e) {
     e.preventDefault();
-
     var id = $(this).attr("data-id");
     AllProduct(id);
+    
   });
   function OrderFormHtml() {
     $.ajax({
@@ -92,9 +95,7 @@ $(document).ready(function () {
       },
     });
   }
-});
-//add to cart ajax start here
-$(document).ready(function () {
+
   checkUserLogin();
   function checkUserLogin() {
     $.ajax({
@@ -109,7 +110,7 @@ $(document).ready(function () {
     });
   }
   $(document).on("click", "#CartBtn", function () {
-    $("#p_message").hide();
+        var msgID = $(this).attr("data-msgId")
     var id = $(this).attr("data-id");
     var title = $("#title" + id).val();
     var image = $("#image" + id).val();
@@ -133,12 +134,9 @@ $(document).ready(function () {
         data: data,
         datatype: "application/json",
         success: function (response) {
-          $("#p_message")
-            .show()
-            .fadeIn("fast")
-            .html(response)
-            .delay(3000)
-            .fadeOut("slow");
+          console.log(response)
+          message(msgID , response);
+          
           cartCount();
           loadcartTabel();
           grandTotal();
@@ -394,6 +392,10 @@ $(document).ready(function () {
   });
   $(".search-btn").click(function (e) {
     e.preventDefault();
+     search_item() 
+    })
+   function search_item (page) {
+    
     $("#search-form").removeClass("active");
     $("#search_main_container").removeClass("d-none");
     let searchVal = $("#SearchInput").val();
@@ -401,12 +403,19 @@ $(document).ready(function () {
     if (searchVal != "") {
       $.post(
         "database/search.php",
-        { action: "search", data: searchVal },
+        { action: "search", data: searchVal , "page_no" : page },
         function (data) {
                $("#search_gallery").html(data)
         }
       );
     }
+  };
+  // search pagination ajax start here
+  $(document).on("click", "#SearchPagination", function (e) {
+    e.preventDefault();
+    var id = $(this).attr("data-id");
+    
+    search_item(id);
   });
 }); // main bracket of jquery
 // this ajax used to register new user
@@ -429,7 +438,8 @@ function register_function() {
       if (xhr.status === 200) {
         let data = xhr.response;
         if (data == true) {
-          indexPage();
+
+          window.location.href = "index.php";
         } else {
           alert_Message.style.display = "block";
           alert_Message.innerHTML = data;

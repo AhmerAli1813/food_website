@@ -131,7 +131,7 @@ function search_result()
     <h1 class="heading"> favorite dishes </h1>
 
 
-        <div id="p_message"></div>
+        <div id="search_msg"></div>
         <div class="box-container" id="search_containers">
                 <div class="row" id="search_gallery">
                 </div>
@@ -182,7 +182,7 @@ function dishes()
         <h1 class="heading"> popular dishes </h1>
         
     
-        <div  id="p_message"></div>
+        <div  id="p_msg"></div>
         <div class="box-container" id="dishes_containers">
                 <div class="row" id="product_gallery">
                 
@@ -341,7 +341,7 @@ function special_menu()
 
                 <h3 class="sub-heading"> our menu </h3>
                 <h1 class="heading"> today`s speciality </h1>
-
+                        <div id="weekly_msg"></div>
                 <div class="box-container" id="menu_container">
                 <div class="row" id="WeeklyProGall">
                 

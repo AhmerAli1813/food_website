@@ -232,6 +232,7 @@ padding: 0rem 3rem;
     list-style: none;
   }
   .search-term ul li {
+    cursor: pointer;
     padding: .5rem 2rem;
   }
 .home .home-slider .slide{

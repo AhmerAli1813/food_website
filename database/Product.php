@@ -45,7 +45,7 @@ if ($_POST["action"] == "shwAllPro") {
             <span>PKR ' . $row['p_prize'] . '</span> <br>
             <div class="btn-group" role="group" aria-label="Basic example">
                     <button role="button"  type="button"  class=" btn  btn-outline-success cart_show"><i class="fas fa-cart-arrow-down"></i></button>
-                    <button role="button" id="CartBtn" data-id="' . $row["p_id"] . '"  class="btn btn-outline-success">add to cart</button>
+                    <button role="button" id="CartBtn" data-id="' . $row["p_id"] . '" data-msgId="#p_msg"  class="btn btn-outline-success">add to cart</button>
                     
                 </div>
             
