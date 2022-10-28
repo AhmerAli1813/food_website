@@ -11,7 +11,7 @@ function cat_value(){
     fetch("./database/js/json/product_json_file.json")
 .then(response=>response.json() )
 .then(json =>  json.forEach(element => {
-
+      
 
     if(element["cat_id"] == id){
         var data =  [`<option data-scatId ='${element["scat_id"]}' value='${element["p_id"]}'>${ element["p_title"] }</option>`];

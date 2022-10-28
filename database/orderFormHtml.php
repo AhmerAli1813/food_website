@@ -7,17 +7,26 @@ if ($_POST["action"] == "orderFormHtml") {
         if (isset($_SESSION["unique_id"])) {
             $unique_id = $_SESSION["unique_id"];
             $q = $conn->query("SELECT * FROM `register` WHERE `unique_id` = $unique_id");
-
-            $user = mysqli_fetch_assoc($q);
-        } else {
+                $disabled = "disabled";
+                $user = mysqli_fetch_assoc($q);
+            } else {
+            $disabled = "";
             $user["Name"] = '';
             $user["email"] = '';
         }
         $output = '<div id="order_response"></div><form action="" id="orderForm">
+                        <div class="inputBox d-none" id="user_password">
+                        <div class="input w-100">
+                        <span>your password</span>
+                        <span><i class="fas fa-eye"></i></span>
+                                <input type="text" name="password" placeholder="enter your password" value="">
+                                </div>
+                            
+                        </div>
                     <div class="inputBox">
                     <div class="input">
                     <span>your name</span>
-                            <input type="text" name="name" placeholder="enter your name" value="' . $user["Name"] . '">
+                            <input type="text" name="name" '.$disabled.' placeholder="enter your name" value="' . $user["Name"] . '">
                             </div>
                         <div class="input">
                             <span>your number</span>
@@ -27,7 +36,7 @@ if ($_POST["action"] == "orderFormHtml") {
                     <div class="inputBox">
                         <div class="input">
                             <span>Enter your email</span>
-                            <input type="email" name="email" placeholder="enter your email" value="' . $user["email"] . '">
+                            <input type="email" name="email" '.$disabled.' placeholder="enter your email" value="' . $user["email"] . '">
                         </div>
                         <div class="input">
                             <span>your address</span>

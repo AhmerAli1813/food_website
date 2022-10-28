@@ -21,10 +21,10 @@ if ($_POST["action"] = "OneWeekData") {
                      <i class="fas fa-star-half-alt"></i>
                   </div>
                   
-                  <input type="hidden" id="image' . $row["p_id"] . '" value=' . $row["p_image"] . '>
+                  <input type="hidden" id="image' . $row["p_id"] . '" value="' . $row["p_image"] . '">
                   <input type="hidden" id="title' . $row["p_id"] . '" value="' . $row["p_title"] . '">
-                  <input type="hidden" id="prize' . $row["p_id"] . '" value=' . $row["p_prize"] . '">
-                  <input type="hidden" id="time' . $row["p_id"] . '" value=' . $row["date"] . '">
+                  <input type="hidden" id="prize' . $row["p_id"] . '" value="' . $row["p_prize"] . '">
+                  <input type="hidden" id="time' . $row["p_id"] . '" value="' . $row["date"] . '">
                   <h3>' . $row["p_title"] . '</h3>
                   <h4>' . $row["p_subtitle"] . '</h4>
                   <p>' . $row["p_desc"] . '</p>
@@ -41,7 +41,7 @@ if ($_POST["action"] = "OneWeekData") {
 
                ';
       }
-   }else{
+   } else {
       $output = "NO Record Found!";
    }
    echo $output;

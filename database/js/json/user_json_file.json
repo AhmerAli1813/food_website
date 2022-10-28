@@ -5,7 +5,7 @@
         "Name": "ahmer ali",
         "email": "ahmer@gmail.com",
         "password": "123",
-        "image": "1663618898face21.jpg",
+        "image": "admin.png",
         "status": "offline",
         "role_id": "1"
     },
@@ -15,8 +15,8 @@
         "Name": "samuel",
         "email": "samuel@gmail.com",
         "password": "123",
-        "image": "1663620050face8.jpg",
-        "status": "Active Now",
+        "image": "pic.png",
+        "status": "offline",
         "role_id": "1"
     }
 ]

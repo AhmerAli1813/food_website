@@ -1,381 +1,423 @@
- 
-
 $(document).ready(function () {
-    banner();
-    AllProduct();
-    productOneWeekOld();
-    OrderFormHtml();
-    jsonFilesUpdate();
-    function productOneWeekOld(){
+  banner();
+  AllProduct();
+  productOneWeekOld();
+  OrderFormHtml();
+  jsonFilesUpdate();
+  function productOneWeekOld() {
+    $.ajax({
+      type: "POST",
+      url: "database/weeklyProduct.php",
+      data: { action: "OneWeekData" },
+      success: function (response) {
+        // console.log(response);
+        $("#WeeklyProGall").html(response);
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
+  function AllProduct(page) {
+    $.ajax({
+      type: "POST",
+      url: "database/Product.php",
+      data: { action: "shwAllPro", page_no: page },
+      success: function (response) {
+        $("#product_gallery").html(response);
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
+  function banner() {
+    $.ajax({
+      type: "POST",
+      url: "database/banner.php",
+      data: { action: "ShwBanner" },
 
-        $.ajax({
-            type: "POST",
-            url: "database/weeklyProduct.php",
-            data : {"action" : "OneWeekData"},
-            success: function (response) {
-                // console.log(response);
-                $("#WeeklyProGall").html(response);
-            },
-            error: function (response) {
-                console.log(response);
-            }
-        });
-    }
-    function AllProduct(page){
+      success: function (response) {
+        $("#banner_Container").html(response);
+      },
 
-        $.ajax({
-            type: "POST",
-            url: "database/Product.php",
-            data : {"action" : "shwAllPro" , "page_no" : page},
-            success: function (response) {
-                
-                $("#product_gallery").html(response);
-            },
-            error: function (response) {
-                console.log(response);
-            }
-        });
-    }
-    function banner(){
-        $.ajax({
-            type: "POST",
-            url: "database/banner.php",
-            data: {"action":"ShwBanner"},
-            
-            success: function (response) {
-                $("#banner_Container").html(response);    
-            },
-            
-            error: function (response) {
-                console.log(response);
-                $("#banner_Container").html("serve is slow");    
-            }
-        });
-    };
-    $(document).on("click" , "#pageNo" , function(e){
-        e.preventDefault();
-        
-        var id = $(this).attr("data-id");
-        AllProduct(id);
-    })
-    function OrderFormHtml(){
-        $.ajax({
-            type: "POST",
-            url: "database/orderFormHtml.php",
-            data: {"action" : "orderFormHtml"},
-            
-            success: function (response) {
-                  
-            $("#ShowOrderFormHtml").html(response);    
-            },
-             
-            error: function (response) {
-            console.log(response);    
-            }
-        });
-    };
-    
-    function jsonFilesUpdate(){
-        $.ajax({
-            type: "POST",
-            url : "database/jsonFile.php",
-            data: {"json_file" : ["catJson","sctJson","userJson","bannerJson","productJson","cartJson"]},
-            success: function (response) {
-                console.log(response);    
-                
-            },
-             
-            error: function (response) {
-            console.log(response);    
-            }
-        });
-    };
-    
+      error: function (response) {
+        console.log(response);
+        $("#banner_Container").html("serve is slow");
+      },
+    });
+  }
+  $(document).on("click", "#pageNo", function (e) {
+    e.preventDefault();
 
+    var id = $(this).attr("data-id");
+    AllProduct(id);
+  });
+  function OrderFormHtml() {
+    $.ajax({
+      type: "POST",
+      url: "database/orderFormHtml.php",
+      data: { action: "orderFormHtml" },
+
+      success: function (response) {
+        $("#ShowOrderFormHtml").html(response);
+      },
+
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
+
+  function jsonFilesUpdate() {
+    $.ajax({
+      type: "POST",
+      url: "database/jsonFile.php",
+      data: {
+        json_file: [
+          "catJson",
+          "sctJson",
+          "userJson",
+          "bannerJson",
+          "productJson",
+          "cartJson",
+        ],
+      },
+      success: function (response) {
+        console.log(response);
+      },
+
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
 });
 //add to cart ajax start here
 $(document).ready(function () {
-    checkUserLogin();
-    function checkUserLogin(){
-        $.ajax({
-            type: "POST",
-            url: "database/user_check_login.php",
-            success: function (response) {
-            $("#user_login_header").html(response);
-                
-            },
-            error : function(response){
-                    console.log(response)
-            }
-
-        });
-    }
-    $(document).on("click" , "#CartBtn" , function(){
-        $("#p_message").hide();
-        var id = $(this).attr("data-id");
-        var title = $("#title" + id).val();
-        var image = $("#image"+ id).val();
-        var prize = $("#prize"+ id).val();
-        
-        var qty = $("#qty_input"+ id).val();
-        var data = {"p_id":id, "title":title, "image":image , "prize" : prize , "qty" : qty , "action":"add"}
-        
-        // cart ajax start
-if(qty <=5){
-
+  checkUserLogin();
+  function checkUserLogin() {
     $.ajax({
+      type: "POST",
+      url: "database/user_check_login.php",
+      success: function (response) {
+        $("#user_login_header").html(response);
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
+  $(document).on("click", "#CartBtn", function () {
+    $("#p_message").hide();
+    var id = $(this).attr("data-id");
+    var title = $("#title" + id).val();
+    var image = $("#image" + id).val();
+    var prize = $("#prize" + id).val();
+
+    var qty = $("#qty_input" + id).val();
+    var data = {
+      p_id: id,
+      title: title,
+      image: image,
+      prize: prize,
+      qty: qty,
+      action: "add",
+    };
+
+    // cart ajax start
+    if (qty <= 5) {
+      $.ajax({
         type: "POST",
         url: "database/cart.php",
         data: data,
-        datatype : "application/json",
-            success: function (response) {
-               $("#p_message").show().fadeIn("fast").html(response).delay(3000).fadeOut("slow");
-               cartCount();
-               loadcartTabel();
-               grandTotal();
-            }
-        });
-        
-    }
-    });
-
-    cartCount();
-    // add cart number show 
-    function cartCount(){
-        $.ajax({
-            type: "POST",
-            url: "database/cart.php",
-            data : {"action" : "count"},
-            success: function (response) {
-                $("#CartCount").html(response)
-            }
-        });
-    }
-
-    //  showing  which  type of data user add to cart shopping
-    $("#cart_tabel").hide();
-    
-    
-    loadcartTabel();
-function loadcartTabel(){
-    $.ajax({
-        type: "POST",
-        data: {"action":"show"},
-        url: "database/cart.php",
+        datatype: "application/json",
         success: function (response) {
-            $("#cart_data_show").html(response)
-            $(".cart_tabel").show();
-            grandTotal();
-            
-        }
+          $("#p_message")
+            .show()
+            .fadeIn("fast")
+            .html(response)
+            .delay(3000)
+            .fadeOut("slow");
+          cartCount();
+          loadcartTabel();
+          grandTotal();
+        },
+      });
+    }
+  });
 
+  cartCount();
+  // add cart number show
+  function cartCount() {
+    $.ajax({
+      type: "POST",
+      url: "database/cart.php",
+      data: { action: "count" },
+      success: function (response) {
+        $("#CartCount").html(response);
+      },
     });
-    
-};
-$(document).on("click" , ".cart_show " , function(e){
+  }
+
+  //  showing  which  type of data user add to cart shopping
+  $("#cart_tabel").hide();
+
+  loadcartTabel();
+  function loadcartTabel() {
+    $.ajax({
+      type: "POST",
+      data: { action: "show" },
+      url: "database/cart.php",
+      success: function (response) {
+        $("#cart_data_show").html(response);
+        $(".cart_tabel").show();
+        grandTotal();
+      },
+    });
+  }
+  $(document).on("click", ".cart_show ", function (e) {
     $("#cart_tabel").show();
     e.preventDefault();
-  
-loadcartTabel();
 
-});
-   
-var qty = 1;
-   
-   // increase the value of qty filed
-   $(document).on("click" , "#up_val",function () {
-       var id = $(this).attr("data-id");
-     var qty_val = $("#qty_input" + id);
-
-  qty = qty_val.val();
-     qty++
-       
-     if(qty <6 && qty >0){
-       qty_val.val(qty)
-      }
-
+    loadcartTabel();
   });
-  
+
+  var qty = 1;
+
+  // increase the value of qty filed
+  $(document).on("click", "#up_val", function () {
+    var id = $(this).attr("data-id");
+    var qty_val = $("#qty_input" + id);
+
+    qty = qty_val.val();
+    qty++;
+
+    if (qty < 6 && qty > 0) {
+      qty_val.val(qty);
+    }
+  });
+
   // decrease the value of qty filed
 
-  $(document).on("click" , "#down_val",function () {
-      var id = $(this).attr("data-id");
-     var qty_val = $("#qty_input" + id);
-      qty = qty_val.val();
-   qty--;
-   if(qty >0 || qty>1){
-       qty_val.val(qty)
-   }
-    
- });
-   $(document).on("click" , "#WkProUpVAl",function () {
-       var id = $(this).attr("data-id");
-       console.log(id)
-     var qty_val = $("#WkProQtyInput" + id);
-
-  qty = qty_val.val();
-     qty++
-       
-     if(qty <6 && qty >0){
-       qty_val.val(qty)
-      }
-
+  $(document).on("click", "#down_val", function () {
+    var id = $(this).attr("data-id");
+    var qty_val = $("#qty_input" + id);
+    qty = qty_val.val();
+    qty--;
+    if (qty > 0 || qty > 1) {
+      qty_val.val(qty);
+    }
   });
-  
+  $(document).on("click", "#WkProUpVAl", function () {
+    var id = $(this).attr("data-id");
+    console.log(id);
+    var qty_val = $("#WkProQtyInput" + id);
+
+    qty = qty_val.val();
+    qty++;
+
+    if (qty < 6 && qty > 0) {
+      qty_val.val(qty);
+    }
+  });
+
   // decrease the value of qty filed
 
-  $(document).on("click" , "#WkProDownVAl",function () {
-      var id = $(this).attr("data-id");
-      console.log(id)
-     var qty_val = $("#WkProQtyInput" + id);
-      qty = qty_val.val();
-   qty--;
-   if(qty >0 || qty>1){
-       qty_val.val(qty)
-   }
-    
- });
+  $(document).on("click", "#WkProDownVAl", function () {
+    var id = $(this).attr("data-id");
+    console.log(id);
+    var qty_val = $("#WkProQtyInput" + id);
+    qty = qty_val.val();
+    qty--;
+    if (qty > 0 || qty > 1) {
+      qty_val.val(qty);
+    }
+  });
 
- 
- function grandTotal(){
+  function grandTotal() {
     $.ajax({
-        type: "POST",
-        url: "database/cart.php",
-        data: {"action" : "gTotal"},
-        success: function (response) {
-            
-            $("#g_total").html(response)
-        },
-        error: function (response) {
-            
-            $("#g_total").html(response)
-        }
+      type: "POST",
+      url: "database/cart.php",
+      data: { action: "gTotal" },
+      success: function (response) {
+        $("#g_total").html(response);
+      },
+      error: function (response) {
+        $("#g_total").html(response);
+      },
     });
- 
- }
-  
+  }
 
-//  add to cart delete button ajax
-$(document).on("click" , "#Delete" , function(){
-    
+  //  add to cart delete button ajax
+  $(document).on("click", "#Delete", function () {
     id = $(this).attr("data-delete");
     var data = "";
     $("#cart_data_show").html(data);
     $.ajax({
-        type: "POST",
-        url: "database/cart.php",
-        data: {"p_id": id , "action" : "delete"},
-        
-        success: function (response) {
-            cartCount();
-            grandTotal();
-            
-            
-            $("#cart_data_show").html(response)
-            $(".cart_tabel").show();
-            if(response = "delete"){
-                $(".cart_tabel").hide();
-                
-            }
-            
-        },
-        error: function (response) {
-            
+      type: "POST",
+      url: "database/cart.php",
+      data: { p_id: id, action: "delete" },
+
+      success: function (response) {
+        cartCount();
+        grandTotal();
+
+        $("#cart_data_show").html(response);
+        $(".cart_tabel").show();
+        if ((response = "delete")) {
+          $(".cart_tabel").hide();
         }
+      },
+      error: function (response) {},
     });
-});
+  });
 
-
-$(document).on("click" , "#delete_all" , function(){
-  
-//   alert("delelte all sessaion")
- deleteAll();
-});
-// deleteAll();
-function deleteAll(){
-
+  $(document).on("click", "#delete_all", function () {
+    //   alert("delelte all sessaion")
+    deleteAll();
+  });
+  // deleteAll();
+  function deleteAll() {
     $.ajax({
-        type: "POST",
-        url: "database/cart.php",
-        data: { "action" : "del_all"},
-      
-        success: function (response) {
-            
-            cartCount();
-            grandTotal();
-            $(".cart_tabel").show();
-            // window.location.href = "index.php"
-            $("#cart_data_show").html(response)
+      type: "POST",
+      url: "database/cart.php",
+      data: { action: "del_all" },
+
+      success: function (response) {
+        cartCount();
+        grandTotal();
+        $(".cart_tabel").show();
+        // window.location.href = "index.php"
+        $("#cart_data_show").html(response);
       },
       error: function (response2) {
-          console.log(response2)
-      }
-  });
-}
-//  confirm to buying
-$(document).on("click" , "#buy_cart" , function(){
-    $.ajax({
-        type: "POST",
-        url: "database/cart.php",
-        data: {"action":"buy"},
-        success: function (response) {
-          if(response == "login"){
-            window.location.href = "login.php";
-            }else{
-
-                 cartCount();
-              $("#cart_tabel").html(response).delay(3000).fadeOut("slow");
-
-              
-        
-            }
-            },
-        error: function (response) {
-            console.log(response)
-        }
+        console.log(response2);
+      },
     });
-})
- 
-$(document).on("click" , "#orderBtn" ,function(e){
-    
-    e.preventDefault();
-        var data = $("#orderForm").serialize()
-        
-        $.ajax({
-            type: "POST",
-            url: "database/DirectOrder.php",
-            data: data,
-            
-            beforesend: function () {
-                $("#order_response").html("<div class='alert alert-primary' role='alert'>please wait....</div>");
-            },
-            success: function (response) {
-                if(response == "reset"){
-                    checkUserLogin();
-                    $("#orderForm").trigger("reset");
-                    
-                }
-                $("#order_response").fadeIn("fast").html(response).delay(2000).fadeOut();
-                console.log(response);
-                checkUserLogin();
-            },
-            error: function (response) {
-                console.log(response)
-            }
-        });
+  }
+  //  confirm to buying
+  $(document).on("click", "#buy_cart", function () {
+    $.ajax({
+      type: "POST",
+      url: "database/cart.php",
+      data: { action: "buy" },
+      success: function (response) {
+        if (response == "login") {
+          window.location.href = "login.php";
+        } else {
+          cartCount();
+          $("#cart_tabel").html(response).delay(3000).fadeOut("slow");
+        }
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  });
 
-})
-}); // main barkect of jquery
+  $(document).on("click", "#orderBtn", function (e) {
+    e.preventDefault();
+    var data = $("#orderForm").serialize();
+
+    $.ajax({
+      type: "POST",
+      url: "database/DirectOrder.php",
+      data: data,
+
+      beforesend: function () {
+        $("#order_response")
+          .fadeIn("fast")
+          .html(
+            "<div class='alert alert-primary' role='alert'>please wait....</div>"
+          )
+          .delay(3000)
+          .fadeOut();
+      },
+      success: function (response) {
+        if (response == false) {
+          $("#order_response")
+            .fadeIn("fast")
+            .html(
+              "<div class='alert alert-warning' role='alert'><b>please !</b> It is security purpose</div>"
+            )
+            .delay(3000)
+            .fadeOut();
+          $("#user_password").removeClass("d-none");
+          console.log(response);
+        }
+        if (response == true) {
+          checkUserLogin();
+          $("#order_response")
+            .fadeIn("fast")
+            .html(
+              '<div class="alert alert-success" role="alert"><strong>Thanks For Shopping</strong></div>'
+            )
+            .delay(3000)
+            .fadeOut();
+          $("#user_password").removeClass("d-block").addClass("d-none");
+          $("#orderForm").reset();
+          $("#orderForm").trigger("reset");
+        } else {
+          $("#order_response")
+            .fadeIn("fast")
+            .html(response)
+            .delay(3000)
+            .fadeOut();
+          console.log(response);
+          checkUserLogin();
+        }
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  });
+
+  // here we start function of search
+  $("#SearchInput").keyup(function () {
+    let searchInputVal = $(this).val();
+
+    if (searchInputVal != "") {
+      $.post(
+        "database/search.php",
+        { action: "search_term", data: searchInputVal },
+        function (data) {
+          $(".search-term").removeClass("d-none").html(data);
+        }
+      );
+    }
+  });
+  $(document).on("click", ".search-term ul li", function () {
+    $("#SearchInput").val($(this).text());
+    $(".search-term").addClass("d-none");
+  });
+  $(".search-btn").click(function (e) {
+    e.preventDefault();
+    $("#search-form").removeClass("active");
+    $("#search_main_container").removeClass("d-none");
+    let searchVal = $("#SearchInput").val();
+
+    if (searchVal != "") {
+      $.post(
+        "database/search.php",
+        { action: "search", data: searchVal },
+        function (data) {
+               $("#search_gallery").html(data)
+        }
+      );
+    }
+  });
+}); // main bracket of jquery
 // this ajax used to register new user
 function indexPage() {
-
   register_form.reset();
   window.location.href = "index.php";
-};
+}
 function register_function() {
-    let alert_Message = document.getElementById("message");
-    const register_form = document.getElementById("register-form");
-    register_form.addEventListener("submit", (e) => {
+  let alert_Message = document.getElementById("message");
+  const register_form = document.getElementById("register-form");
+  register_form.addEventListener("submit", (e) => {
     e.preventDefault(); // preventing form from submitting  , form without refresh form submit ho ga
   });
 
@@ -397,11 +439,11 @@ function register_function() {
   };
   var form_data = new FormData(register_form);
   xhr.send(form_data);
-};
+}
 $("#message").hide();
 function login() {
-    const  login_form = document.getElementById("login-form");
-    login_form.onsubmit = (e) => {
+  const login_form = document.getElementById("login-form");
+  login_form.onsubmit = (e) => {
     e.preventDefault(); // preventing form from submitting  , matalb form ab submit kr sagta hy
   };
 
@@ -424,7 +466,7 @@ function login() {
   };
   let form_data2 = new FormData(login_form);
   xhr.send(form_data2);
-};
+}
 
 // logout ajax here
 //    logout_btn.addEventListener("click" , logout())
@@ -444,6 +486,4 @@ function logout() {
       },
     });
   });
-};
-
-
+}

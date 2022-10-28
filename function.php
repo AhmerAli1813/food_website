@@ -61,13 +61,8 @@ function headers()
     <!-- header section ends-->
     
     <!-- search form  -->
-    
-    <form action="" id="search-form">
-        <input type="search" placeholder="search here..." name="" id="search-box">
-        <label for="search-box" class="fas fa-search"></label>
-        <i class="fas fa-times" id="close"></i>
-    </form>
     ';
+    search();
 };
 function banners()
 {
@@ -93,6 +88,57 @@ function banners()
             <!-- home section ends -->
             ';
 };
+function search()
+{
+    echo ' <form id="search-form">
+    <div class="inner-form">
+      <div class="close_btn">X</div>
+      <div class="basic-search">
+        <div class="input-field">
+          <div class="">
+            <input
+              id="SearchInput"
+              type="text"
+              class=""
+              placeholder="Search..."
+             
+            />
+            <button class="search-btn">search</button>
+          </div>
+        </div>
+        <div class="search-term d-none">
+          <ul class="">
+            <li>search</li>
+            <li>search</li>
+            <li>search</li>
+            <li>search</li>
+            <li>search</li>
+            <li>search</li>
+            <li>search</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </form>
+    ';
+}
+function search_result()
+{
+    echo '
+<section class="dishes d-none" id="search_main_container">
+        
+    <h3 class="sub-heading"> your search data </h3>
+    <h1 class="heading"> favorite dishes </h1>
+
+
+        <div id="p_message"></div>
+        <div class="box-container" id="search_containers">
+                <div class="row" id="search_gallery">
+                </div>
+        </div>
+</section>
+';
+}
 function loadtabel()
 {
     echo '<div class="container mt-5">

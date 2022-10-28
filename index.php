@@ -2,6 +2,7 @@
 include 'function.php';
 headers();
 banners();
+search_result();
 loadtabel();
 dishes();
 introduction();
