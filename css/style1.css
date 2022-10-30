@@ -135,9 +135,9 @@ header .icons #menu-bars{
     display: none;
 }
  header .dropdown img{
-    width: 70px;
-    border-radius: 30%;
-  
+    width: 4.5rem;
+    border-radius: 50%;
+    object-fit: fill;
 }
 header .dropdown .card-text , header .dropdown .btn   {font-size:1.5rem; text-align: center;}
 header .dropdown-menu{transform: translate(-27%, 35%) !important;

@@ -2,13 +2,6 @@
 
 headers();
 sign_in();
-?>
 
-<script>
-
-
-</script>
-
-<?php
 footers();
 ?>

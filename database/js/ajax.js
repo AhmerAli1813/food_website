@@ -96,19 +96,64 @@ function message( id , msg){
     });
   }
 
-  checkUserLogin();
+  
   function checkUserLogin() {
+    $("#adminLink").hide()
+    var data = "<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>";  
     $.ajax({
-      type: "POST",
+      type: "GET",
       url: "database/user_check_login.php",
+      data : {action : "check" },
+      dataType : "json",
       success: function (response) {
-        $("#user_login_header").html(response);
+        if(response.action == false){
+          data =`<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>`;
+          $("#adminLink").hide()
+          console.log("false")
+        }else{
+          if(response.role_id == 1){
+                    $("#adminLink").show()
+                  }else{
+                $("#adminLink").hide()
+
+              }
+              console.log(response)
+                    data = `<div class="dropdown">
+                    <button class="btn dropdown-toggle show" style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <img id="user_img" class="card-img" src="database/upload/${response.image}"  alt="${response.Name}">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="userDropdown" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 126px);">
+                            <a class="dropdown-item" href="#">
+                            ${response.Name}
+                              <i class="fas fa-circle text-success fa-sm fa-fw mr-2 text-gray-400"></i>
+                          </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                            
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item"  id="logout" >
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                </div>`;
+        }
+        $("#user_login_header").html(data);
+        
       },
+      
       error: function (response) {
         console.log(response);
       },
     });
   }
+  checkUserLogin();
   $(document).on("click", "#CartBtn", function () {
         var msgID = $(this).attr("data-msgId")
     var id = $(this).attr("data-id");
@@ -317,10 +362,10 @@ function message( id , msg){
   $(document).on("click", "#orderBtn", function (e) {
     e.preventDefault();
     var data = $("#orderForm").serialize();
-
+    console.log(data);
     $.ajax({
       type: "POST",
-      url: "database/DirectOrder.php",
+      url: "database/directOrder2.php",
       data: data,
 
       beforesend: function () {
@@ -479,21 +524,21 @@ function login() {
 }
 
 // logout ajax here
-//    logout_btn.addEventListener("click" , logout())
-const logout_btn = document.getElementById("logout");
-function logout() {
-  $(document).ready(function () {
+$(document).ready(function () {
+  $(document).on( "click" , "#logout" ,  function (e) { 
+    e.preventDefault();
+    
     $.ajax({
       url: "database/logout.php",
       type: "POST",
       success: function (data) {
-        if (data === "success") {
-          alert("get of" + data);
-          // indexPage();
-        } else {
+        
+        if (data == true) {
+        console.log("logout")  
           window.location.href = "index.php";
         }
       },
     });
-  });
-}
+  
+});
+});
