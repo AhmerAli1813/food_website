@@ -19,9 +19,14 @@ function  ad_headers()
                 <link
                     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
                     rel="stylesheet">
-            
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+                    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.12.1/af-2.4.0/b-2.2.3/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sl-1.4.0/datatables.min.css"/>
+ 
+                    
+                                
                 <!-- Custom styles for this template-->
                 <link href="css/sb-admin-2.css" rel="stylesheet">
+                <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet">
             
             </head>
             
@@ -213,7 +218,7 @@ function  ad_headers()
                                             <span class="badge badge-danger badge-counter">3+</span>
                                         </a>
                                         <!-- Dropdown - Alerts -->
-                                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in hide"
                                             aria-labelledby="alertsDropdown">
                                             <h6 class="dropdown-header">
                                                 Alerts Center
@@ -337,6 +342,128 @@ function  ad_headers()
                             <div class="container-fluid">
             ';
 }
+function userTable()
+{
+    echo ' <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex justify-content-between py-3">
+            <h6 class="m-0 font-weight-bold text-success">User Data </h6>
+            <button type="button" class="btn  btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#userModel">ADD USER</button>
+        </div>
+        <div class="card-body">
+            <div class=" table-responsive" >
+                <table class="table table-bordered" id="userTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Unique ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                        <tbody id="u_tbl_bd">
+                        
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="userModel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 0.3rem 1rem !important;">
+                    <h5 class="modal-title" id="UserModalTitle"> ADD User data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     <form action="" id="UserForm" method="post">
+                            <input type="hidden" id="UserID" value="">
+                            <input type="hidden" id="trId" value="">
+                            <div class="mb-2">
+                              <label for="" class="form-label">Name</label>
+                              <input type="text" class="form-control" name="UserName" id="UserName" aria-describedby="emailHelpId" placeholder="Name">
+                              
+                            </div>
+                            <div class="mb-2">
+                              <label for="" class="form-label">Email</label>
+                              <input type="email" class="form-control" name="UserEmail" id="UserEmail" aria-describedby="emailHelpId" placeholder="email">
+                              
+                            </div>
+                            <div class="mb-2">
+                              <label for="" class="form-label">password</label>
+                              <input type="password" class="form-control" name="UserPwd" id="UserPwd" aria-describedby="emailHelpId" placeholder="password">
+                              
+                            </div>
+                            <div class="mb-2">
+                                <label for="" class="form-label">Role</label>
+                                <select class="form-select form-select-lg" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" name="UserRole" id="UserRole">
+                                    
+                                    <option selected value="2">user</option>
+                                    <option value="1">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                              <label for="" class="form-label">Choose Image</label>
+                              <input type="file" class="form-control" name="UserImg" id="UserImg" placeholder="" aria-describedby="fileHelpId">
+                            </div>
+    
+                        
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="userSubmit" class="btn btn-primary">Save</button>
+                            </div>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+    
+<div class="modal fade " id="MsgModel" tabindex="-1" role="dialog">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="Model_txt"></p>
+    </div>
+    <div class="modal-footer">
+      
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>';
+}
 function ad_footers()
 {
     echo
@@ -393,12 +520,15 @@ function ad_footers()
 <script src="js/vendor/jquery.min.js" ></script>
 <script src="js/vendor/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.12.1/af-2.4.0/b-2.2.3/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sl-1.4.0/datatables.min.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="js/vendor/jquery.easing.min.js"></script>
+<script >
+</script>
 
 <!-- Custom scripts for all pages-->
 <script src="js/sb-admin-2.js"></script>
-<script src="js/database/database.js"></script>
+<script src="js/database.js"></script>
 
 </body>
 

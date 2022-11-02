@@ -21,7 +21,7 @@ $(document).ready(function () {
                     $("#adminLink").hide()
     
                   }
-                  console.log(response)
+                  // console.log(response)
                         data = `<div class="dropdown mt-2">
                         <button class="btn dropdown-toggle show" style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <img id="user_img" class="card-img" src="../database/upload/${response.image}"  alt="${response.Name}">
@@ -76,4 +76,116 @@ $(document).ready(function () {
       
       });
   
-    }); // main jquery curly bases 
+      
+      // fetch("http://localhost/food_website/database/js/json/user_json_file.json")
+      // .then(response =>response.json())
+      // .then(json =>{
+      //   console.log(json)
+      //   var data = "";
+      //   var sno = 1;
+      //   for(var i = 0 ; i<json.length; i++){
+      //     sno++
+      //     data += `
+          
+      //     <tr>
+      //     <td>${sno}</td>
+      //    <td><img src="../database/upload/${json[i].image}" width="50px" alt="no image"></td>
+      //    <td>${json[i].unique_id}</td>
+      //    <td>${json[i].Name}</td>
+      //    <td>${json[i].email}</td>
+      //    <td>${json[i].role_id}</td>
+      //    <td>${json[i].status}</td>
+      //    <td><button type="submit" class="btn btn-danger" data-id="${json[i].u_id}">Delete</button><button type="submit" class="btn btn-info" data-id="${json[i].u_id}">Edit</button></td>
+      //    </tr>`;
+        
+      //   }
+      //   $("#u_tbl_bd").html(data)
+      // })
+
+      $("#userTable").DataTable({
+        'serverSide' : true,
+        'processing' :true,
+        'pagingType' : 'full_numbers',
+        'order' : [],
+        'ajax' : {
+            'url' : "js/database/userFetching.php" ,
+            'type' : 'post',
+        },
+        'fnCreatedRow' : function (nRow , aData ,iDataIndex){
+            $(nRow).attr('id' , aData[0]);
+        },
+        'columnDefs':[{
+          'target' : [0,5],
+          'orderable' :false,
+        }]
+      });
+$(document).on("submit" , "#UserForm" , function(e){
+  e.preventDefault();
+  
+    var name =$("#UserName").val() ,
+      id = $("#UserID").val(),
+      trId = $("#trID").val(),
+      
+      email = $("#UserEmail").val(),
+      pwd = $("#UserPwd").val(),
+      role_id = $("#UserRole").val(),
+      img = $("#UserImg").val();
+      var data = {"U_id" :id , "Name":name , "Email":email , "Pwd" : pwd , "Role_id" : role_id , "Img" : img };
+
+      $.ajax({
+        type: "POST",
+        url: "js/database/userUpdate.php",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+          if(response.status == "success"){
+            var table = $("#userTable").DataTable();
+              message("success" , "your data successfully added")
+          console.log(response.status)
+          var table = ("#userTable").DataTable()
+          table.draw();
+        }else{
+          message("error" , response.status)
+        }
+        $("#UserForm")[0].reset();
+          $("#userModel").modal("hide");
+
+          
+        },
+        error : function(response){
+          console.error(response)
+        }
+      });
+});
+
+$(document).on("click", "#UserEditBtn" , function (e){
+  e.preventDefault();
+  
+  var userId = $(this).attr("data-id");
+  var TrId = $(this).data("id");
+  $.ajax({
+    type: "POST",
+    url: "js/database/getRecord.php",
+    data: {"action" : "user_data" , "u_id" :userId },
+    
+    success: function (response) {
+      console.log(response)
+    },
+    error: function (response) {
+      console.log(response)
+    }
+  });
+  
+})
+
+      
+function message( types, txt){
+  
+    $("#Model_txt").text(txt);
+    $(".modal-title").text(types);
+    $("#MsgModel").modal("show")
+    $("#MsgModel").delay(2000).modal("show")
+
+  
+}
+  } );
