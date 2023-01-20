@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: sql213.epizy.com
--- Generation Time: Oct 12, 2022 at 05:32 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.2.22
+-- Host: 127.0.0.1
+-- Generation Time: Jan 19, 2023 at 06:27 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -39,7 +38,7 @@ CREATE TABLE `banner` (
   `b_desc` varchar(100) NOT NULL,
   `b_image` varchar(50) NOT NULL,
   `status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `banner`
@@ -58,14 +57,30 @@ INSERT INTO `banner` (`b_id`, `u_id`, `cat_id`, `scat_id`, `p_id`, `b_title`, `b
 
 CREATE TABLE `card` (
   `cr_id` int(11) NOT NULL,
+  `inv_id` varchar(50) NOT NULL,
   `cat_id` int(11) NOT NULL,
-  `scat_id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `qty` decimal(10,0) NOT NULL,
   `prize` decimal(10,0) NOT NULL,
+  `tax` int(10) NOT NULL DEFAULT 3,
+  `date` datetime(6) NOT NULL,
   `status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `card`
+--
+
+INSERT INTO `card` (`cr_id`, `inv_id`, `cat_id`, `pro_id`, `u_id`, `qty`, `prize`, `tax`, `date`, `status`) VALUES
+(6, 'inv_005401', 4, 2, 2, '4', '110', 3, '2023-01-18 09:54:53.000000', 'purchasing'),
+(7, 'inv_005402', 3, 3, 2, '1', '280', 3, '2023-01-18 11:49:17.000000', 'purchasing'),
+(8, 'inv_005403', 3, 3, 2, '1', '280', 3, '2023-01-18 03:42:57.000000', 'purchasing'),
+(9, 'inv_005404', 4, 2, 2, '1', '110', 3, '2023-01-19 08:44:30.000000', 'purchasing'),
+(10, 'inv_005404', 3, 3, 2, '1', '280', 3, '2023-01-19 08:44:30.000000', 'purchasing'),
+(11, 'inv_005405', 3, 3, 2, '1', '280', 3, '2023-01-19 10:11:16.000000', 'purchasing'),
+(12, 'inv_005405', 4, 2, 2, '1', '110', 3, '2023-01-19 10:11:16.000000', 'purchasing'),
+(13, 'inv_005405', 1, 1, 2, '1', '80', 3, '2023-01-19 10:11:16.000000', 'purchasing');
 
 -- --------------------------------------------------------
 
@@ -78,7 +93,7 @@ CREATE TABLE `catagory` (
   `u_id` int(11) NOT NULL,
   `cat_name` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `catagory`
@@ -110,7 +125,7 @@ CREATE TABLE `product` (
   `p_image` varchar(50) NOT NULL,
   `status` varchar(20) NOT NULL,
   `action` varchar(10) NOT NULL DEFAULT 'far'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `product`
@@ -137,19 +152,21 @@ CREATE TABLE `register` (
   `password` varchar(50) NOT NULL,
   `image` varchar(60) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `role_id` int(11) NOT NULL DEFAULT 2
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `role_id` int(11) NOT NULL DEFAULT 2,
+  `address` varchar(100) NOT NULL DEFAULT 'karachi',
+  `number` varchar(14) NOT NULL DEFAULT 'N/A'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `register`
 --
 
-INSERT INTO `register` (`u_id`, `unique_id`, `Name`, `email`, `password`, `image`, `status`, `role_id`) VALUES
-(2, 1357678, 'ahmer ali', 'ahmer@gmail.com', '123', '1663618898face21.jpg', 'active now', 1),
-(3, 1133030496, 'samuel', 'samuel@gmail.com', '123', '1663620050face8.jpg', 'Active Now', 1),
-(4, 97668943, 'aliysha', 'aliysha@gmail.com', '123', '1663620232face11.jpg', 'Active now', 2),
-(5, 267757519, 'samuel Yaqoob', 'samuel844@gmail.com', '123', '1663649138face12.jpg', 'offline', 2),
-(6, 1117230790, 'rehman', 'rehman@gmail.com', '0000', '1663767978Koala.jpg', 'offline', 2);
+INSERT INTO `register` (`u_id`, `unique_id`, `Name`, `email`, `password`, `image`, `status`, `role_id`, `address`, `number`) VALUES
+(2, 1357678, 'ahmer ali', 'ahmer@gmail.com', '123', '1663618898face21.jpg', 'active now', 1, 'karachi', 'N/A'),
+(3, 1133030496, 'samuel', 'samuel@gmail.com', '123', '1663620050face8.jpg', 'Active Now', 1, 'karachi', 'N/A'),
+(4, 97668943, 'aliysha', 'aliysha@gmail.com', '123', '1663620232face11.jpg', 'Active now', 2, 'karachi', 'N/A'),
+(5, 267757519, 'samuel Yaqoob', 'samuel844@gmail.com', '123', '1663649138face12.jpg', 'offline', 2, 'karachi', 'N/A'),
+(6, 1117230790, 'rehman', 'rehman@gmail.com', '0000', '1663767978Koala.jpg', 'offline', 2, 'karachi', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -160,7 +177,7 @@ INSERT INTO `register` (`u_id`, `unique_id`, `Name`, `email`, `password`, `image
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
   `role_name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `role`
@@ -181,7 +198,7 @@ CREATE TABLE `sub_category` (
   `cat_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `scat_name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `sub_category`
@@ -211,7 +228,7 @@ CREATE TABLE `whitelist` (
   `subtitle` varchar(40) NOT NULL,
   `prize` decimal(10,0) NOT NULL,
   `image` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Indexes for dumped tables
@@ -234,8 +251,7 @@ ALTER TABLE `card`
   ADD PRIMARY KEY (`cr_id`),
   ADD KEY `user_id_cr` (`u_id`),
   ADD KEY `u_cat_igd` (`cat_id`),
-  ADD KEY `por_id` (`pro_id`),
-  ADD KEY `sub` (`scat_id`);
+  ADD KEY `por_id` (`pro_id`);
 
 --
 -- Indexes for table `catagory`
@@ -294,7 +310,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `catagory`
@@ -350,7 +366,6 @@ ALTER TABLE `banner`
 --
 ALTER TABLE `card`
   ADD CONSTRAINT `por_id` FOREIGN KEY (`pro_id`) REFERENCES `product` (`p_id`),
-  ADD CONSTRAINT `sub` FOREIGN KEY (`scat_id`) REFERENCES `sub_category` (`scat_id`),
   ADD CONSTRAINT `u_cat_igd` FOREIGN KEY (`cat_id`) REFERENCES `catagory` (`cat_id`),
   ADD CONSTRAINT `user_id_cr` FOREIGN KEY (`u_id`) REFERENCES `register` (`u_id`);
 

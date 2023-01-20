@@ -13,7 +13,7 @@ if(isset($_POST['search']['value'])){
     $sql .="OR email LIKE '%{$search_value}%'";
     $sql .="OR image LIKE '%{$search_value}%'";
     $sql .="OR status LIKE '%{$search_value}%'";
-    $sql .="OR role_id LIKE '%{$search_value}%'";
+    
 };
 
 if(isset($_POST['order'])){

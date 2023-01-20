@@ -10,8 +10,7 @@
         "p_prize": "80",
         "p_image": "dish1.png",
         "status": "good",
-        "action": "far",
-        "date": "2022-10-18 12:44:55.000000"
+        "action": "far"
     },
     {
         "p_id": "2",
@@ -24,8 +23,7 @@
         "p_prize": "110",
         "p_image": "dish-2.png",
         "status": "nicee",
-        "action": "far",
-        "date": "2022-10-28 08:15:25.000000"
+        "action": "far"
     },
     {
         "p_id": "3",
@@ -38,8 +36,7 @@
         "p_prize": "280",
         "p_image": "dish-4.png",
         "status": "special",
-        "action": "far",
-        "date": "2022-10-26 00:00:00.000000"
+        "action": "far"
     },
     {
         "p_id": "4",
@@ -52,8 +49,7 @@
         "p_prize": "160",
         "p_image": "dish-6.png",
         "status": "nicee",
-        "action": "far",
-        "date": "2022-10-13 09:48:57.000000"
+        "action": "far"
     },
     {
         "p_id": "5",
@@ -66,7 +62,6 @@
         "p_prize": "140",
         "p_image": "dish-5.png",
         "status": "special",
-        "action": "far",
-        "date": "2022-10-10 09:13:23.000000"
+        "action": "far"
     }
 ]

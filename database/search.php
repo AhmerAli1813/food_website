@@ -2,7 +2,7 @@
 include 'conf.php';
 if ($_POST["action"] == "search_term") {
     $searchTerm = $_POST["data"];
-    $q = $conn->query("SELECT p_title ,p_subtitle   FROM `product` WHERE  p_title LIKE '%{$searchTerm}%' or p_subtitle LIKE '%{$searchTerm}%'  ");
+    $q = $conn->query("SELECT p_title ,p_subtitle   FROM `product` WHERE  p_title LIKE '%{$searchTerm}%'   ");
     $output = "<ul>";
     if (mysqli_num_rows($q) > 0) {
         
@@ -21,7 +21,7 @@ if ($_POST["action"] == "search_term") {
 if ($_POST["action"] == "search") {
     $searchTerm = $_POST["data"];
     $output = '';
-    $limit_per_page  = 1;
+    $limit_per_page  = 3;
     $page = "";
     if (isset($_POST["page_no"])) {
         $page = $_POST["page_no"];
@@ -65,7 +65,7 @@ if ($_POST["action"] == "search") {
             
         </div>';
         };
-        $q2 = $conn->query("SELECT * FROM `product`  WHERE   p_title LIKE '%{$searchTerm}%' or p_subtitle LIKE '%{$searchTerm}%'");;
+        $q2 = $conn->query("SELECT * FROM `product`  WHERE   p_title LIKE '%{$searchTerm}%'");;
         $total_record = mysqli_num_rows($q2);
         $total_page = ceil($total_record / $limit_per_page);
         $output .= '<nav aria-label="Page navigation example my-5" class="d-flex justify-content-center mt-5" style="cursor: pointer; font-size:1.5rem;" >

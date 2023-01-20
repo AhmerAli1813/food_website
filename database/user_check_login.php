@@ -13,7 +13,8 @@ if ($_GET["action"] == "check") {
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             $data = json_encode($row, true);
-            
+            $_SESSION["user"] = $data;
+           
         }
     }else{
         $data = json_encode(["action"=>false] , true);

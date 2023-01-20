@@ -3,9 +3,15 @@ $(document).ready(function () {
   AllProduct();
   productOneWeekOld();
   OrderFormHtml();
-  jsonFilesUpdate();
-function message( id , msg){
-    $(id).fadeIn("fast").html(msg).delay(4000).fadeOut("slow")
+  // jsonFilesUpdate();
+  function message( types, txt){
+  
+    $("#Model_txt").text(txt);
+    $(".modal-title").text(types);
+    $("#MsgModel").modal("show")
+    $("#MsgModel").delay(3000).modal("hide")
+
+  
 }
   function productOneWeekOld() {
     $.ajax({
@@ -72,29 +78,29 @@ function message( id , msg){
     });
   }
 
-  function jsonFilesUpdate() {
-    $.ajax({
-      type: "POST",
-      url: "database/jsonFile.php",
-      data: {
-        json_file: [
-          "catJson",
-          "sctJson",
-          "userJson",
-          "bannerJson",
-          "productJson",
-          "cartJson",
-        ],
-      },
-      success: function (response) {
-        console.log(response);
-      },
+  // function jsonFilesUpdate() {
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "database/jsonFile.php",
+  //     data: {
+  //       json_file: [
+  //         "catJson",
+  //         "sctJson",
+  //         "userJson",
+  //         "bannerJson",
+  //         "productJson",
+  //         "cartJson",
+  //       ],
+  //     },
+  //     success: function (response) {
+  //       console.log(response);
+  //     },
 
-      error: function (response) {
-        console.log(response);
-      },
-    });
-  }
+  //     error: function (response) {
+  //       console.log(response);
+  //     },
+  //   });
+  // }
 
   
   function checkUserLogin() {
@@ -117,12 +123,12 @@ function message( id , msg){
                 $("#adminLink").hide()
 
               }
-              console.log(response)
+              
                     data = `<div class="dropdown">
-                    <button class="btn dropdown-toggle show" style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn dropdown-toggle " style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <img id="user_img" class="card-img" src="database/upload/${response.image}"  alt="${response.Name}">
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="userDropdown" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 126px);">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 126px);">
                             <a class="dropdown-item" href="#">
                             ${response.Name}
                               <i class="fas fa-circle text-success fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -144,6 +150,8 @@ function message( id , msg){
                         </div>
                 </div>`;
         }
+
+        console.log(data)
         $("#user_login_header").html(data);
         
       },
@@ -154,8 +162,9 @@ function message( id , msg){
     });
   }
   checkUserLogin();
+  // cart ajax start
   $(document).on("click", "#CartBtn", function () {
-        var msgID = $(this).attr("data-msgId")
+        
     var id = $(this).attr("data-id");
     var title = $("#title" + id).val();
     var image = $("#image" + id).val();
@@ -171,8 +180,10 @@ function message( id , msg){
       action: "add",
     };
 
-    // cart ajax start
-    if (qty <= 5) {
+    if(qty ==-1){
+      alert("your value nagative");
+    }
+    if (qty <= 5 && qty>0) {
       $.ajax({
         type: "POST",
         url: "database/cart.php",
@@ -180,18 +191,20 @@ function message( id , msg){
         datatype: "application/json",
         success: function (response) {
           console.log(response)
-          message(msgID , response);
+          // message("success" , response);
           
           cartCount();
           loadcartTabel();
           grandTotal();
         },
       });
+    }else{
+      alert("your quantity is greater then 5");
     }
   });
 
   cartCount();
-  // add cart number show
+  //add cart number show
   function cartCount() {
     $.ajax({
       type: "POST",
@@ -202,6 +215,25 @@ function message( id , msg){
       },
     });
   }
+
+$(document).on("click", "#crt_inv_shw_btn", function () {
+  $.ajax({
+    type: "GET",
+    data: { action: "check" },
+    dataType : "json",
+    url: "database/user_check_login.php",
+    success: function (response) {
+     if(response.action == false){
+      window.location.href = "login.php"
+     }else{
+      window.location.href = "inv.php"
+     }
+
+    },
+  });
+
+
+})
 
   //  showing  which  type of data user add to cart shopping
   $("#cart_tabel").hide();
@@ -214,15 +246,17 @@ function message( id , msg){
       url: "database/cart.php",
       success: function (response) {
         $("#cart_data_show").html(response);
-        $(".cart_tabel").show();
+        $("#inv_tbl_shw").html(response);
         grandTotal();
       },
     });
   }
-  $(document).on("click", ".cart_show ", function (e) {
+  $(document).on("click", ".cart_show", function (e) {
     $("#cart_tabel").show();
     e.preventDefault();
-
+    $('#cart_tabel')[0].scrollIntoView({
+      behavior: 'smooth',block:'start'
+ });
     loadcartTabel();
   });
 
@@ -251,6 +285,10 @@ function message( id , msg){
     if (qty > 0 || qty > 1) {
       qty_val.val(qty);
     }
+    if($("#qty_input").val() <0){
+      console.log("negative value")
+    }
+    
   });
   $(document).on("click", "#WkProUpVAl", function () {
     var id = $(this).attr("data-id");
@@ -283,11 +321,17 @@ function message( id , msg){
       type: "POST",
       url: "database/cart.php",
       data: { action: "gTotal" },
+      dataType:"json",
       success: function (response) {
-        $("#g_total").html(response);
+        
+        $("#crt_amt").html(response.bill);
+        $("#crt_tax").html(response.tax);
+        $("#crt_total").html(response.total);
+        
       },
       error: function (response) {
-        $("#g_total").html(response);
+        console.log(response);
+        // $("#g_total").html(response);
       },
     });
   }
@@ -339,6 +383,7 @@ function message( id , msg){
       },
     });
   }
+  $(".feedback").hide()
   //  confirm to buying
   $(document).on("click", "#buy_cart", function () {
     $.ajax({
@@ -348,17 +393,44 @@ function message( id , msg){
       success: function (response) {
         if (response == "login") {
           window.location.href = "login.php";
+          console.log(response);
         } else {
           cartCount();
-          $("#cart_tabel").html(response).delay(3000).fadeOut("slow");
+         
+          $(".feedback").show("slow")
+          console.log(response);  
         }
       },
       error: function (response) {
         console.log(response);
       },
     });
-  });
 
+  });
+// feedback  of punching
+$(document).on("click", ".fb-btn", function () {
+  let fbVal = $("#fd_txtArea").val();
+  $.ajax({
+    type: "POST",
+    url: "database/cart.php",
+    
+    data: {action : "feedback" , fb_msg : fbVal},
+    success: function (response) {
+      if(response == true){
+
+        alert("thanks for shopping");
+        fbVal.val("");
+        window.location.href = "index.php";
+      }
+    }
+  });    
+});
+$(".close_fb").click( ()=>{
+  mainLocation()
+})
+function mainLocation(){
+  window.location.href = "index.php";
+}
   $(document).on("click", "#orderBtn", function (e) {
     e.preventDefault();
     var data = $("#orderForm").serialize();
@@ -416,6 +488,9 @@ function message( id , msg){
       },
     });
   });
+function ajax(url , data,result){
+  
+}
 
   // here we start function of search
   $("#SearchInput").keyup(function () {
@@ -426,7 +501,12 @@ function message( id , msg){
         "database/search.php",
         { action: "search_term", data: searchInputVal },
         function (data) {
-          $(".search-term").removeClass("d-none").html(data);
+          
+          $('#search_containers')[0].scrollIntoView({
+            behavior: 'smooth',block:'start'
+       });
+       $(".search-term").removeClass("d-none").html(data);
+        
         }
       );
     }

@@ -5,7 +5,7 @@
         "Name": "ahmer ali",
         "email": "ahmer@gmail.com",
         "password": "123",
-        "image": "admin.png",
+        "image": "1663618898face21.jpg",
         "status": "active now",
         "role_id": "1"
     },
@@ -15,8 +15,38 @@
         "Name": "samuel",
         "email": "samuel@gmail.com",
         "password": "123",
-        "image": "pic.png",
-        "status": "offline",
+        "image": "1663620050face8.jpg",
+        "status": "Active Now",
         "role_id": "1"
+    },
+    {
+        "u_id": "4",
+        "unique_id": "97668943",
+        "Name": "aliysha",
+        "email": "aliysha@gmail.com",
+        "password": "123",
+        "image": "1663620232face11.jpg",
+        "status": "Active now",
+        "role_id": "2"
+    },
+    {
+        "u_id": "5",
+        "unique_id": "267757519",
+        "Name": "samuel Yaqoob",
+        "email": "samuel844@gmail.com",
+        "password": "123",
+        "image": "1663649138face12.jpg",
+        "status": "offline",
+        "role_id": "2"
+    },
+    {
+        "u_id": "6",
+        "unique_id": "1117230790",
+        "Name": "rehman",
+        "email": "rehman@gmail.com",
+        "password": "0000",
+        "image": "1663767978Koala.jpg",
+        "status": "offline",
+        "role_id": "2"
     }
 ]

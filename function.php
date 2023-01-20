@@ -23,17 +23,19 @@ function headers()
         <!-- custom css file link  -->
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style1.css">>
+    <link rel="stylesheet" href="css/inv.css">
+
+    <link rel="stylesheet" href="css/style1.css">
     <link rel="stylesheet" href="css/login.css">
     
 
         
-    <!-- header section starts      -->
+    <!-- header section starts  -->
         </head>
         <body>
     <header class="d-flex">
     
-        <a href="#" class="logo"><i class="fas fa-utensils"></i>resto.</a>
+        <a href="#" class="logo"><i class="fas fa-utensils "></i>resto.</a>
     
         <nav class="navbar">
             <a class="active" href="#home">home</a>
@@ -47,14 +49,34 @@ function headers()
     
         <div class="icons">
             <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"> </a>
-            <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
-            
-        </div>
-    <div class="user" id="user_login_header"></div>
-        
-    </div>
+     
+                <div class="modal fade " id="MsgModel" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p id="Model_txt"> hello this a msg</p>
+                    </div>
+                    <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+                </div>
+                </div>       <i class="fas fa-search" id="search-icon"></i>
+                            <a href="#" class="fas fa-heart"> </a>
+                            <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
+                            
+                        </div>
+                    <div class="user" id="user_login_header"></div>
+                        
+                    </div>
+
     </header>
     
     <!-- header section ends-->
@@ -121,22 +143,23 @@ function search()
   </form>
     ';
 }
+
 function search_result()
 {
     echo '
-<section class="dishes d-none" id="search_main_container">
-        
-    <h3 class="sub-heading"> your search data </h3>
-    <h1 class="heading"> favorite dishes </h1>
+    <section class="dishes d-none" id="search_main_container">
+            
+        <h3 class="sub-heading"> your search data </h3>
+        <h1 class="heading"> favorite dishes </h1>
 
 
-        <div id="search_msg"></div>
-        <div class="box-container" id="search_containers">
-                <div class="row" id="search_gallery">
-                </div>
-        </div>
-</section>
-';
+            <div id="search_msg"></div>
+            <div class="box-container" id="search_containers">
+                    <div class="row" id="search_gallery">
+                    </div>
+            </div>
+    </section>
+    ';
 }
 function loadtabel()
 {
@@ -159,8 +182,8 @@ function loadtabel()
                     <tbody class="" id="cart_data_show">
                     
                     <caption class="w-100">
-                    <span id="g_total" class= "ml-5">   Grand total: 2000 </span>
-                     <button role="button" id="buy_cart" class=" mr-5 float-right btn btn-success">buying</button>
+                    <span  class= "ml-5">   Grand total : <b  id="crt_amt"></b> </span>
+                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn btn-success">buying</button>
                      </caption>
                 </tbody>
          </table>
@@ -168,6 +191,7 @@ function loadtabel()
     
     </div>';
 }
+
 function dishes()
 {
 
@@ -195,6 +219,7 @@ function dishes()
 };
 function review()
 {
+    include 'database/conf.php';
     echo '
     <!-- review section starts  -->
     
@@ -205,81 +230,35 @@ function review()
     
         <div class="swiper-container review-slider">
     
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper">';
     
-                <div class="swiper-slide slide">
+    $q=$conn->query("SELECT fb.msg ,fb.date , r.Name,r.image FROM `feedback` as fb JOIN register as r on fb.user_id = r.unique_id");
+    if(mysqli_num_rows($q)>0){
+        while($row = mysqli_fetch_assoc($q)){
+
+        
+    echo'<div class="swiper-slide slide">
                     <i class="fas fa-quote-right"></i>
                     <div class="user">
-                        <img src="images/pic-1.png" alt="">
+                        <img src="database/upload/'.$row["image"].'" alt="">
                         <div class="user-info">
-                            <h3>john deo</h3>
+                            <h3>'.$row["Name"].'</h3>
                             <div class="stars">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
+                                <br>
+                                <span>'.$row["date"].'</span>
                             </div>
                         </div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
-    
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="images/pic-2.png" alt="">
-                        <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
-    
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="images/pic-3.png" alt="">
-                        <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
-    
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="images/pic-4.png" alt="">
-                        <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
-    
-            </div>
+                    <p>'.$row["msg"].'</p>
+                </div>';
+                                }
+        }
+            echo'</div>
     
         </div>
         
