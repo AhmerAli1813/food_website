@@ -103,7 +103,7 @@ $(document).ready(function () {
   // }
 
   
-  function checkUserLogin() {
+  function checkUserLogin(res) {
     $("#adminLink").hide()
     var data = "<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>";  
     $.ajax({
@@ -150,8 +150,10 @@ $(document).ready(function () {
                         </div>
                 </div>`;
         }
-
-        console.log(data)
+          if(res == "login"){
+            window.location.href = "login.php"
+          }
+        
         $("#user_login_header").html(data);
         
       },
@@ -217,18 +219,20 @@ $(document).ready(function () {
   }
 
 $(document).on("click", "#crt_inv_shw_btn", function () {
+        checkUserLogin("login");
   $.ajax({
     type: "GET",
-    data: { action: "check" },
+    data: {action:"cart" },
     dataType : "json",
     url: "database/user_check_login.php",
     success: function (response) {
-     if(response.action == false){
-      window.location.href = "login.php"
-     }else{
-      window.location.href = "inv.php"
+      
+     if (response.cart == false){
+      alert("please add some cart");
+     } else{
+      // window.location.href = "inv.php"
      }
-
+console.log(response)
     },
   });
 
@@ -394,6 +398,8 @@ $(document).on("click", "#crt_inv_shw_btn", function () {
         if (response == "login") {
           window.location.href = "login.php";
           console.log(response);
+        }else if(response == "addCart"){
+                  mainLocation();
         } else {
           cartCount();
          

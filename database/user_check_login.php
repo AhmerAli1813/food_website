@@ -21,3 +21,11 @@ if ($_GET["action"] == "check") {
     }
     echo $data;
 }
+if ($_GET["action"] == "cart"){
+    if(isset($_SESSION["cart"])){
+        $data = json_encode(["action"=>true] , true);
+    }else{
+        $data = json_encode(["cart"=>false] , true);
+    }
+    echo $data;
+}

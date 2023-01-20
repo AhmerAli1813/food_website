@@ -169,7 +169,7 @@
 
                                             
                                                         <label for="feedbacks">feedback</label>
-                                                <textarea name="" id="fd_txtArea" cols="30" class="form-control" rows="10"></textarea>
+                                                <textarea name="" id="fd_txtArea" cols="10" class="form-control" rows="10"></textarea>
                                             </div>
                                             <button class="btn btn-success fb-btn">submit</button>
                                         </div>

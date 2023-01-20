@@ -172,6 +172,8 @@ if ($_POST["action"] == "buy") {
                }
             }
          }
+      }else{
+         echo "addCart";
       }
    } else {
       echo "login";
