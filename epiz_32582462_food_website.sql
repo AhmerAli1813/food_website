@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2023 at 06:27 PM
+-- Generation Time: Jan 24, 2023 at 08:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -74,13 +74,8 @@ CREATE TABLE `card` (
 
 INSERT INTO `card` (`cr_id`, `inv_id`, `cat_id`, `pro_id`, `u_id`, `qty`, `prize`, `tax`, `date`, `status`) VALUES
 (6, 'inv_005401', 4, 2, 2, '4', '110', 3, '2023-01-18 09:54:53.000000', 'purchasing'),
-(7, 'inv_005402', 3, 3, 2, '1', '280', 3, '2023-01-18 11:49:17.000000', 'purchasing'),
-(8, 'inv_005403', 3, 3, 2, '1', '280', 3, '2023-01-18 03:42:57.000000', 'purchasing'),
-(9, 'inv_005404', 4, 2, 2, '1', '110', 3, '2023-01-19 08:44:30.000000', 'purchasing'),
-(10, 'inv_005404', 3, 3, 2, '1', '280', 3, '2023-01-19 08:44:30.000000', 'purchasing'),
-(11, 'inv_005405', 3, 3, 2, '1', '280', 3, '2023-01-19 10:11:16.000000', 'purchasing'),
-(12, 'inv_005405', 4, 2, 2, '1', '110', 3, '2023-01-19 10:11:16.000000', 'purchasing'),
-(13, 'inv_005405', 1, 1, 2, '1', '80', 3, '2023-01-19 10:11:16.000000', 'purchasing');
+(16, 'inv_005402', 3, 3, 2, '1', '280', 3, '2023-01-20 04:05:55.000000', 'purchasing'),
+(17, 'inv_005403', 4, 2, 3, '4', '110', 3, '2023-01-20 04:29:00.000000', 'purchasing');
 
 -- --------------------------------------------------------
 
@@ -106,6 +101,53 @@ INSERT INTO `catagory` (`cat_id`, `u_id`, `cat_name`, `status`) VALUES
 (4, 2, 'rots', ''),
 (5, 2, 'ice cream', ''),
 (6, 2, 'noodles', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `colors`
+--
+
+CREATE TABLE `colors` (
+  `clr_id` int(11) NOT NULL,
+  `hsl` varchar(50) NOT NULL,
+  `clr` varchar(50) NOT NULL,
+  `color_alt` varchar(50) NOT NULL,
+  `color_lighter` varchar(50) NOT NULL,
+  `clr_sts` varchar(50) NOT NULL DEFAULT 'white'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `colors`
+--
+
+INSERT INTO `colors` (`clr_id`, `hsl`, `clr`, `color_alt`, `color_lighter`, `clr_sts`) VALUES
+(1, '250', 'hsl(250,69% , 61%)', 'hsl(250,57% , 53%)', 'hsl(250,92% , 85%)', 'white'),
+(2, '340', 'hsl(340,69% , 61%)', 'hsl(340,57% , 53%)', 'hsl(340,92% , 85%)', 'dark'),
+(3, '275', 'hsl(275,69% , 61%)', 'hsl(275,57% , 53%)', 'hsl(275,92% , 85%)', 'white'),
+(4, '206', 'hsl(206,69% , 61%)', 'hsl(206,57% , 53%)', 'hsl(206,92% , 85%)', 'dark');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `f_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `inv_id` varchar(50) NOT NULL,
+  `msg` varchar(150) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`f_id`, `user_id`, `inv_id`, `msg`, `date`) VALUES
+(7, 1357678, 'inv_005402', 'i am very Thankfully your website and your team , i am Received your product  in 30 mint And your pizza is very spicy', '2023-01-20 16:08:49'),
+(8, 1133030496, 'inv_005403', 'your roster moster is very hot  and oily  but your service is free fasr nd your product prize is helpful us , thanks , ', '2023-01-20 16:31:10');
 
 -- --------------------------------------------------------
 
@@ -162,8 +204,8 @@ CREATE TABLE `register` (
 --
 
 INSERT INTO `register` (`u_id`, `unique_id`, `Name`, `email`, `password`, `image`, `status`, `role_id`, `address`, `number`) VALUES
-(2, 1357678, 'ahmer ali', 'ahmer@gmail.com', '123', '1663618898face21.jpg', 'active now', 1, 'karachi', 'N/A'),
-(3, 1133030496, 'samuel', 'samuel@gmail.com', '123', '1663620050face8.jpg', 'Active Now', 1, 'karachi', 'N/A'),
+(2, 1357678, 'ahmer ali', 'ahmer@gmail.com', '123', 'admin.jpg', 'active now', 1, 'karachi', 'N/A'),
+(3, 1133030496, 'samuel', 'samuel@gmail.com', '123', 'pic.jpg', 'offline', 2, 'karachi', 'N/A'),
 (4, 97668943, 'aliysha', 'aliysha@gmail.com', '123', '1663620232face11.jpg', 'Active now', 2, 'karachi', 'N/A'),
 (5, 267757519, 'samuel Yaqoob', 'samuel844@gmail.com', '123', '1663649138face12.jpg', 'offline', 2, 'karachi', 'N/A'),
 (6, 1117230790, 'rehman', 'rehman@gmail.com', '0000', '1663767978Koala.jpg', 'offline', 2, 'karachi', 'N/A');
@@ -261,6 +303,18 @@ ALTER TABLE `catagory`
   ADD KEY `user_id_cat` (`u_id`);
 
 --
+-- Indexes for table `colors`
+--
+ALTER TABLE `colors`
+  ADD PRIMARY KEY (`clr_id`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`f_id`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -310,13 +364,25 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `catagory`
 --
 ALTER TABLE `catagory`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `colors`
+--
+ALTER TABLE `colors`
+  MODIFY `clr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product`
