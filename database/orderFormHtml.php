@@ -87,7 +87,7 @@ if ($_POST["action"] == "orderFormHtml") {
             </div>
             
 
-            <button role="submit" name="order_btn" id="orderBtn" class="mt-5 btn btn-success w-100"> order now</button>
+            <button role="submit" name="order_btn" id="orderBtn" class="mt-5 btn dpanel-btn w-100" style="color:white;""> order now</button>
 
             </form>';
         echo $output;

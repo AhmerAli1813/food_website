@@ -3,7 +3,7 @@ session_start();
 
 function headers()
 {
-
+include "database/conf.php";
     echo ' 
     <!DOCTYPE html>
         <html lang="en">
@@ -21,7 +21,7 @@ function headers()
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
         
         <!-- custom css file link  -->
-
+        <link rel="stylesheet" href="admin/css/-variables.css">
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/inv.css">
 
@@ -68,9 +68,26 @@ function headers()
                     </div>
                 </div>
                 </div>
-                </div>       <i class="fas fa-search" id="search-icon"></i>
-                            <a href="#" class="fas fa-heart"> </a>
-                            <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
+                </div>    
+                <a class="fas fa-search" id="search-icon"></a>
+                <a class="dropdown fas fa-tint" data-dropdown="#color-gallery">
+                
+
+                   </a>
+                   <div class="dropdown-menu" id="color-gallery">';
+                   $q=$conn->query("SELECT * FROM `colors`  ORDER  by clr_sts ASC") or die("<a>No color found</a>");
+                   if($q){
+                         while($row = mysqli_fetch_assoc($q)){
+                         echo  '<a class="dropdown-item color-item '.$row["clr_sts"].' "  data-color-sts = "'.$row["clr_sts"].'" data-color="'.$row["clr"].'"; data-hsl="'.$row["hsl"].'" data-color-alt="'.$row["color_alt"]
+                         .'" data-color-lighter="'.$row["color_lighter"].'" data-hsl="340" style="--clr:'.$row["clr"].';" href="#">
+                               </a>';
+                   }
+                   } 
+                    
+                  echo' </div>
+  </a>
+                
+                                           <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
                             
                         </div>
                     <div class="user" id="user_login_header"></div>
@@ -148,10 +165,11 @@ function search_result()
 {
     echo '
     <section class="dishes d-none" id="search_main_container">
-            
+         <div class="title-head">
+         
         <h3 class="sub-heading"> your search data </h3>
         <h1 class="heading"> favorite dishes </h1>
-
+        </div>   
 
             <div id="search_msg"></div>
             <div class="box-container" id="search_containers">
@@ -167,9 +185,9 @@ function loadtabel()
     <div class="table-responsive " id="cart_tabel">
         <table  class="table table-striped-columns
         ">
-        <thead class="tabel-info bg-success ">
+        <thead class="tabel-info bg ">
         
-                <tr class="bg-success text-white">
+                <tr class="bg text-white">
                     <th>Sno:</th>
                     <th>image</th>
                     <th>title</th>
@@ -183,7 +201,7 @@ function loadtabel()
                     
                     <caption class="w-100">
                     <span  class= "ml-5">   Grand total : <b  id="crt_amt"></b> </span>
-                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn btn-success">buying</button>
+                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn dpanel-btn">buying</button>
                      </caption>
                 </tbody>
          </table>
@@ -200,10 +218,10 @@ function dishes()
     <!-- dishes section starts  -->
     
     <section class="dishes" id="dishes">
-    
+    <div class="title-head">
         <h3 class="sub-heading"> our dishes </h3>
         <h1 class="heading"> popular dishes </h1>
-        
+        </div>
     
         <div  id="p_msg"></div>
         <div class="box-container" id="dishes_containers">
@@ -224,10 +242,10 @@ function review()
     <!-- review section starts  -->
     
     <section class="review" id="review">
-    
+    <div class="title-head">
         <h3 class="sub-heading"> customer review </h3>
         <h1 class="heading"> what they say </h1>
-    
+    </div>
         <div class="swiper-container review-slider">
     
             <div class="swiper-wrapper">';
@@ -272,10 +290,10 @@ function introduction()
     echo '<!-- about section starts  -->
 
             <section class="about" id="about">
-
+            <div class="title-head">
                 <h3 class="sub-heading"> about us </h3>
                 <h1 class="heading"> why choose us? </h1>
-
+            </div>
                 <div class="row">
 
                     <div class="image">
@@ -316,10 +334,12 @@ function special_menu()
             <!-- menu section starts  -->
 
             <section class="menu" id="menu">
-
+            <div class="title-head">
                 <h3 class="sub-heading"> our menu </h3>
                 <h1 class="heading"> today`s speciality </h1>
-                        <div id="weekly_msg"></div>
+                </div>
+            
+                <div id="weekly_msg"></div>
                 <div class="box-container" id="menu_container">
                 <div class="row" id="WeeklyProGall">
                 
@@ -338,10 +358,10 @@ function order_contact()
     echo '<!-- order section starts  -->
 
     <section class="order" id="order">
-    
+    <div class="title-head">
         <h3 class="sub-heading"> order now </h3>
         <h1 class="heading"> free and fast </h1>
-    
+    </div>
         <div id="ShowOrderFormHtml"></div>
     
     </section>
@@ -519,7 +539,7 @@ function footers()
     
    
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
     <script src="js/fetch.js"></script>
     
        

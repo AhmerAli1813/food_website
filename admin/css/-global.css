@@ -1,0 +1,241 @@
+body{
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+.txt-clr{
+    color: var(--text-color);
+}
+/* form css */
+.form-control:focus ,.form-select:focus {
+    border-color: var(--first-color);
+    box-shadow: var(--first-color-light) 0px 0px 0px 0.25rem;
+}
+select option:hover,select:focus > option:checked ,option:selected {
+    cursor: pointer;
+    background-color: var(--first-color-light) !important;
+}
+/* theme color css */
+
+#color-gallery{
+    display: grid;
+    grid-template-columns: repeat( 3 , 1.5rem);
+    justify-content: space-around;
+    gap: 1rem;
+    background-color: var(--body-color);
+    
+
+}
+#color-gallery .color-item{
+    position: relative;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--clr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#color-gallery .color-item::before{
+    position: absolute;
+    content: "";
+    width: .5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    /* transform: translate(50%,50%); */
+    background-color:white;
+}
+#color-gallery .color-item.dark::before{
+    height: 50%;
+    width: 100%;
+    background-color: black;
+    bottom: 0;
+    border-radius: 0;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    
+    
+}
+.breadcrumb-item a{
+    color: var(--text-color);
+}
+.breadcrumb-item.active  {
+        color: var(--first-color);
+}
+.d-flex-center{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* ul css start */
+.bg{
+    background-color: var(--first-color);
+}
+ul{
+    margin-bottom: 0 !important;
+    list-style: none;
+    padding: 0;
+    
+}
+ul li a {text-decoration: none !important;}
+/* table and button css start */
+th,td ,button,.btn {color: var(--text-color); text-transform: capitalize;}
+.dpanel-btn{
+    background-color: var(--first-color);
+    color: var(--text-color);
+}
+.dpanel-btn-alt{
+    background-color: var( --first-color-lighter);
+}
+
+/* pagination css start  */
+.pagination  li:first-child{
+    margin-left: auto;
+}
+.page-item .page-link {
+        color: var(--first-color) ;
+}    
+.page-item.active .page-link {
+        background-color: var(--first-color) ;border: var(--first-color);
+    }    
+    /* dropdown css start */
+.dropdown{
+    position: relative;
+    /* color: var(--text-color-alt); */
+}
+.dropdown-menu{
+    position: absolute;
+    top: 100%;
+    
+}
+.dropdown-menu a {
+    color: var(--text-color-alt) !important;
+}
+.dropdown-menu.active{
+    /* opacity: 1; */
+    
+    display: block;
+}
+.dropdown-item.disabled{
+    color:var(--text-color) !important;
+    background-color: var(--first-color-light);
+}
+/* headings css start */
+
+.dpanel-headings{
+    /* background-color: rebeccapurple; */
+    display: flex; 
+    flex-direction: column;
+}
+.dpanel-title {
+    position: relative;
+    font-size: var(--h1-font-size);
+    text-transform: capitalize;
+    /* padding: 1rem 2rem; */
+    /* margin-bottom:    var(--mb-1); */
+}
+    .dpanel-subtitle {
+        position: relative;
+         font-size: var(--h3-font-size); 
+        margin-left: var(--mb-1);
+        text-transform: capitalize;
+        }
+        .dpanel-title::before{
+            position: absolute;
+            content: "";
+            width: 50px;
+            height: 2px;
+            bottom: 0;
+            left: -20%;
+            background-color: var(--first-color);
+            animation: line-moving 3s ease infinite;
+        }
+        @keyframes line-moving {
+            0%{
+                transform: translateX(0%);
+            }
+            90%{
+                transform: translateX(100%);
+            }
+            95%{transform: translateX(90%);}
+            100%{
+                opacity: 0;
+            }
+        }
+/*table  css start */
+.table ,.table-striped>tbody>tr:nth-of-type(odd) {
+    color: var(--text-color) !important;
+}
+.table-form{
+    width: 70%;
+    margin: auto;
+ border: 1px solid var(--first-color);
+ padding: 1em 2em;
+}
+/* chart  css start */
+
+ .circle-chart__circle {
+    animation: circle-chart-fill 2s reverse; /* 1 */ 
+    transform: rotate(-90deg); /* 2, 3 */
+    transform-origin: center; /* 4 */
+  }
+  
+  /**
+   * 1. Rotate by -90 degree to make the starting point of the
+   *    stroke the top of the circle.
+   * 2. Scaling mirrors the circle to make the stroke move right
+   *    to mark a positive chart value.
+   * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
+   *    and Edge, use the transform attribute directly on the SVG element as a
+   * .  workaround (https://markus.oberlehner.net/blog/pure-css-animated-svg-circle-chart/#part-4-internet-explorer-strikes-back).
+   */
+  .circle-chart__circle--negative {
+    transform: rotate(-90deg) scale(1,-1); /* 1, 2, 3 */
+  }
+  
+  .circle-chart__info {
+    animation: circle-chart-appear 2s forwards;
+    opacity: 0;
+    transform: translateY(0.3em);
+  }
+  
+  @keyframes circle-chart-fill {
+    to { stroke-dasharray: 0 100; }
+  }
+  
+  @keyframes circle-chart-appear {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Layout styles only, not needed for functionality */
+  
+  .grid {
+    display: grid;
+    /* grid-column-gap: 1em;
+  background-color:; */
+    grid-row-gap: 1em;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  @media (min-width: 31em) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+
+  /* small card css start  */
+  .small-box{
+    height: 10rem;
+    background-color: red;
+    position: relative;
+  }
+  .card-container i {
+    color: var(--text-color-alt);
+  }
+  .border-left-success{
+    border-left: 0.5rem solid var(--bs-success);
+  }

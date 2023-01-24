@@ -44,8 +44,8 @@ if ($_POST["action"] == "shwAllPro") {
             <div class="d-flex"> <button class="btn  "  data-id="' . $row["p_id"] . '" id="up_val"><i class="fas fa-angle-up"></i></button><input  type="text" id="qty_input' . $row["p_id"] . '" min="0" max="5" name=""  class="text-center " disabled  value="1"> <button data-id="' . $row["p_id"] . '" id="down_val" class="btn "><i class="fas fa-angle-down"></i></button> </div> 
             <span>PKR ' . $row['p_prize'] . '</span> <br>
             <div class="btn-group" role="group" aria-label="Basic example">
-                    <button role="button"  type="button"  class=" btn  btn-outline-success cart_show"><i class="fas fa-cart-arrow-down"></i></button>
-                    <button role="button" id="CartBtn" data-id="' . $row["p_id"] . '" data-msgId="#p_msg"  class="btn btn-outline-success">add to cart</button>
+                    <button role="button"  type="button"  class=" btn   cart_show"><i class="fas fa-cart-arrow-down"></i></button>
+                    <button role="button" id="CartBtn" data-id="' . $row["p_id"] . '" data-msgId="#p_msg"  class="btn ">add to cart</button>
                     
                 </div>
             
