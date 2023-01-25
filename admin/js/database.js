@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
     function checkUserLogin() {
-        $("#adminLink").hide()
+        
         var data = "<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>";  
         $.ajax({
           type: "GET",
@@ -11,44 +11,47 @@ $(document).ready(function () {
           success: function (response) {
             if(response.action == false){
               data =`<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>`;
-              $("#adminLink").hide()
-              window.location.href = "../login.php";
-              console.log("false")
+              
+              // window.location.href = "../login.php";
+              console.log("please login kro");
             }else{
               if(response.role_id == 1){
-                        $("#adminLink").show()
+                        console.log("welcome admin")
+                        $(".userImg").attr("src" , `../database/upload/${response.image}` )
+                        
+                        $(".userName").html(response.Name)
                       }else{
-                    $("#adminLink").hide()
+                          console.log("u are not admin")
     
                   }
-                  // console.log(response)
-                        data = `<div class="dropdown mt-2">
-                        <button class="btn dropdown-toggle show" style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <img id="user_img" class="card-img" src="../database/upload/${response.image}"  alt="${response.Name}">
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="userDropdown" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 126px);">
-                                <a class="dropdown-item" href="#">
-                                <i class="fas fa-circle text-success fa-sm fa-fw mr-2 text-gray-400" style="color:var(--bs-success);"></i>
-                                ${response.Name}
-                              </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
+                  // // console.log(response)
+                  //       data = `<div class="dropdown mt-2">
+                  //       <button class="btn dropdown-toggle show" style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  //       <img id="user_img" class="card-img" src="../database/upload/${response.image}"  alt="${response.Name}">
+                  //               </button>
+                  //               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="userDropdown" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 126px);">
+                  //               <a class="dropdown-item" href="#">
+                  //               <i class="fas fa-circle text-success fa-sm fa-fw mr-2 text-gray-400" style="color:var(--bs-success);"></i>
+                  //               ${response.Name}
+                  //             </a>
+                  //               <a class="dropdown-item" href="#">
+                  //                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  //                   Profile
+                  //               </a>
+                  //               <a class="dropdown-item" href="#">
+                  //                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  //                   Settings
+                  //               </a>
                                 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                    </div>`;
+                  //               <div class="dropdown-divider"></div>
+                  //               <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#logoutModal">
+                  //                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  //                   Logout
+                  //               </a>
+                  //           </div>
+                  //   </div>`;
             }
-            $("#user_login_header").html(data);
+            // $("#user_login_header").html(data);
             
           },
           
@@ -77,48 +80,23 @@ $(document).ready(function () {
       });
   
       
-      // fetch("http://localhost/food_website/database/js/json/user_json_file.json")
-      // .then(response =>response.json())
-      // .then(json =>{
-      //   console.log(json)
-      //   var data = "";
-      //   var sno = 1;
-      //   for(var i = 0 ; i<json.length; i++){
-      //     sno++
-      //     data += `
-          
-      //     <tr>
-      //     <td>${sno}</td>
-      //    <td><img src="../database/upload/${json[i].image}" width="50px" alt="no image"></td>
-      //    <td>${json[i].unique_id}</td>
-      //    <td>${json[i].Name}</td>
-      //    <td>${json[i].email}</td>
-      //    <td>${json[i].role_id}</td>
-      //    <td>${json[i].status}</td>
-      //    <td><button type="submit" class="btn btn-danger" data-id="${json[i].u_id}">Delete</button><button type="submit" class="btn btn-info" data-id="${json[i].u_id}">Edit</button></td>
-      //    </tr>`;
-        
-      //   }
-      //   $("#u_tbl_bd").html(data)
-      // })
-
-      $("#userTable").DataTable({
-        'serverSide' : true,
-        'processing' :true,
-        'pagingType' : 'full_numbers',
-        'order' : [],
-        'ajax' : {
-            'url' : "js/database/userFetching.php" ,
-            'type' : 'post',
-        },
-        'fnCreatedRow' : function (nRow , aData ,iDataIndex){
-            $(nRow).attr('id' , aData[0]);
-        },
-        'columnDefs':[{
-          'target' : [0,5],
-          'orderable' :false,
-        }]
-      });
+      // $("#userTable").DataTable({
+      //   'serverSide' : true,
+      //   'processing' :true,
+      //   'pagingType' : 'full_numbers',
+      //   'order' : [],
+      //   'ajax' : {
+      //       'url' : "js/database/userFetching.php" ,
+      //       'type' : 'post',
+      //   },
+      //   'fnCreatedRow' : function (nRow , aData ,iDataIndex){
+      //       $(nRow).attr('id' , aData[0]);
+      //   },
+      //   'columnDefs':[{
+      //     'target' : [0,5],
+      //     'orderable' :false,
+      //   }]
+      // });
 $(document).on("submit" , "#UserForm" , function(e){
   e.preventDefault();
   
@@ -176,9 +154,25 @@ $(document).on("click", "#UserEditBtn" , function (e){
     }
   });
   
-})
+});
+cardsLoad()
+function cardsLoad(){
+  data = {"action" : "cards"}
+  myAjax("POST" , "js/database/cards.php" , data , "json" , "#card_row");
+}
 
-      
+      function myAjax(type ,url ,data,dataType,res_id){
+        $.ajax({
+          type: type,
+          url: url,
+          data: data,
+          dataType: dataType,
+          success: function (response) {
+           $(res_id).html(response.data);
+              console.log(response.data)
+          }
+        });
+      }
 function message( types, txt){
   
     $("#Model_txt").text(txt);

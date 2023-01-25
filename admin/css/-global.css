@@ -236,6 +236,7 @@ th,td ,button,.btn {color: var(--text-color); text-transform: capitalize;}
   .card-container i {
     color: var(--text-color-alt);
   }
-  .border-left-success{
-    border-left: 0.5rem solid var(--bs-success);
+  .border-left{
+    border-left: 0.5rem solid var(--i) ;
+    
   }

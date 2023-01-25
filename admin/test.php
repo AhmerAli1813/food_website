@@ -49,7 +49,7 @@ if($q){
 } 
 
 ?>  
-  
+  <img src="../database//upload/" alt="">
   </main>
   <footer>
     <!-- place footer here -->

@@ -69,11 +69,11 @@ echo '<!DOCTYPE html>
                                   </span>
                                 </button>
                               </li>
-                              <li class="nav-item"><a href="" class="nav-link active text-capitalize">admin</a></li>
+                             
                               <li class="nav-item">
                                   <a href="" class="nav-link active d-flex">
                                   
-                                      <img src="img/user1-128x128.jpg" width="30px" height="30px" style="border-radius: 50%;" alt="">
+                                      <img src="img/user1-128x128.jpg" class="userImg" width="30px" height="30px" style="border-radius: 50%;" alt="">
                                   </a>
                                   </li>
                               <li class="nav-item"><a href="" class="nav-link  active"><i class="fas fa-sign-out-alt"></i></a></li>
@@ -101,9 +101,9 @@ echo '<!DOCTYPE html>
                           </li>
                          </ul>
                       <li class="sidebar-item active">
-                          <a href="" class=""><img src="img/user1-128x128.jpg" width="30px" height="30px" style="border-radius: 50%;" alt=""></a>
+                          <a href="" class=""><img src="img/user1-128x128.jpg" class="userImg" width="30px" height="30px" style="border-radius: 50%;" alt=""></a>
                           
-                          <span class="">ahmer</span>     
+                          <span class="userName">ahmer</span>     
                           <span class="btn ms-auto  "> <b class ="fas fa-sign-out-alt"></b></span>
                       </li>
                       <li class="sidebar-item ">
@@ -259,25 +259,8 @@ function   cards (){
               echo '
               <!-- card container -->
               <div class=" card-container container">
-                  <div class="row">                       
-                      <div class="col-xl-3 col-md-6 mb-4">
-                          <div class="card border-left-success shadow h-100 py-2">
-                              <div class="card-body">
-                                  <div class="row no-gutters align-items-center">
-                                      <div class="col mr-2">
-                                          <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                              Earnings (Annual)</div>
-                                          <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                      </div>
-                                      <div class="col-auto">
-                                          <i class="fas fa-dollar-sign fa-2x "></i>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                  </div>
-
-                  </div>
+                  <div class="row" id="card_row">
+                   </div>
               </div>
 ';
 }             
@@ -321,6 +304,7 @@ function tables(){
                  
                 
                 <script src="js/dpanel.js"></script>
+                <script src="js/database.js"></script>
             
             </body>
             </html>';

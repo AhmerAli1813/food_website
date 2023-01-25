@@ -126,10 +126,13 @@ $(".dropdown").click(function (e) {
     var color_alt =  $(this).data("color-alt");
     var color_lighter =  $(this).data("color-lighter");
     console.log(`lighter : ${color_lighter} , alt ${color_alt} ,color : ${color}` )
-
     var color_sts =  $(this).data("color-sts");
      colorChange(color , color_sts ,color_alt ,color_lighter)    
-          
+          if(localStorage.getItem("color")==null){
+            localStorage.setItem("color" , "red");
+          }else{
+            localStorage.setItem("color" , "blue");
+          }
   });
   function colorChange(clr , sts ,clr_alt,clr_lighter){
       $(":root").css("--hue-color" , clr);
