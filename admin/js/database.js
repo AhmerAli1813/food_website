@@ -1,6 +1,16 @@
 
 $(document).ready(function () {
-    function checkUserLogin() {
+  cardsLoad();
+  checkUserLogin();
+  
+  $(document).on("click" , ".cards_box" , function(){
+    let table = $(this).data("tbl");
+    let url = "js/database/" + table;
+    let data = {"action" : "loadTable"}
+    myAjax("POST" , url ,data,"json" ,"#dpanel_tbl_container")
+})
+
+  function checkUserLogin() {
         
         var data = "<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>";  
         $.ajax({
@@ -60,7 +70,7 @@ $(document).ready(function () {
           },
         });
       }
-      checkUserLogin();
+      
       $(document).on( "click" , "#logout" ,  function (e) { 
         e.preventDefault();
         
@@ -78,7 +88,10 @@ $(document).ready(function () {
         });
       
       });
-  
+      function cardsLoad(){
+        data = {"action" : "cards"}
+        myAjax("POST" , "js/database/cards.php" , data , "json" , "#card_row");
+      }  
       
       // $("#userTable").DataTable({
       //   'serverSide' : true,
@@ -136,7 +149,7 @@ $(document).on("submit" , "#UserForm" , function(e){
       });
 });
 
-$(document).on("click", "#UserEditBtn" , function (e){
+$(document).on("click", "#EditBtn" , function (e){
   e.preventDefault();
   
   var userId = $(this).attr("data-id");
@@ -155,11 +168,8 @@ $(document).on("click", "#UserEditBtn" , function (e){
   });
   
 });
-cardsLoad()
-function cardsLoad(){
-  data = {"action" : "cards"}
-  myAjax("POST" , "js/database/cards.php" , data , "json" , "#card_row");
-}
+
+
 
       function myAjax(type ,url ,data,dataType,res_id){
         $.ajax({
@@ -168,8 +178,13 @@ function cardsLoad(){
           data: data,
           dataType: dataType,
           success: function (response) {
+            console.log(response)
+            if(response.type == "success"){
            $(res_id).html(response.data);
               console.log(response.data)
+            }else{
+              console.log("error")
+            }
           }
         });
       }

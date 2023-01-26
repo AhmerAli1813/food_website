@@ -13,6 +13,10 @@ $(document).ready(function () {
 
   
 }
+$(document).on("click" , ".cards_box" , function(){
+      console.log($(this).data("tbl"));
+})
+
   function productOneWeekOld() {
     $.ajax({
       type: "POST",

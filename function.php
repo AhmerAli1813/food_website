@@ -268,7 +268,8 @@ function review()
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                                 <br>
-                                <span>'.$row["date"].'</span>
+                                   <span>'.$row["date"].'</span>
+                                   
                             </div>
                         </div>
                     </div>
@@ -305,7 +306,8 @@ function introduction()
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sequi corrupti corporis quaerat voluptatem ipsam neque labore modi autem, saepe numquam quod reprehenderit rem? Tempora aut soluta odio corporis nihil!</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, nemo. Sit porro illo eos cumque deleniti iste alias, eum natus.</p>
                         <div class="icons-container">
-                            <div class="icons">
+                       
+                        <div class="icons">
                                 <i class="fas fa-shipping-fast"></i>
                                 <span>free delivery</span>
                             </div>

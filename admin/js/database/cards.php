@@ -9,7 +9,8 @@ if($q){
             "name" => "all user",
             "result" => $row["user"],
             "color" => "var(--bs-danger)",
-            "icons" => "fas fa-user"
+            "icons" => "fas fa-user",
+            "table" => "user.php"
         ];
         // array_push
       $f[] = $res;
@@ -21,7 +22,8 @@ if($q2){
         "name" => "all products",
         "result" => $row["pro"],
         "color" => "var(--bs-info)",
-        "icons" => "fas fa-cart-arrow-down"
+        "icons" => "fas fa-cart-arrow-down",
+        "table" => "product"
     ];
     $f[] = $res;
 
@@ -35,7 +37,8 @@ if($q3){
         "name" => "all category",
         "result" => $row["cat"],
         "color" => "var(--first-color)",
-        "icons" => "fas fa-utensils"
+        "icons" => "fas fa-utensils",
+        "table" => "catagory"
     ];
     $f[] = $res;
 
@@ -49,7 +52,8 @@ if($q4){
         "name" => "all cards",
         "result" => $row["pro"],
         "color" => "var(--bs-success)",
-        "icons" => "fas fa-cart-arrow-down"
+        "icons" => "fas fa-cart-arrow-down",
+        "table" => "cards"
     ];
     $f[] = $res;
 
@@ -58,13 +62,14 @@ if($q4){
 
 foreach ($f as $row){
 
-$output.='<div class="col-xl-3 col-md-6 mb-4">
+$output.='<div  data-tbl="'.$row["table"].'" class="col-xl-3 col-md-6 mb-4 cards_box " style="cursor: pointer">
     <div class="card border-left shadow h-100 py-2" style="--i:'.$row["color"].'   ">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             '.$row["name"].'    
+                            
                     </div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">'.$row["result"].'</div>
                 </div>
@@ -78,5 +83,5 @@ $output.='<div class="col-xl-3 col-md-6 mb-4">
 
 
 }
-echo json_encode(["data"=>$output] , true);
+echo json_encode(["type"=>"success" , "data" =>$output] , true);
 

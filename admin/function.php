@@ -173,7 +173,6 @@ function search_modal(){
             <div class="row mb-2 mt-3">
               <div class="col-sm-6 d-flex-center ">
                   <div class="dpanel-headings me-auto ms-3">
-
                       <h1 class=" dpanel-title">Dashboard</h1>
                       <h6 class="dpanel-subtitle">ALl found</h6>
                   </div>
@@ -260,36 +259,97 @@ function   cards (){
               <!-- card container -->
               <div class=" card-container container">
                   <div class="row" id="card_row">
-                   </div>
+                           
+                  </div>
               </div>
 ';
 }             
+function tables()
+{
+    echo ' <div class="container-fluid">
 
-function tables(){
-          echo '
-          <!-- card container -->
-          <div class=" card-container container">
-              <div class="row">                       
-                  <div class="col-xl-3 col-md-6 mb-4">
-                      <div class="card border-left-success shadow h-100 py-2">
-                          <div class="card-body">
-                              <div class="row no-gutters align-items-center">
-                                  <div class="col mr-2">
-                                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                          Earnings (Annual)</div>
-                                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <i class="fas fa-dollar-sign fa-2x "></i>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-              </div>
-
-              </div>
-          </div>
-';
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex justify-content-between py-3">
+            <h6 class="m-0 font-weight-bold dpanel-text">User Data </h6>
+            <button type="button" class="btn   dpanel-btn btn-sm" data-bs-toggle="modal" data-bs-target="#userModel">ADD USER</button>
+        </div>
+        <div class="card-body">
+            <div class=" table-responsive " id="dpanel_tbl_container" >
+                
+            </div>
+        </div>
+    </div>
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="userModel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 0.3rem 1rem !important;">
+                    <h5 class="modal-title" id="UserModalTitle"> ADD User data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     <form action="" id="UserForm" method="post">
+                            <input type="hidden" id="UserID" value="">
+                            <input type="hidden" id="trId" value="">
+                            <div class="mb-2">
+                              <label for="" class="form-label">Name</label>
+                              <input type="text" class="form-control" name="UserName" id="UserName" aria-describedby="emailHelpId" placeholder="Name">
+                              
+                            </div>
+                            <div class="mb-2">
+                              <label for="" class="form-label">Email</label>
+                              <input type="email" class="form-control" name="UserEmail" id="UserEmail" aria-describedby="emailHelpId" placeholder="email">
+                              
+                            </div>
+                            <div class="mb-2">
+                              <label for="" class="form-label">password</label>
+                              <input type="password" class="form-control" name="UserPwd" id="UserPwd" aria-describedby="emailHelpId" placeholder="password">
+                              
+                            </div>
+                            <div class="mb-2">
+                                <label for="" class="form-label">Role</label>
+                                <select class="form-select form-select-lg" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" name="UserRole" id="UserRole">
+                                    
+                                    <option selected value="2">user</option>
+                                    <option value="1">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                              <label for="" class="form-label">Choose Image</label>
+                              <input type="file" class="form-control" name="UserImg" id="UserImg" placeholder="" aria-describedby="fileHelpId">
+                            </div>
+    
+                        
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="userSubmit" class="btn btn-primary">Save</button>
+                            </div>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+    
+        <div class="modal fade " id="MsgModel" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <p id="Model_txt"></p>
+            </div>
+            <div class="modal-footer">
+            
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>';
 }
 
               
@@ -297,7 +357,7 @@ function tables(){
        function ad_footers(){
               echo '        </section> <!-- d_body div-->
                    </main>
-                   <script src="js/jquery.min.js"></script>
+                   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" ></script>

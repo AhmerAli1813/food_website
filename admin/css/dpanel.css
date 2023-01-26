@@ -1,4 +1,6 @@
-
+.dpanel-text{
+    color : var(--first-color); 
+}
 header.dpanel-header{
     width: calc(100% - var(--sidebar-width));
 float: right;
@@ -6,6 +8,7 @@ transition: 0.5s;
 background-color: var(--first-color);
 right: 0;
 z-index: 100;
+
 }
 /* bs5 classes edit */
  .list-group-item

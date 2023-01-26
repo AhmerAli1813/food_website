@@ -3,4 +3,5 @@ ad_headers();
 ad_head_content();
 search_modal();
         cards();
+        tables();
 ad_footers();
