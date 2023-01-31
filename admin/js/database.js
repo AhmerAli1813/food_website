@@ -112,7 +112,7 @@ $(document).ready(function () {
       // });
 $(document).on("submit" , "#UserForm" , function(e){
   e.preventDefault();
-  
+
     var name =$("#UserName").val() ,
       id = $("#UserID").val(),
       trId = $("#trID").val(),
