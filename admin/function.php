@@ -54,7 +54,7 @@ echo '<!DOCTYPE html>
                                             if($q){
                                                   while($row = mysqli_fetch_assoc($q)){
                                                   echo  '<a class="dropdown-item color-item '.$row["clr_sts"].' "  data-color-sts = "'.$row["clr_sts"].'" data-color="'.$row["clr"].'"; data-hsl="'.$row["hsl"].'" data-color-alt="'.$row["color_alt"]
-                                                  .'" data-color-lighter="'.$row["color_lighter"].'" data-hsl="340" style="--clr:'.$row["clr"].';" href="#">
+                                                  .'" data-color-lighter="'.$row["color_lighter"].'" data-hsl="'.$row["hsl"].'" style="--clr:'.$row["clr"].';" href="#">
                                                         </a>';
                                             }
                                             } 
@@ -268,19 +268,55 @@ function tables()
 {
     echo ' <div class="container-fluid">
 
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" id="DpanelTable">
         <div class="card-header d-flex justify-content-between py-3">
-            <h6 class="m-0 font-weight-bold dpanel-text">User Data </h6>
-            <button type="button" class="btn   dpanel-btn btn-sm" data-bs-toggle="modal" data-bs-target="#userModel">ADD USER</button>
+            <h6 class="m-0 font-weight-bold dpanel-text table_heading">User Data </h6>
+            <div class="input-group d-flex-between  w-50 " >
+            
+            <div class="d-flex">
+                                    <label>Entity</label>
+            <select class="form-select form-select-sm" name="" id="entity_slc">
+              
+              <option value="2">2</option>
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+                            <div class="form-outline">
+                              <input id="TableSearchInput" type="search"   placeholder="search..." class="form-control" />
+                              
+                            </div> 
+                          </div>
+            <button type="button" class="btn   dpanel-btn btn-sm Add_btn"  data-modal="" >ADD USER</button>
         </div>
         <div class="card-body">
-            <div class=" table-responsive " id="dpanel_tbl_container" >
-                
+            <div class=" table-responsive "  >
+            <div class="Loading_div"><div class="circle"></div></div>
+            <table class="table table-bordered" id="" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                <th>S No:</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+                </tr>
+                </thead>
+                <tbody ></tbody>
+                </table>
+                <caption class=" "> <div class=" d-flex-between w-100">
+                <span>showing 5 record of 100</span>  <nav aria-label="Page navigation">
+                <ul class="pagination    ">
+                  
+                </ul>
+              </nav>  </div></caption>
             </div>
         </div>
     </div>
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="userModel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="userModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 0.3rem 1rem !important;">

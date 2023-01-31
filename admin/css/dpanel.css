@@ -1,5 +1,14 @@
 .dpanel-text{
+    text-transform: capitalize;
     color : var(--first-color); 
+}
+.dpanel-btn{
+    background-color: var(--first-color);
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+.dpanel-btn-alt{
+    background-color: var( --first-color-lighter);
 }
 header.dpanel-header{
     width: calc(100% - var(--sidebar-width));
@@ -152,4 +161,11 @@ main.dpanel-content{
     justify-content: space-between;
     align-items: center;
     
+}
+/* pagiNATION */
+.nxtPrvBtn{
+    display: none;
+}
+.nxtPrvBtn.active{
+    display: block;
 }

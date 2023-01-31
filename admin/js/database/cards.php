@@ -6,11 +6,12 @@ $q = $conn->query("SELECT COUNT(*) as user FROM `register` ");
 if($q){
         $row = mysqli_fetch_assoc($q);
         $res = [
-            "name" => "all user",
+            "name" => "user",
             "result" => $row["user"],
             "color" => "var(--bs-danger)",
             "icons" => "fas fa-user",
-            "table" => "user.php"
+            "table" => "user.php",
+            "formModalId" => "#userModal"
         ];
         // array_push
       $f[] = $res;
@@ -19,11 +20,12 @@ $q2=$conn->query("SELECT COUNT(*) as pro FROM `product`");
 if($q2){
     $row = mysqli_fetch_assoc($q2);
     $res = [
-        "name" => "all products",
+        "name" => "products",
         "result" => $row["pro"],
         "color" => "var(--bs-info)",
         "icons" => "fas fa-cart-arrow-down",
-        "table" => "product"
+        "table" => "product.php",
+        "formModalId" => "#productModal"
     ];
     $f[] = $res;
 
@@ -34,11 +36,12 @@ $q3=$conn->query("SELECT COUNT(*) as cat FROM `catagory` ");
 if($q3){
     $row = mysqli_fetch_assoc($q3);
     $res = [
-        "name" => "all category",
+        "name" => "category",
         "result" => $row["cat"],
         "color" => "var(--first-color)",
         "icons" => "fas fa-utensils",
-        "table" => "catagory"
+        "table" => "cat.php",
+        "formModalId" => "#catModal"
     ];
     $f[] = $res;
 
@@ -49,11 +52,12 @@ $q4=$conn->query("SELECT COUNT(*) as pro FROM `card`");
 if($q4){
     $row = mysqli_fetch_assoc($q4);
     $res = [
-        "name" => "all cards",
+        "name" => "orders",
         "result" => $row["pro"],
         "color" => "var(--bs-success)",
         "icons" => "fas fa-cart-arrow-down",
-        "table" => "cards"
+        "table" => "order.php",
+        "formModalId" => "#orderModal"
     ];
     $f[] = $res;
 
@@ -62,7 +66,7 @@ if($q4){
 
 foreach ($f as $row){
 
-$output.='<div  data-tbl="'.$row["table"].'" class="col-xl-3 col-md-6 mb-4 cards_box " style="cursor: pointer">
+$output.='<div  data-title="'.$row["name"].'" data-tbl="'.$row["table"].'" data-form-modal="'.$row["formModalId"].'" class="col-xl-3 col-md-6 mb-4 cards_box " style="cursor: pointer">
     <div class="card border-left shadow h-100 py-2" style="--i:'.$row["color"].'   ">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
@@ -83,5 +87,5 @@ $output.='<div  data-tbl="'.$row["table"].'" class="col-xl-3 col-md-6 mb-4 cards
 
 
 }
-echo json_encode(["type"=>"success" , "data" =>$output] , true);
+echo json_encode(["type"=>"success" , "data" =>$output , ] , true);
 

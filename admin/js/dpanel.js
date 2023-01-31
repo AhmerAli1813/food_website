@@ -54,42 +54,40 @@ $(".dropdown-menu").css("display" ,"none")
         
         
     });
- // themes
+  // themes
 
- $("#color-gallery .color-item").click(function (e) { 
+  $("#color-gallery .color-item").click(function (e) { 
+    let lst = window.localStorage;
     e.preventDefault();
+    var hsl = $(this).data("hsl");
   var color =  $(this).data("color");
   var color_alt =  $(this).data("color-alt");
   var color_lighter =  $(this).data("color-lighter");
   console.log(`lighter : ${color_lighter} , alt ${color_alt} ,color : ${color}` )
-
   var color_sts =  $(this).data("color-sts");
-   colorChange(color , color_sts ,color_alt ,color_lighter)    
-        
+            lst.setItem("hsl" , hsl);
+            lst.setItem("theme" , color_sts );
+  theme();
 });
-function colorChange(clr , sts ,clr_alt,clr_lighter){
-    $(":root").css("--hue-color" , clr);
-    if(sts == "dark"){
-        $(":root").css("--body-color" , `var(--bs-dark)`)   
-        $(":root").css("--body-color-light" , `var(--bs-gray-dark)`)   
-        $(":root").css("--text-color" , `white`)   
-     var nodeRoot = document.documentElement.style;
-        nodeRoot.setProperty("--text-color" , `white`)
-        $(":root").css("--first-color" ,`${clr}` );
-        $(":root").css("--first-color-alt" ,`${clr_alt}` );
-        $(":root").css("--first-color-lighter" ,`${clr_lighter}` );
-    }else {
-        
-        $(":root").css("--body-color" , `white`)
-        $(":root").css("--body-color-light" , `#eee`)      
-        $(":root").css("--text-color" , `var(--bs-dark)`)  
-         $(":root").css("--first-color" ,`${clr}` );
-        $(":root").css("--first-color-alt" ,`${clr_alt}` );
-        $(":root").css("--first-color-lighter" ,`${clr_lighter}` );
 
-    }
-   
+function theme(){
+let lst = window.localStorage;
+    let hsl = lst.getItem("hsl");
+    let theme = lst.getItem("theme");
+    $(":root").css("--hue-color" , hsl );
+    if(theme== "dark"){
+      $(":root").css("--body-color" , `var(--bs-dark)`)   
+      $(":root").css("--body-color-light" , `var(--bs-gray-dark)`)   
+      $(":root").css("--text-color" , `white`)   
+      
+  }else {
+      
+      $(":root").css("--body-color" , `white`)
+      $(":root").css("--body-color-light" , `#eee`)      
+      $(":root").css("--text-color" , `var(--bs-dark)`)  
+  }
 }
+theme();
                 // active class moving
                 $('.sidebar-item').click(function(e) {
                     
