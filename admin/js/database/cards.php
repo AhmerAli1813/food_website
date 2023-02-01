@@ -25,7 +25,7 @@ if($q2){
         "color" => "var(--bs-info)",
         "icons" => "fas fa-cart-arrow-down",
         "table" => "product.php",
-        "formModalId" => "#productModal"
+        "formModalId" => "#productsModal"
     ];
     $f[] = $res;
 
@@ -41,7 +41,7 @@ if($q3){
         "color" => "var(--first-color)",
         "icons" => "fas fa-utensils",
         "table" => "cat.php",
-        "formModalId" => "#catModal"
+        "formModalId" => "#categoryModal"
     ];
     $f[] = $res;
 
@@ -57,7 +57,7 @@ if($q4){
         "color" => "var(--bs-success)",
         "icons" => "fas fa-cart-arrow-down",
         "table" => "order.php",
-        "formModalId" => "#orderModal"
+        "formModalId" => "#ordersModal"
     ];
     $f[] = $res;
 

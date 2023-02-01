@@ -79,14 +79,16 @@ showTable();
           data: data,
           dataType: dataType,
           success: function (response) {
-
+            
             if(response.type == "success"){
                 
            $(res_id).html(response.data);
+
             
             }else{
               console.log("error")
             }
+            return response;
           }
         });
       };
@@ -261,7 +263,42 @@ end = end>total_page?total_page:end;
   }else{
     console.log("error")
   }
- }
+ };
+
+ //     inserting or editing data in database with ajax
+let formModalName = window.localStorage.getItem("TableName"),
+           formBtn = `${formModalName}Submit` ;
+
+$(`#${formBtn}`).click(function (e) { 
+  e.preventDefault();
+        let url = `js/database/${formModalName}Update.php`;
+        let form = `${formModalName}Form`;
+        var Data = new FormData(document.getElementById(form));
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "JSON",
+        data: Data,
+        processData: false,
+        contentType: false,
+        success: function (data)
+        {
+            if(data.type =="success"){
+              $(`#${formModalName}Modal`).modal("hide");               
+            }
+            message(data.type, data.msg);
+        },
+        error: function (xhr, desc, err)
+        {
+            
+
+        }
+    });        
+
+
+  
+});
+
 
  // alert msg
 function message( types, txt){
@@ -269,7 +306,7 @@ function message( types, txt){
     $("#Model_txt").text(txt);
     $(".modal-title").text(types);
     $("#MsgModel").modal("show")
-    $("#MsgModel").delay(2000).modal("show")
+    $("#MsgModel").delay(2000).modal("hide")
 
   
 }
