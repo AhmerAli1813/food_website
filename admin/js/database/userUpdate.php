@@ -4,11 +4,11 @@ include '../../../database/conf.php';
  $u_id = (isset($_POST["U_id"]) != "") ?  mysqli_real_escape_string($conn, $_POST["U_id"]) : "";
  $name = mysqli_real_escape_string($conn, $_POST["UserName"]);
  $email = mysqli_real_escape_string($conn, $_POST["UserEmail"]);
- $pwd = mysqli_real_escape_string($conn, $_POST["UserPwd"]);
- $role_id = mysqli_real_escape_string($conn, $_POST["UserRole"]);
- $unique_id = rand(time(), 10000);
- $sts = "Offline";
-if ($name != "" && $email != "" && $pwd != "") {
+$role_id = mysqli_real_escape_string($conn, $_POST["UserRole"]);
+$pwd = (isset($_POST["UserPwd"]) != "") ?  mysqli_real_escape_string($conn, $_POST["UserPwd"]) : "";;
+$unique_id = (isset($_POST["UserUniqueId"]) != "") ?  mysqli_real_escape_string($conn, $_POST["UserUniqueId"]) : rand(time(), 10000);
+ $sts = (isset($_POST["UserSts"]) != "") ?  mysqli_real_escape_string($conn, $_POST["UserSts"]) : "signal_cellular_null";
+if ($name != "" && $email != "" ) {
     if(isset($_FILES["UserImg"])){
         $img_name = $_FILES["UserImg"]["name"];//this is getting image name 
         $img_type = $_FILES["UserImg"]["type"]; // this is getting image type 
@@ -22,21 +22,36 @@ if ($name != "" && $email != "" && $pwd != "") {
             $time = time(); // this function  given curren time when user upload img
             $new_img_name = $time.$img_name;
             if(move_uploaded_file($tmp_name , "../../../database/upload/".$new_img_name)){ // if user uploaded img successfully
-                $img =  $new_img_name;    
-                $q = $conn->query("INSERT INTO `register`( `unique_id`, `Name`, `email`, `password`, `image`, `status`, `role_id`) 
-                      VALUES ('{$unique_id}','{$name}' ,'{$email}' , '{$pwd}' ,'{$img}' ,'{$sts}' , $role_id )  
-                              ON DUPLICATE KEY UPDATE u_id = '{$u_id}'; ");
-                  if ($q) {
-                      $data = array(
-                          "type" => "success",
-                          "msg" => "command successfully"
-                      );
-                  } else {
-                      $data = array(
-                          "type" => "error",
-                          "msg" => "Something Went wrong"
-                      );
+                $img =  $new_img_name;
+                  if($_POST["action"] == "insert"){
+                    $q = $conn->query("INSERT INTO `register`( `unique_id`, `Name`, `email`, `password`, `image`, `status`, `role_id`) 
+                    VALUES ('{$unique_id}','{$name}' ,'{$email}' , '{$pwd}' ,'{$img}' ,'{$sts}' , $role_id );");
+                            if ($q) {
+                                $data = array(
+                                    "type" => "success",
+                                    "msg" => "your data successfully insert"
+                                );
+                            } else {
+                                $data = array(
+                                    "type" => "error",
+                                    "msg" => "Something Went wrong"
+                                );
+                            }
                   }
+                if($_POST["action"]=="update"){
+                    $q2=$conn->query("UPDATE `register` SET `Name`='$name',`email`='$email',`image`='$img',`role_id`='$role_id' WHERE u_id = $u_id");
+                    if ($q2) {
+                        $data = array(
+                            "type" => "success",
+                            "msg" => "your Data is updated"
+                        );
+                    } else {
+                        $data = array(
+                            "type" => "error",
+                            "msg" => "Something Went wrong"
+                        );
+                    }
+                }
 
             }else{
                 $data = array(
@@ -63,7 +78,7 @@ if ($name != "" && $email != "" && $pwd != "") {
    
 } else {
     $data = array(
-        "type" => "success",
+        "type" => "error",
         "msg" => "All Filed Required"
     );
 }

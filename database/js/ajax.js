@@ -3,7 +3,7 @@ $(document).ready(function () {
   AllProduct();
   productOneWeekOld();
   OrderFormHtml();
-  // jsonFilesUpdate();
+  jsonFilesUpdate();
   function message( types, txt){
   
     $("#Model_txt").text(txt);
@@ -82,29 +82,29 @@ $(document).on("click" , ".cards_box" , function(){
     });
   }
 
-  // function jsonFilesUpdate() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "database/jsonFile.php",
-  //     data: {
-  //       json_file: [
-  //         "catJson",
-  //         "sctJson",
-  //         "userJson",
-  //         "bannerJson",
-  //         "productJson",
-  //         "cartJson",
-  //       ],
-  //     },
-  //     success: function (response) {
-  //       console.log(response);
-  //     },
+  function jsonFilesUpdate() {
+    $.ajax({
+      type: "POST",
+      url: "database/jsonFile.php",
+      data: {
+        json_file: [
+          "catJson",
+          "sctJson",
+          "userJson",
+          "bannerJson",
+          "productJson",
+          "cartJson",
+        ],
+      },
+      success: function (response) {
+        console.log(response);
+      },
 
-  //     error: function (response) {
-  //       console.log(response);
-  //     },
-  //   });
-  // }
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
 
   
   function checkUserLogin(res) {

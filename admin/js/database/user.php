@@ -51,15 +51,11 @@ $run_query = $conn->query($sql);
 $filtered_rows = mysqli_num_rows($run_query);
 $sno = 0;
 while($row = mysqli_fetch_assoc($run_query)){
-        if($row["status"] != "offline"){
+        
             $status = '<i class="material-symbols-outlined">
-                            signal_cellular_4_bar
+                            '.$row["status"].'
                             </i>';
-        }else{
-                    $status = '<i class="material-symbols-outlined">
-                    signal_cellular_null
-                    </i>';     
-        }
+        
     $sno++;
     $q2=$conn->query("SELECT * FROM `role` WHERE role_id = '{$row["role_id"]}' ");
     $row2=$q2->fetch_assoc();
@@ -70,7 +66,7 @@ while($row = mysqli_fetch_assoc($run_query)){
     $subarray[] = $row["email"];
     $subarray[] = $row2["role_name"];
     $subarray[] = $status;
-    $subarray[] = "<a href='javascript:void(0)' class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='UserEditBtn' data-id='{$row['u_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' data-id='{$row['u_id']}'>Delete</a>";
+    $subarray[] = "<a  class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='userEditBtn' data-form='userEditForm' data-id='{$row['u_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' id='userDelBtn' data-id='{$row['u_id']}'>Delete</a>";
     $data[] = $subarray;
 }
 

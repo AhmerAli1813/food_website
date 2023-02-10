@@ -9,7 +9,7 @@
         "p_desc": "zinger buger is very nice",
         "p_prize": "80",
         "p_image": "dish1.png",
-        "status": "good",
+        "status": "show",
         "action": "far"
     },
     {
@@ -22,7 +22,7 @@
         "p_desc": "this is roster",
         "p_prize": "110",
         "p_image": "dish-2.png",
-        "status": "nicee",
+        "status": "show",
         "action": "far"
     },
     {
@@ -35,7 +35,7 @@
         "p_desc": "pizza is  is very nice",
         "p_prize": "280",
         "p_image": "dish-4.png",
-        "status": "special",
+        "status": "show",
         "action": "far"
     },
     {
@@ -48,7 +48,7 @@
         "p_desc": "this is roster",
         "p_prize": "160",
         "p_image": "dish-6.png",
-        "status": "nicee",
+        "status": "show",
         "action": "far"
     },
     {
@@ -61,7 +61,98 @@
         "p_desc": "ice cream is nice",
         "p_prize": "140",
         "p_image": "dish-5.png",
-        "status": "special",
+        "status": "hide",
+        "action": "far"
+    },
+    {
+        "p_id": "6",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "ELK burger",
+        "p_subtitle": "Lean, delicious ",
+        "p_desc": "Lean, delicious and free-range , Awesome In Rang , Elk Burger is Spicy",
+        "p_prize": "360",
+        "p_image": "1675515405dish-7.png",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "7",
+        "cat_id": "3",
+        "scat_id": "3",
+        "u_id": "2",
+        "p_title": "down pizza",
+        "p_subtitle": "Lean, delicious ",
+        "p_desc": "ou want the best pizza to be cooked to a crisp. The cheese should be melted, the crust should have some crunch to it, the toppings should be well-cook",
+        "p_prize": "320",
+        "p_image": "1675526105dish-4.png",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "8",
+        "cat_id": "5",
+        "scat_id": "5",
+        "u_id": "2",
+        "p_title": "black ice cream",
+        "p_subtitle": "so Delicious",
+        "p_desc": " ice cream is nice",
+        "p_prize": "250",
+        "p_image": "1675526263dish-5.png",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "9",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "test",
+        "p_subtitle": "$subtile",
+        "p_desc": "$desc",
+        "p_prize": "0",
+        "p_image": "$img",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "10",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "hello title",
+        "p_subtitle": "hello subtile",
+        "p_desc": "hello",
+        "p_prize": "100",
+        "p_image": "img.php",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "11",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "hello title",
+        "p_subtitle": "hello subtile",
+        "p_desc": "hello",
+        "p_prize": "100",
+        "p_image": "img.php",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "12",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "hello again title",
+        "p_subtitle": "hello subtile",
+        "p_desc": "hello",
+        "p_prize": "100",
+        "p_image": "img.php",
+        "status": "show",
         "action": "far"
     }
 ]

@@ -17,7 +17,7 @@ $output = '';
                                                 if($result["password"] == $pass ){
                                                         echo "success";
                                                        
-                                                                $q3 = $conn->query("UPDATE `register` SET `status`='active now' WHERE `email` = '$email'") or die("update query failed");
+                                                                $q3 = $conn->query("UPDATE `register` SET `status`='signal_cellular_4_bar' WHERE `email` = '$email'") or die("update query failed");
                                                                 $_SESSION["unique_id"] = $result["unique_id"];
                                                                 $_SESSION["u_id"] = $result["u_id"];
                                                                 $_SESSION["role_id"] = $result["role_id"];

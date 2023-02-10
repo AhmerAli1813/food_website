@@ -11,7 +11,7 @@ if($q){
             "color" => "var(--bs-danger)",
             "icons" => "fas fa-user",
             "table" => "user.php",
-            "formModalId" => "#userModal"
+            "formModalId" => "#userInsertModal"
         ];
         // array_push
       $f[] = $res;
@@ -25,13 +25,27 @@ if($q2){
         "color" => "var(--bs-info)",
         "icons" => "fas fa-cart-arrow-down",
         "table" => "product.php",
-        "formModalId" => "#productsModal"
+        "formModalId" => "#productsInsertModal"
     ];
     $f[] = $res;
 
 
 }
+$q5=$conn->query("SELECT COUNT(*) as pro FROM `banner`");
+if($q5){
+    $row = mysqli_fetch_assoc($q5);
+    $res = [
+        "name" => "Banners",
+        "result" => $row["pro"],
+        "color" => "var(--bs-warning)",
+        "icons" => "fas fa-images",
+        "table" => "banner.php",
+        "formModalId" => "#bannersInsertModal"
+    ];
+    $f[] = $res;
 
+
+}
 $q3=$conn->query("SELECT COUNT(*) as cat FROM `catagory` ");
 if($q3){
     $row = mysqli_fetch_assoc($q3);
@@ -39,25 +53,41 @@ if($q3){
         "name" => "category",
         "result" => $row["cat"],
         "color" => "var(--first-color)",
-        "icons" => "fas fa-utensils",
+        "icons" => "fas  fa-cookie",
         "table" => "cat.php",
-        "formModalId" => "#categoryModal"
+        "formModalId" => "#categoryInsertModal"
     ];
     $f[] = $res;
 
 
 }
 
-$q4=$conn->query("SELECT COUNT(*) as pro FROM `card`");
+$q4=$conn->query("SELECT COUNT(*) as scat FROM `sub_category` ");
 if($q4){
     $row = mysqli_fetch_assoc($q4);
+    $res = [
+        "name" => "sub Category",
+        "result" => $row["scat"],
+        "color" => "var(--bs-gray)",
+        "icons" => "fas  fa-cookie-bite",
+        "table" => "SubCat.php",
+        "formModalId" => "#SubCategoryInsertModal"
+    ];
+    $f[] = $res;
+
+
+}
+
+$q6=$conn->query("SELECT COUNT(*) as pro FROM `card`");
+if($q6){
+    $row = mysqli_fetch_assoc($q6);
     $res = [
         "name" => "orders",
         "result" => $row["pro"],
         "color" => "var(--bs-success)",
         "icons" => "fas fa-cart-arrow-down",
         "table" => "order.php",
-        "formModalId" => "#ordersModal"
+        "formModalId" => "#ordersInsertModal"
     ];
     $f[] = $res;
 

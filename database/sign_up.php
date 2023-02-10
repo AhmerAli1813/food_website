@@ -37,7 +37,7 @@ if(!empty($u_name) && !empty($u_email) && !empty($u_pass) ){
                                         $time = time(); // this function  given curren time when user upload img
                                         $new_img_name = $time.$img_name;
                                         if(move_uploaded_file($tmp_name , "upload/".$new_img_name)){ // if user uploaded img successfully 
-                                            $status = "Active now";
+                                            $status = "signal_cellular_4_bar";
                                         $unique_id = rand(time(),10000);
                                                 
                                         // $q2 = "";

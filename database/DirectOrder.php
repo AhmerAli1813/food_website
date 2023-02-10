@@ -24,7 +24,7 @@ if (!empty($email)  && !empty($number)  &&!empty($address)  && !empty($qty)  ) {
         die();
     }
     if (!isset($_SESSION["u_id"])) {
-        $sts = "Active Now";
+        $sts = "signal_cellular_null";
         $q = $conn->query("SELECT * FROM `register` where email = '$email' ");
 
         if ($q == false) {
@@ -74,7 +74,7 @@ if (!empty($email)  && !empty($number)  &&!empty($address)  && !empty($qty)  ) {
                         
                         if ($user_data["password"] == $password) {
                             
-                            $q7 = $conn->query("UPDATE `register` SET `status`='Active Now' WHERE email = '$email'");
+                            $q7 = $conn->query("UPDATE `register` SET `status`='signal_cellular_null' WHERE email = '$email'");
                             $u_id = $user_data["u_id"];
                             $_SESSION["u_id"] = $user_data["u_id"];
                             $_SESSION["role_id"] = $user_data["role_id"];

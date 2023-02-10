@@ -11,6 +11,7 @@ showTable();
     let data = {"action" : "loadTable"}
     window.localStorage.setItem("url" , url );
     window.localStorage.setItem("TableName" , title );
+    window.localStorage.setItem("modalId" , modalID );
     MyTable("POST" , url ,data,"json" ,"#DpanelTable")
     $("#DpanelTable .table_heading").html(title+ " Data" )
     $("#DpanelTable .Add_btn").html("Add "+ title )
@@ -80,22 +81,22 @@ showTable();
           dataType: dataType,
           success: function (response) {
             
-            if(response.type == "success"){
-                
-           $(res_id).html(response.data);
-
-            
-            }else{
-              console.log("error")
+            if(res_id !=""){
+           $(res_id).html(response.data); 
             }
-            return response;
+            
           }
         });
       };
+      
 // showing tables      
 function showTable(data){
-  url = window.localStorage.getItem("url");
-
+ let url = window.localStorage.getItem("url"),
+  modalID = window.localStorage.getItem("modalId"),
+        title = window.localStorage.getItem("TableName");
+  $("#DpanelTable .table_heading").html(title+ " Data" );
+  $("#DpanelTable .Add_btn").html("Add "+ title );
+  $("#DpanelTable .Add_btn").data("modal" , modalID );
   MyTable("POST" , url , data , "json" , "#DpanelTable");
 }
 // pagination start heare
@@ -266,13 +267,22 @@ end = end>total_page?total_page:end;
  };
 
  //     inserting or editing data in database with ajax
-let formModalName = window.localStorage.getItem("TableName"),
-           formBtn = `${formModalName}Submit` ;
+ let formModalName = window.localStorage.getItem("TableName"),
+ form = `${formModalName}Form`,
 
-$(`#${formBtn}`).click(function (e) { 
+ formBtn = `#${formModalName}Submit`,
+  editBtn = `#${formModalName}EditBtn`,
+  deleteBtn = `#${formModalName}DelBtn`,
+  ModalName = `#${formModalName}Modal`;
+   console.log(ModalName)
+           
+
+
+$(document).on("click" , `#${form} ${formBtn}` , function(e) {
+  
   e.preventDefault();
         let url = `js/database/${formModalName}Update.php`;
-        let form = `${formModalName}Form`;
+          
         var Data = new FormData(document.getElementById(form));
     $.ajax({
         url: url,
@@ -284,13 +294,15 @@ $(`#${formBtn}`).click(function (e) {
         success: function (data)
         {
             if(data.type =="success"){
-              $(`#${formModalName}Modal`).modal("hide");               
+              $(`${ModalName}`).modal("hide");               
             }
             message(data.type, data.msg);
+            cardsLoad();
+
         },
         error: function (xhr, desc, err)
         {
-            
+            console.log(xhr , err)
 
         }
     });        
@@ -298,18 +310,102 @@ $(`#${formBtn}`).click(function (e) {
 
   
 });
+$(document).on("click" , `#${form}Edit ${formBtn}` , function(e) {
+ let myForm = `${form}Edit`;
+  e.preventDefault();
+  
+        let url = `js/database/${formModalName}Update.php`;
+          
+        var Data = new FormData(document.getElementById(myForm));
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "JSON",
+        data: Data,
+        processData: false,
+        contentType: false,
+        success: function (data)
+        {
+            if(data.type =="success"){
+              $(`${ModalName}EditModal`).modal("hide");               
+            }
+            message(data.type, data.msg);
+            cardsLoad();
 
+        },
+        error: function (xhr, desc, err)
+        {
+            console.log(xhr , err)
+
+        }
+    });        
+
+
+  
+});
+// get record where user  click edite button
+$(document).on("click" , editBtn  , function(){
+  
+  let id = $(this).data("id"),
+  url = `js/database/action/${formModalName}Action.php`,
+  ModalNames = `#${formModalName}EditModal`;
+  
+  console.log(url)
+  let data = {"action" : "get" , "id" :id}
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          dataType: "json",
+          success: function (response) {
+            console.log(response)
+            if(response.type == "success"){
+                  modalFire(ModalNames);
+                  $(`#${form}Edit`).html(response.data)
+                  showTable();                    
+            }
+          },
+          error : function(err){
+            console.log(err);
+          }
+        });
+})
+$(document).on("click" ,deleteBtn , function(e){
+  e.preventDefault();
+  // alert();
+      let id = $(this).data("id"),
+      url = `js/database/action/${formModalName}Action.php`,
+      data = {"action" : "del" , "id" :id}
+      $(this).parent().parent().hide();
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: data,
+    dataType: "json",
+    success: function (response) {
+      console.log(response)
+      if(response.type == "success"){
+            message(response.type ,response.msg)
+            cardsLoad()
+      }
+    }
+  });
+ 
+})
 
  // alert msg
 function message( types, txt){
-  
+  console.log(`type = ${types} , Text = ${txt}`)
     $("#Model_txt").text(txt);
-    $(".modal-title").text(types);
+    $("#MsgModel .modal-title").text(types);
     $("#MsgModel").modal("show")
-    $("#MsgModel").delay(2000).modal("hide")
+    window.setTimeout(function(){
+      $('#MsgModel').modal('hide');
+   }, 2000)
 
   
 }
+
 $(document).on("click" , ".Add_btn" , function (){
   let ModalId = $(this).data("modal")
 modalFire(ModalId);
@@ -318,4 +414,60 @@ function modalFire(id){
   $(id).modal("show"); 
 }
 
+function modalHide(id){
+  $(id).modal("hide"); 
+}
+
+
+
+
+
+fetch("http://localhost/food_website/database/js/json/Cat_Json_file.json").then((response) => {
+  if (response.ok) {
+    return response.json();
+  }
+  throw new Error('Something went wrong');
+})
+.then((responseJson) => {
+  let option = `<option selected> select </option>`;
+      console.log(responseJson[2]["cat_name"])
+      for(let i=0; i<responseJson.length; i++){
+          option +=`<option value="${responseJson[i]["cat_id"]}"> ${responseJson[i]["cat_name"]}</option>`;
+      };
+    $("#cat_select_input").html(option);  
+})
+
+$(document).on("change" , "#cat_select_input" , function()
+{
+  let cat_id = $(this).val();
+fetch("http://localhost/food_website/database/js/json/subCat_Json_file.json").then((response) => {
+  if (response.ok) {
+    return response.json();
+  }
+  throw new Error('Something went wrong');
+})
+.then((responseJson) => {
+  let option = `<option selected> select </option>`;
+      
+      for(let i=0; i<responseJson.length; i++){
+          if(responseJson[i]["cat_id"] == cat_id){
+            option +=`<option value="${responseJson[i]["scat_id"]}"> ${responseJson[i]["scat_name"]}</option>`;
+          }
+        
+      };
+      
+    $("#Scat_select_input").removeAttr("disabled");  
+    $("#Scat_select_input").html(option);  
+})
+
+  
+
+})
+
+
+
+
+
   } );
+  
+  

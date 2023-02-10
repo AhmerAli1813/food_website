@@ -1,1 +1,38 @@
-null
+[
+    {
+        "cr_id": "6",
+        "inv_id": "inv_005401",
+        "cat_id": "4",
+        "pro_id": "2",
+        "u_id": "2",
+        "qty": "4",
+        "prize": "110",
+        "tax": "3",
+        "date": "2023-01-18 09:54:53.000000",
+        "status": "purchasing"
+    },
+    {
+        "cr_id": "16",
+        "inv_id": "inv_005402",
+        "cat_id": "3",
+        "pro_id": "3",
+        "u_id": "2",
+        "qty": "1",
+        "prize": "280",
+        "tax": "3",
+        "date": "2023-01-20 04:05:55.000000",
+        "status": "purchasing"
+    },
+    {
+        "cr_id": "17",
+        "inv_id": "inv_005403",
+        "cat_id": "4",
+        "pro_id": "2",
+        "u_id": "3",
+        "qty": "4",
+        "prize": "110",
+        "tax": "3",
+        "date": "2023-01-20 04:29:00.000000",
+        "status": "purchasing"
+    }
+]

@@ -53,6 +53,11 @@ $run_query = $conn->query($sql);
 $filtered_rows = mysqli_num_rows($run_query);
 $sno = 0;
 while($row = mysqli_fetch_assoc($run_query)){
+    if($row["status"]=="show"){
+            $checked = "checked";
+    }else{
+        $checked = "";
+    };
     $sno++;
     $subarray = array();
     $subarray[] = $sno;
@@ -60,9 +65,13 @@ while($row = mysqli_fetch_assoc($run_query)){
     $subarray[] = $row["p_title"];
     $subarray[] = $row["p_subtitle"];
     $subarray[] = $row["p_prize"];
-    $subarray[] = $row["status"];
-    $subarray[] = "<a href='javascript:void(0)' class='btn btn-sm mr-1 btn-info' id='UserEditBtn' data-id='{$row['p_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger' data-id='{$row['p_id']}'>Delete</a>";
-    $data[] = $subarray;
+    $subarray[] = '<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" '.$checked.'>
+    
+                </div>
+  ';
+  $subarray[] = "<a  class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='productsEditBtn' data-id='{$row['p_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' id='productsDelBtn' data-id='{$row['p_id']}'>Delete</a>";
+     $data[] = $subarray;
 };
 $col = [];
 $col[] = '<th  data-by="'.$order.'" data-table-th="p_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
