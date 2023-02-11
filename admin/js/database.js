@@ -276,8 +276,8 @@ end = end>total_page?total_page:end;
   ModalName = `#${formModalName}Modal`;
    console.log(`modalname = ${formModalName} , form = ${form} , formButton = ${formBtn} `)
            
-// inset form button 
-// get record where user  click edite button
+// insert update or deleted crud start here  
+//   getting records of item on dehave Id  click edit button
 $(document).on("click" , editBtn  , function(){
   
   let id = $(this).data("id"),
@@ -305,7 +305,7 @@ $(document).on("click" , editBtn  , function(){
           }
         });
 })
-
+//this function  is used insert and update crud in php, dynamic form single time we making  they getting all  attribute from form  our work is very simple  
 $(document).on("submit", `form`, function (e) { 
   e.preventDefault();
   
@@ -340,7 +340,7 @@ $(document).on("submit", `form`, function (e) {
           });
 
 });
-
+//dynamic deleted button
 $(document).on("click" ,deleteBtn , function(e){
   e.preventDefault();
   // alert();
