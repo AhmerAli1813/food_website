@@ -9,7 +9,7 @@ if(isset($_POST["action"])){
           if(mysqli_num_rows($q)){
           $form ='';
           $data=mysqli_fetch_assoc($q);
-          $form .= ' <form  id="productsFormEdit" method="post">
+          $form .= ' <form  id="productsEditForm" action="js/database/ProductsUpdate.php" method="post"  accept-charset="multipart/form-data" >
           <input type="hidden" name="pID" value="'.$data["p_id"].'">
           <input type="hidden" name="action" value="update">
           <div  class="row">
@@ -68,7 +68,7 @@ if(isset($_POST["action"])){
       
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" id="productsSubmit" class="btn btn-primary">Save</button>
+              <button type="submit" id="productsSubmit" class="btn btn-primary">Save</button>
           </div>
           </div>
         </div>

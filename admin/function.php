@@ -333,7 +333,7 @@ function formModals(){
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form  id="userForm"  accept-charset="multipart/form-data" >
+                  <form  id="userInsertForm" action="js/database/userUpdate.php" method="post"  accept-charset="multipart/form-data" >
                           
                           <input type="hidden" name="action" value="insert">
                           <div class="mb-2">
@@ -367,14 +367,14 @@ function formModals(){
                       
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" id="userSubmit" class="btn btn-primary">Save</button>
+                              <button type="submit" id="userSubmit" class="btn btn-primary">Save</button>
                           </div>
                           </div>
                       </form>
           </div>
       </div>
 </div>
-  <div class="modal fade" id="userEditModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal fade" id="EditModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
               <div class="modal-header" style="padding: 0.3rem 1rem !important;">
@@ -382,8 +382,9 @@ function formModals(){
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form  id="userFormEdit"   accept-charset="multipart/form-data" >
-                      </form>
+                  <div  id="FormEdit"  >
+                  
+                      </div>
           </div>
       </div>
       </div>
@@ -396,7 +397,7 @@ function formModals(){
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-              <form  id="productsForm" method="post">
+              <form  id="productsInsertForm" action="js/database/productsUpdate.php" method="post"  accept-charset="multipart/form-data" >
                           
               <input type="hidden" name="action" value="insert">
               <div class="row">
@@ -470,7 +471,7 @@ function formModals(){
           
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" id="productsSubmit" class="btn btn-primary">Save</button>
+                  <button type="submit" id="productsSubmit" class="btn btn-primary">Save</button>
               </div>
               </div>
           </form>
@@ -478,63 +479,7 @@ function formModals(){
       </div>
 </div>
 </div>
-<div class="modal fade" id="productsEditModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-          <div class="modal-content">
-              <div class="modal-header" style="padding: 0.3rem 1rem !important;">
-                  <h5 class="modal-title" > Edit Product </h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <form  id="productsFormEdit"  method="post">
-                          <input type="hidden" id="pID" value="">
-                          <input type="hidden" id="trId" value="">
-                          <div class="mb-2">
-                            <label for="" class="form-label">Title</label>
-                            <input type="text" class="form-control" name="pTitle"  placeholder="Title">
-                            
-                          </div>
-                          <div class="mb-2">
-                            <label for="" class="form-label">Subtitle</label>
-                            <input type="text" class="form-control" name="pSubtitle"  placeholder="Subtile">
-                            
-                          </div>
-                          <div class="mb-2">
-                            <label for="" class="form-label">Prize</label>
-                            <input type="tel" class="form-control" name="pPrize" >
-                            
-                          </div>
-                          <div class="mb-2">
-                          <label for="" class="form-label">Category</label>
-                          <select class="form-select form-select-lg" name="pCat_id" id="cat_select_input" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" name="UserRole" id="UserRole">
-                              
-                          </select>
-                      </div>
-                          <div class="mb-2">
-                          <label for="" class="form-label">Sub Category</label>
-                          <select class="form-select form-select-lg " name="pScat_id" disabled id="Scat_select_input" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" name="UserRole" id="UserRole">
-                              
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="" class="form-label">description</label>
-                        <textarea class="form-control" name="pDesc" id="" rows="3"></textarea>
-                      </div>
-                          <div class="mb-2">
-                            <label for="" class="form-label">Choose Image</label>
-                            <input type="file" class="form-control" name="pImg" >
-                          </div>
-  
-                      
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" id="productsSubmit" class="btn btn-primary">Save</button>
-                          </div>
-                          </div>
-                      </form>
-          </div>
-      </div>
-</div>
+
 
 ';
 }

@@ -70,7 +70,7 @@ while($row = mysqli_fetch_assoc($run_query)){
     
                 </div>
   ';
-  $subarray[] = "<a  class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='productsEditBtn' data-id='{$row['p_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' id='productsDelBtn' data-id='{$row['p_id']}'>Delete</a>";
+  $subarray[] = "<a  class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='EditBtn' data-id='{$row['p_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' id='productsDelBtn' data-id='{$row['p_id']}'>Delete</a>";
      $data[] = $subarray;
 };
 $col = [];

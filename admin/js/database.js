@@ -267,88 +267,23 @@ end = end>total_page?total_page:end;
  };
 
  //     inserting or editing data in database with ajax
+
  let formModalName = window.localStorage.getItem("TableName"),
  form = `${formModalName}Form`,
-
  formBtn = `#${formModalName}Submit`,
-  editBtn = `#${formModalName}EditBtn`,
+  editBtn = `#EditBtn`,
   deleteBtn = `#${formModalName}DelBtn`,
   ModalName = `#${formModalName}Modal`;
-   console.log(ModalName)
+   console.log(`modalname = ${formModalName} , form = ${form} , formButton = ${formBtn} `)
            
-
-
-$(document).on("click" , `#${form} ${formBtn}` , function(e) {
-  
-  e.preventDefault();
-        let url = `js/database/${formModalName}Update.php`;
-          
-        var Data = new FormData(document.getElementById(form));
-    $.ajax({
-        url: url,
-        type: "POST",
-        dataType: "JSON",
-        data: Data,
-        processData: false,
-        contentType: false,
-        success: function (data)
-        {
-            if(data.type =="success"){
-              $(`${ModalName}`).modal("hide");               
-            }
-            message(data.type, data.msg);
-            cardsLoad();
-
-        },
-        error: function (xhr, desc, err)
-        {
-            console.log(xhr , err)
-
-        }
-    });        
-
-
-  
-});
-$(document).on("click" , `#${form}Edit ${formBtn}` , function(e) {
- let myForm = `${form}Edit`;
-  e.preventDefault();
-  
-        let url = `js/database/${formModalName}Update.php`;
-          
-        var Data = new FormData(document.getElementById(myForm));
-    $.ajax({
-        url: url,
-        type: "POST",
-        dataType: "JSON",
-        data: Data,
-        processData: false,
-        contentType: false,
-        success: function (data)
-        {
-            if(data.type =="success"){
-              $(`${ModalName}EditModal`).modal("hide");               
-            }
-            message(data.type, data.msg);
-            cardsLoad();
-
-        },
-        error: function (xhr, desc, err)
-        {
-            console.log(xhr , err)
-
-        }
-    });        
-
-
-  
-});
+// inset form button 
 // get record where user  click edite button
 $(document).on("click" , editBtn  , function(){
   
   let id = $(this).data("id"),
+   formModalName = window.localStorage.getItem("TableName"),
   url = `js/database/action/${formModalName}Action.php`,
-  ModalNames = `#${formModalName}EditModal`;
+  ModalNames = `#EditModal`;
   
   console.log(url)
   let data = {"action" : "get" , "id" :id}
@@ -361,7 +296,7 @@ $(document).on("click" , editBtn  , function(){
             console.log(response)
             if(response.type == "success"){
                   modalFire(ModalNames);
-                  $(`#${form}Edit`).html(response.data)
+                  $(`#FormEdit`).html(response.data)
                   showTable();                    
             }
           },
@@ -370,6 +305,42 @@ $(document).on("click" , editBtn  , function(){
           }
         });
 })
+
+$(document).on("submit", `form`, function (e) { 
+  e.preventDefault();
+  
+  let formModalNames = window.localStorage.getItem("TableName");  
+          console.log(formModalNames);
+              var formId = $(this).attr("id");
+              console.log(formId);
+          var Data = new FormData(document.getElementById(formId));
+          console.log(Data)        ;
+          $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("action"),
+            data : Data,
+            dataType: "JSON",
+          processData: false,
+          contentType: false,
+          success: function (data)
+                  {
+                    console.log(data);
+                      if(data.type =="success"){
+                        $(`${ModalName}`).modal("hide");               
+                      }
+                      message(data.type, data.msg);
+                      cardsLoad();
+          
+                  },
+                  error: function (xhr, desc, err)
+                  {
+                      console.log(xhr , err)
+          
+                  }
+          });
+
+});
+
 $(document).on("click" ,deleteBtn , function(e){
   e.preventDefault();
   // alert();
