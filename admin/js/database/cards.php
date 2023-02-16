@@ -1,4 +1,4 @@
-<?php
+    <?php
 include "../../../database/conf.php";
  $f = [];
  $output = "";
@@ -10,26 +10,11 @@ if($q){
             "result" => $row["user"],
             "color" => "var(--bs-danger)",
             "icons" => "fas fa-user",
-            "table" => "user.php",
+            "table" => "users.php",
             "formModalId" => "#userInsertModal"
         ];
         // array_push
       $f[] = $res;
-}
-$q2=$conn->query("SELECT COUNT(*) as pro FROM `product`");
-if($q2){
-    $row = mysqli_fetch_assoc($q2);
-    $res = [
-        "name" => "products",
-        "result" => $row["pro"],
-        "color" => "var(--bs-info)",
-        "icons" => "fas fa-cart-arrow-down",
-        "table" => "product.php",
-        "formModalId" => "#productsInsertModal"
-    ];
-    $f[] = $res;
-
-
 }
 $q5=$conn->query("SELECT COUNT(*) as pro FROM `banner`");
 if($q5){
@@ -39,7 +24,7 @@ if($q5){
         "result" => $row["pro"],
         "color" => "var(--bs-warning)",
         "icons" => "fas fa-images",
-        "table" => "banner.php",
+        "table" => "banners.php",
         "formModalId" => "#bannersInsertModal"
     ];
     $f[] = $res;
@@ -66,7 +51,7 @@ $q4=$conn->query("SELECT COUNT(*) as scat FROM `sub_category` ");
 if($q4){
     $row = mysqli_fetch_assoc($q4);
     $res = [
-        "name" => "sub Category",
+        "name" => "sub_Category",
         "result" => $row["scat"],
         "color" => "var(--bs-gray)",
         "icons" => "fas  fa-cookie-bite",
@@ -78,21 +63,71 @@ if($q4){
 
 }
 
-$q6=$conn->query("SELECT COUNT(*) as pro FROM `card`");
-if($q6){
-    $row = mysqli_fetch_assoc($q6);
+
+$q2=$conn->query("SELECT COUNT(*) as pro FROM `product`");
+if($q2){
+    $row = mysqli_fetch_assoc($q2);
     $res = [
-        "name" => "orders",
+        "name" => "products",
         "result" => $row["pro"],
-        "color" => "var(--bs-success)",
-        "icons" => "fas fa-cart-arrow-down",
-        "table" => "order.php",
-        "formModalId" => "#ordersInsertModal"
+        "color" => "var(--bs-danger)",
+        "icons" => "fas fa-shopping-basket",
+        "table" => "products.php",
+        "formModalId" => "#productsInsertModal"
     ];
     $f[] = $res;
 
 
 }
+
+$q7=$conn->query("SELECT COUNT(*) as pro FROM `product_purchase`");
+if($q7){
+    $row = mysqli_fetch_assoc($q7);
+    $res = [
+        "name" => "product Stock",
+        "result" => $row["pro"],
+        "color" => "var(--bs-orange)",
+        "icons" => "fas fa-store",
+        "table" => "prostock.php",
+        "formModalId" => "#proPurInsertModal"
+    ];
+    $f[] = $res;
+
+
+}
+$q6=$conn->query("SELECT COUNT(*) as pro FROM `card`");
+if($q6){
+    $row = mysqli_fetch_assoc($q6);
+    $res = [
+        "name" => "product Selling ",
+        "result" => $row["pro"],
+        "color" => "var(--bs-success)",
+        "icons" => "fas fa-cart-arrow-down",
+        "table" => "proSell.php",
+        "formModalId" => "#proSellInsertModal"
+    ];
+    $f[] = $res;
+
+
+}
+
+$q8=$conn->query("SELECT COUNT(*) FROM `card` GROUP BY inv_id");
+if($q8){
+    
+    $row = mysqli_num_rows($q8);
+    $res = [
+        "name" => "Invoices",
+        "result" => $row,
+        "color" => "var(--bs-teal)",
+        "icons" => "fas fa-file-invoice",
+        "table" => "proinv.php",
+        "formModalId" => "#InsertModal"
+    ];
+    $f[] = $res;
+
+
+}
+
 
 foreach ($f as $row){
 

@@ -4,28 +4,23 @@ include '../../../../database/conf.php';
 if(isset($_POST["action"])){
           
       if($_POST["action"]  == "get"){
-          $p_id = $_POST["id"];
-          $q=$conn->query("SELECT `p_id`, `cat_id`, `scat_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image` FROM `product` WHERE p_id = $p_id");
+          $b_id = $_POST["id"];
+          $q=$conn->query("SELECT `b_id`, `cat_id`, `scat_id`, `b_title`, `b_subtitle`, `b_desc`,  `b_image` FROM `banner` WHERE b_id = $b_id");
           if(mysqli_num_rows($q)){
           $form ='';
           $data=mysqli_fetch_assoc($q);
-          $form .= ' <form  id="productsEditForm" action="js/database/ProductsUpdate.php" method="post"  accept-charset="multipart/form-data" >
-          <input type="hidden" name="pID" value="'.$data["p_id"].'">
+          $form .= ' <form  id="bannersEditForm" action="js/database/bannersUpdate.php" method="post"  accept-charset="multipart/form-data" >
+          <input type="hidden" name="pID" value="'.$data["b_id"].'">
           <input type="hidden" name="action" value="update">
           <div  class="row">
           <div class="mb-2 col-6">
             <label for="" class="form-label">Title</label>
-            <input type="text" class="form-control" name="pTitle"  placeholder="Title" value="'.$data["p_title"].'"> 
+            <input type="text" class="form-control" name="bTitle"  placeholder="Title" value="'.$data["b_title"].'"> 
             
           </div>
           <div class="mb-2 col-6">
             <label for="" class="form-label">Subtitle</label>
-            <input type="text" class="form-control" name="pSubtitle"  placeholder="Subtile" value="'.$data["p_subtitle"].'">
-            
-          </div>
-          <div class="mb-2 col-6">
-            <label for="" class="form-label">Prize</label>
-            <input type="tel" class="form-control" name="pPrize" value="'.$data["p_prize"].'"  >
+            <input type="text" class="form-control" name="bSubtitle"  placeholder="Subtitle" value="'.$data["b_subtitle"].'">
             
           </div>
           <div class="mb-2 col-6">
@@ -35,7 +30,7 @@ if(isset($_POST["action"])){
                   while($row = mysqli_fetch_assoc($q2)){
                     if($row["cat_id"] == $data["cat_id"]){
                       $selected = "selected";
-                    }else{
+                    }else{  
                       $selected = "";
                     }
                     $form.='<option value="'.$row["cat_id"].'" '.$selected.'> '.$row["cat_name"].' </option>';
@@ -58,17 +53,17 @@ if(isset($_POST["action"])){
       </div>
       <div class="mb-3">
         <label for="" class="form-label">description</label>
-        <textarea class="form-control" name="pDesc" id="" rows="3"  > '.$data["p_desc"].'</textarea>
+        <textarea class="form-control" name="bDesc" id="" rows="3"  > '.$data["b_desc"].'</textarea>
       </div>
           <div class="mb-2 col-6">
             <label for="" class="form-label">Choose Image</label>
-            <input type="file" class="form-control" name="pImg" >
+            <input type="file" class="form-control" name="bImg" >
           </div>
 
       
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" id="productsSubmit" class="btn btn-primary">Save</button>
+              <button type="submit"  class="btn btn-primary">Save</button>
           </div>
           </div>
         </div>
@@ -78,11 +73,11 @@ if(isset($_POST["action"])){
       }
       if($_POST["action"] == "del"){
               $id = $_POST["id"];
-              $q=$conn->query("DELETE FROM `product` WHERE `p_id` = $id");
+              $q=$conn->query("DELETE FROM `banner` WHERE `b_id` = $id");
               if($q){
                 echo json_encode( ["type"=>"success" , "msg"=>"delete Successfully"] , true);
               }else{
-                echo json_encode( ["type"=>"error" , "msg"=>"Something wrong"] , true);
+                echo json_encode( ["type"=>"success" , "msg"=>"Something wrong"] , true);
               }
           }
 }

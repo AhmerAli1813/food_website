@@ -223,24 +223,24 @@ $(document).on("click" , ".cards_box" , function(){
   }
 
 $(document).on("click", "#crt_inv_shw_btn", function () {
-        checkUserLogin("login");
-  $.ajax({
-    type: "GET",
-    data: {action:"cart" },
-    dataType : "json",
-    url: "database/user_check_login.php",
-    success: function (response) {
+        // checkUserLogin();
+  // $.ajax({
+  //   type: "GET",
+  //   data: {action:"cart" },
+  //   dataType : "json",
+  //   url: "database/user_check_login.php",
+  //   success: function (response) {
       
-     if (response.cart == false){
-      alert("please add some cart");
-     } else{
-      // window.location.href = "inv.php"
-     }
-console.log(response)
-    },
-  });
+  //    if (response.cart == false){
+  //     alert("please add some cart");
+  //    } else{
+  //     // window.location.href = "inv.php"
+  //    }
+  //     console.log(response)
+  //   },
+  // });
 
-
+console.log("buyying button click")
 })
 
   //  showing  which  type of data user add to cart shopping
@@ -434,7 +434,7 @@ $(document).on("click", ".fb-btn", function () {
       }
     }
   });    
-});
+}); 
 $(".close_fb").click( ()=>{
   mainLocation()
 })

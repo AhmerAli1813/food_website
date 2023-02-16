@@ -3,36 +3,48 @@
         "cat_id": "1",
         "u_id": "2",
         "cat_name": "burger",
-        "status": ""
+        "status": "show"
     },
     {
         "cat_id": "2",
         "u_id": "2",
         "cat_name": "meat",
-        "status": ""
+        "status": "show"
     },
     {
         "cat_id": "3",
         "u_id": "3",
         "cat_name": "pizza",
-        "status": ""
+        "status": "show"
     },
     {
         "cat_id": "4",
         "u_id": "2",
         "cat_name": "rots",
-        "status": ""
+        "status": "show"
     },
     {
         "cat_id": "5",
         "u_id": "2",
         "cat_name": "ice cream",
-        "status": ""
+        "status": "show"
     },
     {
         "cat_id": "6",
         "u_id": "2",
         "cat_name": "noodles",
-        "status": ""
+        "status": "show"
+    },
+    {
+        "cat_id": "7",
+        "u_id": "2",
+        "cat_name": "beverages",
+        "status": "show"
+    },
+    {
+        "cat_id": "9",
+        "u_id": "2",
+        "cat_name": "Biryani",
+        "status": "show"
     }
 ]

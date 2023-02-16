@@ -19,7 +19,7 @@ include "database/conf.php";
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/waitme@1.19.0/waitMe.min.css">
         <!-- custom css file link  -->
         <link rel="stylesheet" href="admin/css/-variables.css">
     <!-- custom css file link  -->
@@ -107,7 +107,6 @@ function banners()
 
 
     echo ' <!-- home section starts  -->
-
             <section class="home" id="home">
             
                 <div class="swiper-container home-slider " style="overflow-x:hidden ;">
@@ -201,7 +200,7 @@ function loadtabel()
                     
                     <caption class="w-100">
                     <span  class= "ml-5">   Grand total : <b  id="crt_amt"></b> </span>
-                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn dpanel-btn">buying</button>
+                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn dpanel-btn"> lol buying</button>
                      </caption>
                 </tbody>
          </table>
@@ -538,7 +537,7 @@ function footers()
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js "></script>
     
      <!-- End plugin js for this page -->
-    
+     <script src="https://cdn.jsdelivr.net/npm/waitme@1.19.0/waitMe.min.js"></script>
    
     <!-- custom js file link  -->
     <script type="module" src="js/script.js"></script>

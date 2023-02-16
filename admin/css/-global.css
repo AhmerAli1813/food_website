@@ -5,32 +5,8 @@ body{
 a , table th{
     cursor: pointer !important;
 }
-.Loading_div{top: 0;left: 0;
-    width: 100%;
-    display: none;
-    height: 100vh;
-    position: absolute;
-    
-}
-.Loading_div.active{
-    display: block;
-}
-.Loading_div::before{
-    content:"";
-    position: absolute;
-    top: 50%;
-    left:50% ;
-    border: 2px solid var(--first-color);
-    border-bottom: none;
-    border-radius: 50%;
-    width: 50px;animation: rotate360 2s ease infinite ;
-    height: 50px;
-    
-    
-    
-};
-@keyframes  rotate360 {
-    100%{transform: rotate(360deg);}
+i.fas{
+    cursor: pointer;
 }
 .txt-clr{
     color: var(--text-color);
@@ -266,6 +242,10 @@ th,td ,button,.btn {color: var(--text-color); text-transform: capitalize;}
   .card-container i {
     color: var(--text-color-alt);
   }
+  .card{
+    background-color: transparent   ;
+  }
+  .modal-title{text-transform: capitalize;}
   .border-left{
     border-left: 0.5rem solid var(--i) ;
     

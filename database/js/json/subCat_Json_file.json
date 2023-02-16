@@ -3,42 +3,56 @@
         "scat_id": "1",
         "cat_id": "1",
         "u_id": "3",
-        "scat_name": "zinger burger"
-    },
-    {
-        "scat_id": "2",
-        "cat_id": "2",
-        "u_id": "2",
-        "scat_name": "white qorma"
+        "scat_name": "zinger burger",
+        "status": "show"
     },
     {
         "scat_id": "3",
         "cat_id": "3",
         "u_id": "2",
-        "scat_name": "larger pizza"
+        "scat_name": "larger pizza",
+        "status": "show"
     },
     {
         "scat_id": "4",
         "cat_id": "4",
         "u_id": "2",
-        "scat_name": "menu roster"
+        "scat_name": "menu roster",
+        "status": "show"
     },
     {
         "scat_id": "5",
         "cat_id": "5",
         "u_id": "2",
-        "scat_name": "black ice"
+        "scat_name": "black ice",
+        "status": "show"
     },
     {
         "scat_id": "6",
         "cat_id": "2",
         "u_id": "3",
-        "scat_name": "chicken"
+        "scat_name": "chicken",
+        "status": "show"
     },
     {
         "scat_id": "7",
         "cat_id": "6",
         "u_id": "2",
-        "scat_name": "chines noodles"
+        "scat_name": "chines noodles",
+        "status": "show"
+    },
+    {
+        "scat_id": "8",
+        "cat_id": "1",
+        "u_id": "2",
+        "scat_name": "elk burger",
+        "status": "show"
+    },
+    {
+        "scat_id": "10",
+        "cat_id": "5",
+        "u_id": "2",
+        "scat_name": "stabber",
+        "status": "show"
     }
 ]

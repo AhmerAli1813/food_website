@@ -6,8 +6,8 @@
         "u_id": "2",
         "p_title": "zinger burger",
         "p_subtitle": "so Delicious",
-        "p_desc": " zinger buger is very nice",
-        "p_prize": "100",
+        "p_desc": "  zinger buger is very nice",
+        "p_prize": "130",
         "p_image": "dish1.png",
         "status": "show",
         "action": "far"
@@ -58,9 +58,9 @@
         "u_id": "2",
         "p_title": "black ice cream",
         "p_subtitle": "so Delicious",
-        "p_desc": "ice cream is nice",
-        "p_prize": "140",
-        "p_image": "dish-5.png",
+        "p_desc": " ice cream is nice",
+        "p_prize": "150",
+        "p_image": "1675526263dish-5.png",
         "status": "hide",
         "action": "far"
     },
@@ -91,19 +91,6 @@
         "action": "far"
     },
     {
-        "p_id": "8",
-        "cat_id": "5",
-        "scat_id": "5",
-        "u_id": "2",
-        "p_title": "black ice cream",
-        "p_subtitle": "so Delicious",
-        "p_desc": " ice cream is nice",
-        "p_prize": "250",
-        "p_image": "1675526263dish-5.png",
-        "status": "show",
-        "action": "far"
-    },
-    {
         "p_id": "13",
         "cat_id": "2",
         "scat_id": "6",
@@ -113,6 +100,32 @@
         "p_desc": " Hyderabadi chicken biryani is an aromatic, mouth watering and authentic Indian dish with succulent chicken in layers of fluffy rice, fragrant spices ",
         "p_prize": "250",
         "p_image": "chicken.png",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "14",
+        "cat_id": "1",
+        "scat_id": "1",
+        "u_id": "2",
+        "p_title": "cheez burger",
+        "p_subtitle": "Extra spicy and hot",
+        "p_desc": "hello guys, new offer of cheezz burger",
+        "p_prize": "190",
+        "p_image": "menu-2.jpg",
+        "status": "show",
+        "action": "far"
+    },
+    {
+        "p_id": "15",
+        "cat_id": "2",
+        "scat_id": "2",
+        "u_id": "2",
+        "p_title": "dle",
+        "p_subtitle": "ded",
+        "p_desc": "sdsdsd",
+        "p_prize": "1250",
+        "p_image": "dish-5.png",
         "status": "show",
         "action": "far"
     }

@@ -1,4 +1,5 @@
 $(function () {
+    
 //  menu toggle function
     $("#menu-toggle").click(function (e) { 
         var val =    getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width'); // #999999

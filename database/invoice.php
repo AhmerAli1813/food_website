@@ -23,7 +23,7 @@ include "conf.php";
                     $prize = $_POST["inv_prize"];
                     $date = $_POST["date"];
                     $desc = $_POST["desc"];
-                    $q=$db_conn->query("INSERT INTO `card`( `inv_id`, `app_id`, `date_discharge`, `amount_paid`, `description`) VALUES ('$invoice','$app_id','$date','$prize','$desc')");
+                    $q= $conn->query("INSERT INTO `card`( `inv_id`, `app_id`, `date_discharge`, `amount_paid`, `description`) VALUES ('$invoice','$app_id','$date','$prize','$desc')");
 
                     if($q==true){
                     header("location:../appoint_acc.php?msg=success");

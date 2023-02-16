@@ -1,17 +1,13 @@
 <?php
 include "../../../database/conf.php"; 
 
-$sql = "SELECT * FROM `product`  ";
+$sql = "SELECT sc.scat_id ,sc.cat_id,sc.scat_name,sc.status,c.cat_name FROM `sub_category` as sc LEFT JOIN catagory as c ON sc.cat_id = c.cat_id ";
 $q = $conn->query($sql);
-$count_all_rows = mysqli_num_rows($q);        
-
+ $count_all_rows = mysqli_num_rows($q);        
 if(isset($_POST['search'])){
     $search_value = $_POST['search'];
-    $sql .="WHERE p_id LIKE '%{$search_value}%'";
-    $sql .="OR p_title LIKE '%{$search_value}%'";
-    $sql .="OR p_subtitle LIKE '%{$search_value}%'";
-    $sql .="OR p_prize LIKE '%{$search_value}%'";
-    $sql .="OR p_image LIKE '%{$search_value}%'";
+    $sql .="WHERE scat_id LIKE '%{$search_value}%'";
+    $sql .="OR scat_name LIKE '%{$search_value}%'";
     $sql .="OR status LIKE '%{$search_value}%'";
     
 }else{
@@ -24,7 +20,7 @@ if(isset($_POST['order'])){
    $sql .= "ORDER BY `{$column}` {$order} ";
 }
 else{
-  $sql .= "ORDER BY status ASC  ";
+  $sql .= "ORDER BY cat_id  ASC  ";
         $order = "ASC";
 };
 
@@ -48,9 +44,10 @@ if(isset($_POST["start"])){
 }
 
 $data = array();
+// echo $sql; die();
 $run_query = $conn->query($sql);
 
-$filtered_rows = mysqli_num_rows($run_query);
+ $filtered_rows = mysqli_num_rows($run_query);
 $sno = 0;
 while($row = mysqli_fetch_assoc($run_query)){
     if($row["status"]=="show"){
@@ -61,24 +58,20 @@ while($row = mysqli_fetch_assoc($run_query)){
     $sno++;
     $subarray = array();
     $subarray[] = $sno;
-    $subarray[] =   "<img src='../images/{$row["p_image"]}' width='30px' style='border-radius:50%; ' alt='{$row["p_image"]}'>";
-    $subarray[] = $row["p_title"];
-    $subarray[] = $row["p_subtitle"];
-    $subarray[] = $row["p_prize"];
+    $subarray[] = $row["cat_name"];
+    $subarray[] = $row["scat_name"];
     $subarray[] = '<div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" '.$checked.'>
+    <input class="form-check-input" type="checkbox" name="check" '.$checked.' value="'.$row["status"].'">
     
                 </div>
   ';
-  $subarray[] = "<a  class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='EditBtn' data-id='{$row['p_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' id='productsDelBtn' data-id='{$row['p_id']}'>Delete</a>";
+  $subarray[] = "<a  class='btn btn-sm mr-1 btn-info material-symbols-outlined' id='EditBtn' data-id='{$row['scat_id']}'>Edit</a><a href='' class='btn btn-sm btn-danger material-symbols-outlined' id='delBtn' data-id='{$row['scat_id']}'>Delete</a>";
      $data[] = $subarray;
 };
 $col = [];
-$col[] = '<th  data-by="'.$order.'" data-table-th="p_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="'.$order.'" data-table-th="p_image"><b>Images</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="'.$order.'" data-table-th="p_title"><b>Title</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="'.$order.'" data-table-th="p_subtitle"><b>Subtitle</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="'.$order.'" data-table-th="p_prize"><b>Prize</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="scat_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="cat_id"><b>Category Name</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="scat_name"><b>Sub Category Name</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="status"><b>Status</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th >Action</th>';
 

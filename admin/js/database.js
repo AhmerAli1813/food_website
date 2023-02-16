@@ -12,7 +12,7 @@ showTable();
     window.localStorage.setItem("url" , url );
     window.localStorage.setItem("TableName" , title );
     window.localStorage.setItem("modalId" , modalID );
-    MyTable("POST" , url ,data,"json" ,"#DpanelTable")
+    MyTable("POST" , url ,data,"json" ,"  ")
     $("#DpanelTable .table_heading").html(title+ " Data" )
     $("#DpanelTable .Add_btn").html("Add "+ title )
     $("#DpanelTable .Add_btn").data("modal" , modalID )
@@ -80,7 +80,7 @@ showTable();
           data: data,
           dataType: dataType,
           success: function (response) {
-            
+            console.log(response)
             if(res_id !=""){
            $(res_id).html(response.data); 
             }
@@ -177,6 +177,9 @@ function MyTable(type ,url ,data,dataType,res_id){
     url: url,
     data: data,
     dataType: dataType,
+    beforesend: function () {
+      
+    },
     success: function (response) {
           createTable(response , res_id)
       
@@ -187,6 +190,7 @@ function MyTable(type ,url ,data,dataType,res_id){
  function createTable(response , res_id){
   var tableRow = ``;
   if(response.type == "success"){
+    console.log(response.data.q) 
     var Cols = response.data.col;
     var Rows = response.data.row;
     var tableCol =`<tr>`;
@@ -214,7 +218,7 @@ function MyTable(type ,url ,data,dataType,res_id){
     let page_no = parseInt(response.data.start);
     let total_page = Math.ceil((total_records/limit_per_page));
      window.localStorage.setItem("pageLength" , limit_per_page);
-    console.log(`totalRecords : ${total_records} TotalPage : ${total_page} limit per page : ${limit_per_page}  page no : ${(page_no)}  prev : ${(page_no -1)} next : ${(page_no  + 1)} `)
+    // console.log(`totalRecords : ${total_records} TotalPage : ${total_page} limit per page : ${limit_per_page}  page no : ${(page_no)}  prev : ${(page_no -1)} next : ${(page_no  + 1)} `)
     if(page_no >1){
     pageLink += '<li class="page-item"><a class="page-link" id="pageNo" data-page-no="'+(page_no - 1)+'" >prev</a></li>'
     }
@@ -258,7 +262,7 @@ end = end>total_page?total_page:end;
 
         $(`${res_id} table thead`).html(tableCol);
  $(`${res_id} table tbody`).html(tableRow);
-  $(`${res_id} span`).html(`Showing ${filterRecords} records of ${total_records}`)    
+  $(`${res_id} span.record`).html(`Showing ${filterRecords} records of ${total_records}`)    
  $(`${res_id} .pagination`).html(pageLink);
   
   }else{
@@ -285,7 +289,7 @@ $(document).on("click" , editBtn  , function(){
   url = `js/database/action/${formModalName}Action.php`,
   ModalNames = `#EditModal`;
   
-  console.log(url)
+  console.log(id)
   let data = {"action" : "get" , "id" :id}
         $.ajax({
           type: "POST",
@@ -297,22 +301,29 @@ $(document).on("click" , editBtn  , function(){
             if(response.type == "success"){
                   modalFire(ModalNames);
                   $(`#FormEdit`).html(response.data)
+                 
                   showTable();                    
             }
+            
           },
           error : function(err){
-            console.log(err);
+           console.log(err)
+            console.log(err.responseText)
           }
         });
 })
 //this function  is used insert and update crud in php, dynamic form single time we making  they getting all  attribute from form  our work is very simple  
 $(document).on("submit", `form`, function (e) { 
   e.preventDefault();
-  
-  let formModalNames = window.localStorage.getItem("TableName");  
+
+ 
+ 
+ let formModalNames = window.localStorage.getItem("TableName"),
+  modalId = window.localStorage.getItem("modalId");  
+
           console.log(formModalNames);
               var formId = $(this).attr("id");
-              console.log(formId);
+              modalHide(formId);
           var Data = new FormData(document.getElementById(formId));
           console.log(Data)        ;
           $.ajax({
@@ -330,39 +341,49 @@ $(document).on("submit", `form`, function (e) {
                       }
                       message(data.type, data.msg);
                       cardsLoad();
-          
+                          showTable();
+                          modalHide(`#${modalId}`)
                   },
-                  error: function (xhr, desc, err)
+                  error: function (err)
                   {
-                      console.log(xhr , err)
+                      console.log(err)
+                      console.log(err.responseText);
           
                   }
           });
 
 });
+
 //dynamic deleted button
-$(document).on("click" ,deleteBtn , function(e){
+$(document).on("click" ,"#delBtn" , function(e){
   e.preventDefault();
   // alert();
       let id = $(this).data("id"),
       url = `js/database/action/${formModalName}Action.php`,
-      data = {"action" : "del" , "id" :id}
+      Data = {"action" : "del" , "id" :id};
+console.log(Data);      
+    
       $(this).parent().parent().hide();
   $.ajax({
     type: "POST",
     url: url,
-    data: data,
+    data: Data,
     dataType: "json",
     success: function (response) {
       console.log(response)
       if(response.type == "success"){
             message(response.type ,response.msg)
             cardsLoad()
+            
       }
+    },
+    error : function(err){
+      console.log(err.responseText)
     }
   });
  
 })
+
 
  // alert msg
 function message( types, txt){
@@ -380,6 +401,55 @@ function message( types, txt){
 $(document).on("click" , ".Add_btn" , function (){
   let ModalId = $(this).data("modal")
 modalFire(ModalId);
+});
+
+//checkbox button Preform show/hide & block products banner and user
+$(document).on("change" , "input[name=check]" , function (){
+    let stsVal =  $(this).val();
+    // if(stsVal=="hide"){
+    //   $(this).val("show"); 
+    // }else if(stsVal=="show"){
+    //   $(this).val("hide"); 
+    // }
+//  if(stsVal=="on"){
+//   $(this).prop('checked',true);
+//   $(this).val("show");
+//  }else
+//   if (!$(this).is(':checked')) {
+//     $(this).val("show");
+   
+//   }else
+//   {
+//     $(this).val("hide");
+   
+//   }
+ 
+
+console.log(stsVal);
+});
+
+$(document).on("click" , "#inv_id_print" , function(e){
+e.preventDefault();
+var id = $(this).data("inv-id")
+$("#undo_btn").removeClass("d-none");
+var data = {"find"  : id };
+console.log(data);
+MyTable("post" , "js/database/proSell.php" , data , "json" , "#DpanelTable")
+
+
+  
+});
+
+$(document).on("dblclick" , "#inv_id_print" , function(e){
+e.preventDefault();
+var data = "";
+MyTable("post" , "js/database/proInv.php" , data , "json" , "#DpanelTable")
+
+
+  
+});
+$(document).on("click" , "#undo_btn" , ()=>{
+  showTable();
 })
 function modalFire(id){
   $(id).modal("show"); 
@@ -406,11 +476,14 @@ fetch("http://localhost/food_website/database/js/json/Cat_Json_file.json").then(
           option +=`<option value="${responseJson[i]["cat_id"]}"> ${responseJson[i]["cat_name"]}</option>`;
       };
     $("#cat_select_input").html(option);  
+    $("#bCat_select_input").html(option);  
+    $("#sCat_select_input").html(option);  
 })
 
-$(document).on("change" , "#cat_select_input" , function()
+$(document).on("change" , "select[name='Cat_id']" , function()
 {
   let cat_id = $(this).val();
+  console.log(cat_id)
 fetch("http://localhost/food_website/database/js/json/subCat_Json_file.json").then((response) => {
   if (response.ok) {
     return response.json();
@@ -429,6 +502,8 @@ fetch("http://localhost/food_website/database/js/json/subCat_Json_file.json").th
       
     $("#Scat_select_input").removeAttr("disabled");  
     $("#Scat_select_input").html(option);  
+    $("#bScat_select_input").removeAttr("disabled");  
+    $("#bScat_select_input").html(option);  
 })
 
   
@@ -439,6 +514,6 @@ fetch("http://localhost/food_website/database/js/json/subCat_Json_file.json").th
 
 
 
-  } );
+  } );//main jquery
   
   
