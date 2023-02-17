@@ -1,12 +1,13 @@
 <?php
 include "../../../database/conf.php"; 
 $id = "";
-$sql = "SELECT cd.cr_id as 'id', cd.inv_id,cd.qty ,cd.prize,cd.tax,cd.date,cd.status,p.p_title,p.p_image FROM `card` as cd left JOIN product as p on cd.pro_id = p.p_id  ";
+$sql = "SELECT cd.cr_id as 'id', cd.inv_id,cd.qty ,cd.prize,cd.tax,cd.date,cd.status,p.p_title as title,p.p_image as img FROM `card` as cd left JOIN product as p on cd.pro_id = p.p_id  ";
 $q = $conn->query($sql);
+
 $count_all_rows = mysqli_num_rows($q);        
 if(isset ($_POST["find"] )){
    $id =  $_POST["find"];
-$sql .=" where cd.inv_id = '$id'  ";
+$sql .=" where inv_id = '$id'";
 }
 if(isset($_POST['search'])){
     $search_value = $_POST['search'];
@@ -49,7 +50,7 @@ if(isset($_POST["start"])){
     $offset = ($start - 1) * $limit_per_page;
     $sql .=" LIMIT {$offset} , {$limit_per_page}";
 }
-// echo $sql;
+
 $data = array();
 $run_query = $conn->query($sql);
 
@@ -64,9 +65,9 @@ while($row = mysqli_fetch_assoc($run_query)){
     $sno++;
     $subarray = array();
     $subarray[] = $sno;
-    $subarray[] = "<a id='inv_id_print' data-inv-id ='{$row["inv_id"]}'>{$row["inv_id"]}</a>";
-    $subarray[] =   "<img src='../images/{$row["p_image"]}' width='30px' style='border-radius:50%; ' alt='{$row["p_image"]}'>";
-    $subarray[] = $row["p_title"];
+    $subarray[] = "<a id='find_id' data-url='js/database/proSell.php' data-inv-id ='{$row["inv_id"]}' data-id ='{$row["inv_id"]}'>{$row["inv_id"]}</a>";
+    $subarray[] =   "<img src='../images/{$row["img"]}' width='30px' style='border-radius:50%; ' alt='{$row["img"]}'>";
+    $subarray[] = $row["title"];
     $subarray[] = $row["qty"];
     $subarray[] = $row["prize"];
     $subarray[] = $row["tax"] ."%";

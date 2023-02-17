@@ -8,7 +8,27 @@ $cat_id = (isset($_POST["catID"]) != "") ?  mysqli_real_escape_string($conn, $_P
  if ($title != "" ) {
     
     if($_POST["action"] == "insert"){
-        $q = $conn->query(" INSERT INTO `catagory`( `u_id`, `cat_name`)  VALUES($u_id,'$title');");
+        // making invoice
+        $q2=$conn->query("SELECT MAX(cat_id) as last_inv FROM `catagory`");
+        if(mysqli_num_rows($q2) >0){
+
+                       $last = mysqli_fetch_assoc($q2);
+                     
+                                function increment($matches)
+                                 {
+                                       if(isset($matches[1]))
+                                       {
+                                          $length = strlen($matches[1]);
+                                          return sprintf("%0".$length."d", ++$matches[1]);
+                                       }    
+                              }
+
+                                 $invoice = $last['last_inv'];
+
+                           $invoice =  preg_replace_callback( "|(\d+)|", "increment", $invoice);
+                           $_SESSION["inv_id"] = $invoice;
+            }
+        $q = $conn->query(" INSERT INTO `catagory`( `cat_id` `u_id`, `cat_name`)  VALUES( '$invoice','$u_id','$title');");
                 if ($q) {
                     $data = array(
                         "type" => "success",

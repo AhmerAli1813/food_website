@@ -38,6 +38,7 @@
     </div>
     <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle2" role="button">Open first modal</a>
 <?php
+
 include "../database/conf.php";    
 $q=$conn->query("SELECT * FROM `colors`") or die("failde");
 if($q){
@@ -52,6 +53,7 @@ if($q){
   <img src="../database//upload/" alt="">
   </main>
   <footer>
+    <script src="../database/js/json/cart_json_file.json"></script>
     <!-- place footer here -->
   </footer>
   <!-- Bootstrap JavaScript Libraries -->

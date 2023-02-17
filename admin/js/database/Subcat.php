@@ -7,13 +7,17 @@ $q = $conn->query($sql);
 if(isset($_POST['search'])){
     $search_value = $_POST['search'];
     $sql .="WHERE scat_id LIKE '%{$search_value}%'";
+    $sql .="OR cat_id LIKE '%{$search_value}%'";
     $sql .="OR scat_name LIKE '%{$search_value}%'";
     $sql .="OR status LIKE '%{$search_value}%'";
     
 }else{
     $search_value = "no Search";
 };
-
+if(isset ($_POST["find"] )){
+    $id =  $_POST["find"];
+ $sql .=" where scat_id = '$id'  ";
+ }
 if(isset($_POST['order'])){
     $column = $_POST['order']['columns'];
      $order = $_POST['order']['dirs'];

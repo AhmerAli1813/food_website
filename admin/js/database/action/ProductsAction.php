@@ -5,7 +5,7 @@ if(isset($_POST["action"])){
           
       if($_POST["action"]  == "get"){
           $p_id = $_POST["id"];
-          $q=$conn->query("SELECT `p_id`, `cat_id`, `scat_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image` FROM `product` WHERE p_id = $p_id");
+          $q=$conn->query("SELECT `p_id`, `cat_id`, `scat_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image` FROM `product` WHERE p_id = '$p_id'");
           if(mysqli_num_rows($q)){
           $form ='';
           $data=mysqli_fetch_assoc($q);
@@ -44,17 +44,8 @@ if(isset($_POST["action"])){
       </div>
           <div class="mb-2 col-6">
           <label for="" class="form-label">Sub Category</label>
-          <select class="form-select form-select-lg" name="Scat_id" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" >';
-              $q3=$conn->query("SELECT * FROM sub_category ");
-                  while($row = mysqli_fetch_assoc($q3)){
-                    if($row["scat_id"] == $data["scat_id"]){
-                      $selected = "selected";
-                    }else{
-                      $selected = "";
-                    }
-                    $form.='<option value="'.$row["scat_id"].'" '.$selected.'> '.$row["scat_name"].' </option>';
-                  }
-          $form.='</select>
+          <select class="form-select form-select-lg" name="Scat_id" id="EditScat_select_input" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" >
+          </select>
       </div>
       <div class="mb-3">
         <label for="" class="form-label">description</label>
@@ -78,7 +69,7 @@ if(isset($_POST["action"])){
       }
       if($_POST["action"] == "del"){
               $id = $_POST["id"];
-              $q=$conn->query("DELETE FROM `product` WHERE `p_id` = $id");
+              $q=$conn->query("DELETE FROM `product` WHERE `p_id` = '$id'");
               if($q){
                 echo json_encode( ["type"=>"success" , "msg"=>"delete Successfully"] , true);
               }else{

@@ -1,86 +1,14 @@
 [
     {
-        "cr_id": "6",
-        "inv_id": "inv_005401",
-        "cat_id": "4",
-        "pro_id": "2",
-        "u_id": "2",
-        "qty": "4",
+        "cr_id": "22",
+        "inv_id": "inv-50001",
+        "cat_id": "cat-20001",
+        "pro_id": "p-10002",
+        "u_id": "1357678",
+        "qty": "5",
         "prize": "110",
         "tax": "3",
-        "date": "2023-01-18 09:54:53.000000",
-        "status": "purchasing"
-    },
-    {
-        "cr_id": "16",
-        "inv_id": "inv_005402",
-        "cat_id": "3",
-        "pro_id": "3",
-        "u_id": "2",
-        "qty": "1",
-        "prize": "280",
-        "tax": "3",
-        "date": "2023-01-20 04:05:55.000000",
-        "status": "purchasing"
-    },
-    {
-        "cr_id": "17",
-        "inv_id": "inv_005403",
-        "cat_id": "4",
-        "pro_id": "2",
-        "u_id": "3",
-        "qty": "4",
-        "prize": "110",
-        "tax": "3",
-        "date": "2023-01-20 04:29:00.000000",
-        "status": "purchasing"
-    },
-    {
-        "cr_id": "18",
-        "inv_id": "inv_005404",
-        "cat_id": "1",
-        "pro_id": "1",
-        "u_id": "2",
-        "qty": "1",
-        "prize": "130",
-        "tax": "3",
-        "date": "2023-02-14 07:18:03.000000",
-        "status": "purchasing"
-    },
-    {
-        "cr_id": "19",
-        "inv_id": "inv_005404",
-        "cat_id": "1",
-        "pro_id": "6",
-        "u_id": "2",
-        "qty": "3",
-        "prize": "360",
-        "tax": "3",
-        "date": "2023-02-14 07:18:03.000000",
-        "status": "purchasing"
-    },
-    {
-        "cr_id": "20",
-        "inv_id": "inv_005404",
-        "cat_id": "2",
-        "pro_id": "13",
-        "u_id": "2",
-        "qty": "1",
-        "prize": "250",
-        "tax": "3",
-        "date": "2023-02-14 07:18:03.000000",
-        "status": "purchasing"
-    },
-    {
-        "cr_id": "21",
-        "inv_id": "inv_005404",
-        "cat_id": "1",
-        "pro_id": "14",
-        "u_id": "2",
-        "qty": "2",
-        "prize": "190",
-        "tax": "3",
-        "date": "2023-02-14 07:18:03.000000",
-        "status": "purchasing"
+        "date": "2023-01-13 08:08:29.000000",
+        "status": "show"
     }
 ]

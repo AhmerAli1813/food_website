@@ -8,7 +8,27 @@ include "AdminLoginCheck.php";
  if ($title != "" && $cat_id !="") {
     
     if($_POST["action"] == "insert"){
-        $q = $conn->query(" INSERT INTO `sub_category`( `cat_id`,`u_id`, `scat_name`)  VALUES($cat_id,$u_id,'$title');");
+          // making invoice
+    $q2=$conn->query("SELECT MAX(scat_id) as last_inv FROM `sub_category`");
+    if(mysqli_num_rows($q2) >0){
+
+                   $last = mysqli_fetch_assoc($q2);
+                 
+                            function increment($matches)
+                             {
+                                   if(isset($matches[1]))
+                                   {
+                                      $length = strlen($matches[1]);
+                                      return sprintf("%0".$length."d", ++$matches[1]);
+                                   }    
+                          }
+
+                             $scat_id = $last['last_inv'];
+
+                       $scat_id =  preg_replace_callback( "|(\d+)|", "increment", $scat_id);
+                       $_SESSION["inv_id"] = $scat_id;
+        }
+        $q = $conn->query(" INSERT INTO `sub_category`( `scat_id` ,`cat_id`,`u_id`, `scat_name`)  VALUES('$scat_id', '$cat_id','$u_id','$title');");
                 if ($q) {
                     $data = array(
                         "type" => "success",

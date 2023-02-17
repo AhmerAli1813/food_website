@@ -5,7 +5,7 @@ if(isset($_POST["action"])){
           
       if($_POST["action"]  == "get"){
           $u_id = $_POST["id"];
-          $q=$conn->query("SELECT r.u_id, r.unique_id , r.Name ,r.email , r.password, r.image , r.role_id ,r.status FROM `register` as r  WHERE u_id = $u_id");
+          $q=$conn->query("SELECT r.u_id, r.unique_id , r.Name ,r.email , r.password, r.image , r.role_id ,r.status FROM `register` as r  WHERE unique_id = '$u_id'");
           if(mysqli_num_rows($q)){
           $form ='';
           $data=mysqli_fetch_assoc($q);
@@ -62,7 +62,7 @@ if(isset($_POST["action"])){
       }
       if($_POST["action"] == "del"){
               $id = $_POST["id"];
-              $q=$conn->query("DELETE FROM `register` WHERE `u_id` = $id");
+              $q=$conn->query("DELETE FROM `register` WHERE `u_id` = '$id'");
               if($q){
                 echo json_encode( ["type"=>"success" , "msg"=>"delete Successfully"] , true);
               }else{

@@ -10,6 +10,26 @@ include "AdminLoginCheck.php";
 $desc= mysqli_real_escape_string($conn, $_POST["pDesc"]);
 
  if ($cat_id != ""  && $prize != "" && $title != "" && $subtile != "") {
+    // making invoice
+    $q2=$conn->query("SELECT MAX(p_id) as last_inv FROM `product`");
+    if(mysqli_num_rows($q2) >0){
+
+                   $last = mysqli_fetch_assoc($q2);
+                 
+                            function increment($matches)
+                             {
+                                   if(isset($matches[1]))
+                                   {
+                                      $length = strlen($matches[1]);
+                                      return sprintf("%0".$length."d", ++$matches[1]);
+                                   }    
+                          }
+
+                             $newP_id = $last['last_inv'];
+
+                       $newP_id =  preg_replace_callback( "|(\d+)|", "increment", $newP_id);
+         
+        }
     if(isset($_FILES["pImg"])){
         $img_name = $_FILES["pImg"]["name"];//this is getting image name 
         $img_type = $_FILES["pImg"]["type"]; // this is getting image type 
@@ -29,7 +49,7 @@ $desc= mysqli_real_escape_string($conn, $_POST["pDesc"]);
 
 
                                         if($_POST["action"] == "insert"){
-                                            $q = $conn->query("INSERT INTO `product`( `cat_id`, `scat_id`, `u_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image`) VALUES ($cat_id , $scat_id ,$u_id,'$title','$subtile' , '$desc','$prize' , '$img');");
+                                            $q = $conn->query("INSERT INTO `product`( `p_id` , `cat_id`, `scat_id`, `u_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image`) VALUES ('$newP_id','$cat_id ', '$scat_id' ,'$u_id','$title','$subtile' , '$desc','$prize' , '$img');");
                                                     if ($q) {
                                                         $data = array(
                                                             "type" => "success",
@@ -43,7 +63,10 @@ $desc= mysqli_real_escape_string($conn, $_POST["pDesc"]);
                                                     }
                                         }
                                         if($_POST["action"]=="update"){
-                                            $q2=$conn->query("UPDATE  `product` SET  `cat_id` = $cat_id,`scat_id` = $scat_id,`u_id` = $u_id, `p_title` = '$title' , `p_subtitle` = '$subtile' , `p_desc` = '$desc' , `p_prize` = '$prize' , `p_image` = '$img'  where p_id = '{$p_id}';");
+                                            $p_id;
+                                             $sql = "UPDATE  `product` SET  `cat_id` = '$cat_id',`scat_id` = '$scat_id',`u_id` = '$u_id', `p_title` = '$title' , `p_subtitle` = '$subtile' , `p_desc` = '$desc' , `p_prize` = '$prize' , `p_image` = '$img'  where p_id = '$p_id' ";
+                                          
+                                            $q2=$conn->query($sql);
                                             if ($q2) {
                                                 $data = array(
                                                     "type" => "success",

@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
   cardsLoad();
+  chartLoad()
   checkUserLogin();
 showTable();
   $(document).on("click" , ".cards_box" , function(){
@@ -16,6 +17,9 @@ showTable();
     $("#DpanelTable .table_heading").html(title+ " Data" )
     $("#DpanelTable .Add_btn").html("Add "+ title )
     $("#DpanelTable .Add_btn").data("modal" , modalID )
+    $('#DpanelTable')[0].scrollIntoView({
+      behavior: 'smooth',block:'end'
+ });
 })
 
   function checkUserLogin() {
@@ -73,6 +77,11 @@ showTable();
 
       }  
 
+function chartLoad(){
+let  data = {"action" : "charts"}
+        myAjax("POST" , "js/database/cards.php" , data , "json" , "#charts_row");
+
+}
       function myAjax(type ,url ,data,dataType,res_id){
         $.ajax({
           type: type,
@@ -428,20 +437,21 @@ $(document).on("change" , "input[name=check]" , function (){
 console.log(stsVal);
 });
 
-$(document).on("click" , "#inv_id_print" , function(e){
+$(document).on("click" , "#find_id" , function(e){
 e.preventDefault();
-var id = $(this).data("inv-id")
-$("#undo_btn").removeClass("d-none");
-var data = {"find"  : id };
-console.log(data);
-MyTable("post" , "js/database/proSell.php" , data , "json" , "#DpanelTable")
+let url = $(this).data("url")
+, id = $(this).data("id");
+var data = {"find":id};
+MyTable("post" , `${url}` , data , "json" , "#DpanelTable")
+
 
 
   
 });
 
-$(document).on("dblclick" , "#inv_id_print" , function(e){
+$(document).on("dblclick" , "#find_id" , function(e){
 e.preventDefault();
+
 var data = "";
 MyTable("post" , "js/database/proInv.php" , data , "json" , "#DpanelTable")
 
@@ -463,7 +473,7 @@ function modalHide(id){
 
 
 
-fetch("http://localhost/food_website/database/js/json/Cat_Json_file.json").then((response) => {
+fetch("../database/js/json/Cat_Json_file.json").then((response) => {
   if (response.ok) {
     return response.json();
   }
@@ -476,15 +486,17 @@ fetch("http://localhost/food_website/database/js/json/Cat_Json_file.json").then(
           option +=`<option value="${responseJson[i]["cat_id"]}"> ${responseJson[i]["cat_name"]}</option>`;
       };
     $("#cat_select_input").html(option);  
+    $("#EditCat_select_input").html(option);  
     $("#bCat_select_input").html(option);  
     $("#sCat_select_input").html(option);  
+    $("#stockCat_select_input").html(option);  
 })
 
 $(document).on("change" , "select[name='Cat_id']" , function()
 {
-  let cat_id = $(this).val();
+  let cat_id = $(this).val(), id = $(this).attr("id");
   console.log(cat_id)
-fetch("http://localhost/food_website/database/js/json/subCat_Json_file.json").then((response) => {
+fetch("../database/js/json/subCat_Json_file.json").then((response) => {
   if (response.ok) {
     return response.json();
   }
@@ -495,15 +507,51 @@ fetch("http://localhost/food_website/database/js/json/subCat_Json_file.json").th
       
       for(let i=0; i<responseJson.length; i++){
           if(responseJson[i]["cat_id"] == cat_id){
-            option +=`<option value="${responseJson[i]["scat_id"]}"> ${responseJson[i]["scat_name"]}</option>`;
+            option +=`<option data-cat-id="${responseJson[i]["cat_id"]}" value="${responseJson[i]["scat_id"]}"> ${responseJson[i]["scat_name"]}</option>`;
           }
         
       };
       
-    $("#Scat_select_input").removeAttr("disabled");  
-    $("#Scat_select_input").html(option);  
+    // $(`#${id}`).removeAttr("disabled");  
+    // $(`#${id}`).html(option);  
+      
+    $("#EditScat_select_input").removeAttr("disabled");  
+    $("#EditScat_select_input").html(option);  
     $("#bScat_select_input").removeAttr("disabled");  
     $("#bScat_select_input").html(option);  
+    $("#StockScat_select_input").removeAttr("disabled");  
+    $("#StockScat_select_input").html(option);  
+})
+
+  
+
+})
+$(document).on("change" , "select[name='Scat_id']" , function()
+{
+  let scat_id = $(this).val() , id = $(this).attr("id");
+  console.log(scat_id);
+fetch("../database/js/json/product_json_file.json").then((response) => {
+  if (response.ok) {
+    return response.json();
+  }
+  throw new Error('Something went wrong');
+})
+.then((responseJson) => {
+  let options = `<option selected> select </option>`;
+      
+      for(let i=0; i<responseJson.length; i++){
+          if(responseJson[i]["scat_id"] == scat_id){
+            console.log(responseJson[i]["scat_id"] +"=="+ scat_id)
+            options +=`<option value="${responseJson[i]["p_id"]}"> ${responseJson[i]["p_title"]}</option>`;
+          }
+        
+      };
+      console.log(options)
+      
+$("#pro_select_input").removeAttr("disabled");  
+$("#pro_select_input").html(options);  
+$("#EditPro_select_input").removeAttr("disabled");  
+$("#EditPro_select_input").html(options);  
 })
 
   

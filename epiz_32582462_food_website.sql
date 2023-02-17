@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 02:48 PM
+-- Generation Time: Feb 17, 2023 at 01:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -39,19 +39,16 @@ CREATE TABLE `banner` (
   `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
 --
 -- Dumping data for table `banner`
 --
 
-INSERT INTO `banner` (`b_id`, `u_id`, `cat_id`, `scat_id`,  `b_title`, `b_subtitle`, `b_desc`, `b_image`, `status`) VALUES
-(4, 2, 6, 7,  'spicy noodles', 'chines special noodles', 'A bowl of slurpy, tasty and spicy noodles is a dish that we could hard', 'home-img-1.png', 'good'),
-(5, 2, 3, 3,  'spicy pizza', 'hot & spicy dishes', 'a flat, open-faced baked pie of Italian origin, consisting of a thin layer of bread dough topped wit', 'home-img-3.png', 'good'),
-(6, 3, 2, 6,  'spicy chicken', 'world famous dishes', 'Delicious chicken recipes from the pakistan best chefs including roast chicken', 'home-img-2.png', 'delusion');
+INSERT INTO `banner` (`b_id`, `u_id`, `cat_id`, `scat_id`, `b_title`, `b_subtitle`, `b_desc`, `b_image`, `status`) VALUES
+(4, 2, 6, 7, 'spicy noodles', 'chines special noodles', 'A bowl of slurpy, tasty and spicy noodles is a dish that we could hard', 'home-img-1.png', 'good'),
+(5, 2, 3, 3, 'spicy pizza', 'hot & spicy dishes', 'a flat, open-faced baked pie of Italian origin, consisting of a thin layer of bread dough topped wit', 'home-img-3.png', 'good'),
+(6, 3, 2, 6, 'spicy chicken', 'world famous dishes', 'Delicious chicken recipes from the pakistan best chefs including roast chicken', 'home-img-2.png', 'delusion');
 
 -- --------------------------------------------------------
-
---
 
 --
 -- Table structure for table `card`
@@ -60,9 +57,9 @@ INSERT INTO `banner` (`b_id`, `u_id`, `cat_id`, `scat_id`,  `b_title`, `b_subtit
 CREATE TABLE `card` (
   `cr_id` int(11) NOT NULL,
   `inv_id` varchar(50) NOT NULL,
-  `cat_id` int(11) NOT NULL,
-  `pro_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
+  `cat_id` varchar(50) NOT NULL,
+  `pro_id` varchar(50) NOT NULL,
+  `u_id` varchar(50) NOT NULL,
   `qty` decimal(10,0) NOT NULL,
   `prize` decimal(10,0) NOT NULL,
   `tax` int(10) NOT NULL DEFAULT 3,
@@ -75,9 +72,31 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`cr_id`, `inv_id`, `cat_id`, `pro_id`, `u_id`, `qty`, `prize`, `tax`, `date`, `status`) VALUES
-(6, 'inv_005401', 4, 2, 2, '4', '110', 3, '2023-01-18 09:54:53.000000', 'purchasing'),
-(16, 'inv_005402', 3, 3, 2, '1', '280', 3, '2023-01-20 04:05:55.000000', 'purchasing'),
-(17, 'inv_005403', 4, 2, 3, '4', '110', 3, '2023-01-20 04:29:00.000000', 'purchasing');
+(22, 'inv-50001', 'cat-20001', 'p-10002', '1357678', '5', '110', 3, '2023-01-13 08:08:29.000000', 'show');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash`
+--
+
+CREATE TABLE `cash` (
+  `id` int(11) NOT NULL,
+  `cash-in` decimal(10,0) NOT NULL,
+  `cash-out` decimal(10,0) NOT NULL,
+  `invetment` decimal(10,0) NOT NULL,
+  `profite` decimal(10,0) NOT NULL,
+  `extra` decimal(10,0) NOT NULL,
+  `date` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cash`
+--
+
+INSERT INTO `cash` (`id`, `cash-in`, `cash-out`, `invetment`, `profite`, `extra`, `date`) VALUES
+(1, '3000', '0', '150000', '4000', '0', '2023-02-17 16:02:08.000000'),
+(2, '2500', '20000', '150000', '4000', '0', '2023-02-18 00:00:00.000000');
 
 -- --------------------------------------------------------
 
@@ -86,23 +105,26 @@ INSERT INTO `card` (`cr_id`, `inv_id`, `cat_id`, `pro_id`, `u_id`, `qty`, `prize
 --
 
 CREATE TABLE `catagory` (
-  `cat_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `cat_id` varchar(50) NOT NULL,
+  `u_id` varchar(50) NOT NULL,
   `cat_name` varchar(20) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL DEFAULT 'show'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `catagory`
 --
 
-INSERT INTO `catagory` (`cat_id`, `u_id`, `cat_name`, `status`) VALUES
-(1, 2, 'burger', ''),
-(2, 2, 'meat', ''),
-(3, 3, 'pizza', ''),
-(4, 2, 'rots', ''),
-(5, 2, 'ice cream', ''),
-(6, 2, 'noodles', '');
+INSERT INTO `catagory` (`id`, `cat_id`, `u_id`, `cat_name`, `status`) VALUES
+(1, 'cat-20001', '1357678', 'burger', 'show'),
+(2, 'cat-20002', '1357678', 'meat', 'show'),
+(3, 'cat-20003', '1133030496', 'pizza', 'show'),
+(4, 'cat-20004', '1357678', 'rots', 'show'),
+(5, 'cat-20005', '1357678', 'ice cream', 'show'),
+(6, 'cat-20006', '1357678', 'noodles', 'show'),
+(7, 'cat-20007', '1357678', 'beverages', 'show'),
+(9, 'cat-20008', '1357678', 'Biryani', 'show');
 
 -- --------------------------------------------------------
 
@@ -149,7 +171,9 @@ CREATE TABLE `feedback` (
 
 INSERT INTO `feedback` (`f_id`, `user_id`, `inv_id`, `msg`, `date`) VALUES
 (7, 1357678, 'inv_005402', 'i am very Thankfully your website and your team , i am Received your product  in 30 mint And your pizza is very spicy', '2023-01-20 16:08:49'),
-(8, 1133030496, 'inv_005403', 'your roster moster is very hot  and oily  but your service is free fasr nd your product prize is helpful us , thanks , ', '2023-01-20 16:31:10');
+(8, 1133030496, 'inv_005403', 'your roster moster is very hot  and oily  but your service is free fasr nd your product prize is helpful us , thanks , ', '2023-01-20 16:31:10'),
+(9, 1357678, 'inv_005404', 'your products is very spicy but  your burger have small amount of chechkup', '2023-02-14 19:19:21'),
+(10, 1357678, 'inv_005404', 'your products is very spicy but  your burger have small amount of chechkup', '2023-02-14 19:19:26');
 
 -- --------------------------------------------------------
 
@@ -158,10 +182,11 @@ INSERT INTO `feedback` (`f_id`, `user_id`, `inv_id`, `msg`, `date`) VALUES
 --
 
 CREATE TABLE `product` (
-  `p_id` int(11) NOT NULL,
-  `cat_id` int(11) NOT NULL,
-  `scat_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `p_id` varchar(50) NOT NULL,
+  `cat_id` varchar(50) NOT NULL,
+  `scat_id` varchar(50) NOT NULL,
+  `u_id` varchar(50) NOT NULL,
   `p_title` varchar(30) NOT NULL,
   `p_subtitle` varchar(30) NOT NULL,
   `p_desc` varchar(150) NOT NULL,
@@ -175,18 +200,46 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`p_id`, `cat_id`, `scat_id`, `u_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image`, `status`, `action`) VALUES
-(1, 1, 1, 2, 'zinger burger', 'so Delicious', '  zinger buger is very nice', '130', 'dish1.png', 'show', 'far'),
-(2, 4, 4, 3, 'roster moster', 'small roster', 'this is roster', '110', 'dish-2.png', 'show', 'far'),
-(3, 3, 3, 2, 'down pizza', 'so Delicious', 'pizza is  is very nice', '280', 'dish-4.png', 'show', 'far'),
-(4, 4, 4, 3, 'legs roster', 'larger roster', 'this is roster', '160', 'dish-6.png', 'show', 'far'),
-(5, 5, 5, 2, 'black ice cream', 'so Delicious', ' ice cream is nice', '150', '1675526263dish-5.png', 'hide', 'far'),
-(6, 1, 1, 2, 'ELK burger', 'Lean, delicious ', 'Lean, delicious and free-range , Awesome In Rang , Elk Burger is Spicy', '360', '1675515405dish-7.png', 'show', 'far'),
-(7, 3, 3, 2, 'down pizza', 'Lean, delicious ', 'ou want the best pizza to be cooked to a crisp. The cheese should be melted, the crust should have some crunch to it, the toppings should be well-cook', '320', '1675526105dish-4.png', 'show', 'far'),
-(8, 5, 5, 2, 'black ice cream', 'so Delicious', '  ice cream is nice', '2500', '1675526263dish-5.png', 'show', 'far'),
-(13, 2, 6, 2, 'Hyderabadi biryani', 'fried chicken', ' Hyderabadi chicken biryani is an aromatic, mouth watering and authentic Indian dish with succulent chicken in layers of fluffy rice, fragrant spices ', '250', 'chicken.png', 'show', 'far'),
-(14, 1, 1, 2, 'cheez burger', 'Extra spicy and hot', 'hello guys, new offer of cheezz burger', '190', 'menu-2.jpg', 'show', 'far'),
-(15, 2, 2, 2, 'dle', 'ded', 'sdsdsd', '1250', 'dish-5.png', 'show', 'far');
+INSERT INTO `product` (`id`, `p_id`, `cat_id`, `scat_id`, `u_id`, `p_title`, `p_subtitle`, `p_desc`, `p_prize`, `p_image`, `status`, `action`) VALUES
+(1, 'p-10001', 'cat-20001', 'scat-30001', '1357678', '', '', '', '115', '', 'show', 'far'),
+(2, 'p-10002', 'cat-20004', 'scat-30003', '1357678', 'roster moster', 'small roster', ' this is roster', '110', 'dish-2.png', 'show', 'far'),
+(3, 'p-10003', '3', '0', '2', 'down pizza', 'so Delicious', 'pizza is  is very nice', '280', 'dish-4.png', 'show', 'far'),
+(4, 'p-10004', 'cat-20004', 'scat-30013', '1357678', 'legs roster', 'larger roster', '  this is roster', '160', 'dish-6.png', 'show', 'far'),
+(5, 'p-10005', 'cat-20005', 'scat-30004', '1357678', 'black ice cream', 'so Delicious', '   ice cream is nice', '150', 'dish-5.png', 'hide', 'far'),
+(6, 'p-10006', 'cat-20001', 'scat-30014', '1357678', 'ELK burger', 'Lean, delicious ', '   Lean, delicious and free-range , Awesome In Rang , Elk Burger is Spicy', '360', 'dish-7.png', 'show', 'far'),
+(13, 'p-10008', 'cat-20008', 'scat-30012', '1357678', 'Hyderabadi biryani', 'fried chicken', '   Hyderabadi chicken biryani is an aromatic, mouth watering and authentic Indian dish with succulent chicken in layers of fluffy rice, fragrant spice', '250', 'chicken.png', 'show', 'far'),
+(14, 'p-10009', 'cat-20001', 'scat-30009', '1357678', 'cheez burger', 'Extra spicy and hot', '  hello guys, new offer of cheezz burger', '190', 'dish-7.png', 'show', 'far'),
+(16, '0', '1', '8', '2', 'demo', 'demo delected', 'demo', '2424', 'menu-3.jpg', 'show', 'far'),
+(17, 'p-10010', 'cat-20005', 'scat-30010', '1357678', 'Mango Ice', 'Sweet & ice ', ' 125kcal', '250', 'dish-8.jpg', 'show', 'far');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pro_stock`
+--
+
+CREATE TABLE `pro_stock` (
+  `pp_id` int(11) NOT NULL,
+  `ps_id` varchar(50) NOT NULL,
+  `cat_id` varchar(50) NOT NULL,
+  `scat_id` varchar(50) NOT NULL,
+  `pro_id` varchar(50) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `qty` decimal(10,0) NOT NULL,
+  `prize` decimal(10,0) NOT NULL,
+  `tax` int(10) NOT NULL DEFAULT 3,
+  `date` datetime(6) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pro_stock`
+--
+
+INSERT INTO `pro_stock` (`pp_id`, `ps_id`, `cat_id`, `scat_id`, `pro_id`, `u_id`, `qty`, `prize`, `tax`, `date`, `status`) VALUES
+(1, 'stk-40001', 'cat-20001', 'scat-30001', 'p-10001', 1357678, '25', '115', 2, '2023-02-17 14:12:00.000000', 'show'),
+(2, 'stk-40002', 'cat-20001', 'scat-30009', 'p-10009', 1357678, '25', '170', 2, '2023-02-17 11:01:00.000000', 'show'),
+(3, 'stk-40003', 'cat-20001', 'scat-30007', 'p-10006', 1357678, '30', '120', 2, '2023-02-17 11:08:00.000000', 'hide');
 
 -- --------------------------------------------------------
 
@@ -263,24 +316,32 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 --
 
 CREATE TABLE `sub_category` (
-  `scat_id` int(11) NOT NULL,
-  `cat_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
-  `scat_name` varchar(20) NOT NULL
+  `id` int(11) NOT NULL,
+  `scat_id` varchar(50) NOT NULL,
+  `cat_id` varchar(50) NOT NULL,
+  `u_id` varchar(50) NOT NULL,
+  `scat_name` varchar(50) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'show'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `sub_category`
 --
 
-INSERT INTO `sub_category` (`scat_id`, `cat_id`, `u_id`, `scat_name`) VALUES
-(1, 1, 3, 'zinger burger'),
-(2, 2, 2, 'white qorma'),
-(3, 3, 2, 'larger pizza'),
-(4, 4, 2, 'menu roster'),
-(5, 5, 2, 'black ice'),
-(6, 2, 3, 'chicken'),
-(7, 6, 2, 'chines noodles');
+INSERT INTO `sub_category` (`id`, `scat_id`, `cat_id`, `u_id`, `scat_name`, `status`) VALUES
+(1, 'scat-30001', 'cat-20001', '1133030496', 'zinger burger', 'show'),
+(3, 'scat-30002', 'cat-20003', '1357678', 'larger pizza', 'show'),
+(4, 'scat-30003', 'cat-20004', '1357678', 'menu roster', 'show'),
+(5, 'scat-30004', 'cat-20005', '1357678', 'black ice', 'show'),
+(6, 'scat-30005', 'cat-20002', '1133030496', 'chicken', 'show'),
+(7, 'scat-30006', 'cat-20006', '1357678', 'chines noodles', 'show'),
+(10, 'scat-30008', 'cat-20005', '1357678', 'stabber', 'show'),
+(11, 'scat-30009', 'cat-20001', '1357678', 'cheez burger', 'show'),
+(12, 'scat-30010', 'cat-20005', '1357678', 'Mango Ice', 'show'),
+(13, 'scat-30011', 'cat-20003', '1357678', 'down pizza', 'show'),
+(14, 'scat-30012', 'cat-20008', '1357678', 'Hyderabadi biryani ', 'show'),
+(15, 'scat-30013', 'cat-20004', '1357678', 'leg roster', 'show'),
+(16, 'scat-30014', 'cat-20001', '1357678', 'elk burger', 'show');
 
 --
 -- Indexes for dumped tables
@@ -293,10 +354,16 @@ ALTER TABLE `card`
   ADD PRIMARY KEY (`cr_id`);
 
 --
+-- Indexes for table `cash`
+--
+ALTER TABLE `cash`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `catagory`
 --
 ALTER TABLE `catagory`
-  ADD PRIMARY KEY (`cat_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `colors`
@@ -314,7 +381,13 @@ ALTER TABLE `feedback`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`p_id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pro_stock`
+--
+ALTER TABLE `pro_stock`
+  ADD PRIMARY KEY (`pp_id`);
 
 --
 -- Indexes for table `register`
@@ -332,7 +405,7 @@ ALTER TABLE `role`
 -- Indexes for table `sub_category`
 --
 ALTER TABLE `sub_category`
-  ADD PRIMARY KEY (`scat_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -342,13 +415,19 @@ ALTER TABLE `sub_category`
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `cash`
+--
+ALTER TABLE `cash`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `catagory`
 --
 ALTER TABLE `catagory`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `colors`
@@ -360,13 +439,19 @@ ALTER TABLE `colors`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `pro_stock`
+--
+ALTER TABLE `pro_stock`
+  MODIFY `pp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `register`
@@ -384,9 +469,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `sub_category`
 --
 ALTER TABLE `sub_category`
-  MODIFY `scat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

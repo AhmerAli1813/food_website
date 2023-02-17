@@ -8,6 +8,8 @@ $count_all_rows = mysqli_num_rows($q);
 if(isset($_POST['search'])){
     $search_value = $_POST['search'];
     $sql .="WHERE p_id LIKE '%{$search_value}%'";
+    $sql .="OR cat_id LIKE '%{$search_value}%'";
+    $sql .="OR scat_id LIKE '%{$search_value}%'";
     $sql .="OR p_title LIKE '%{$search_value}%'";
     $sql .="OR p_subtitle LIKE '%{$search_value}%'";
     $sql .="OR p_prize LIKE '%{$search_value}%'";
@@ -17,7 +19,10 @@ if(isset($_POST['search'])){
 }else{
     $search_value = "no Search";
 };
-
+if(isset ($_POST["find"] )){
+    $id =  $_POST["find"];
+ $sql .=" where p_id = '$id'  ";
+ }
 if(isset($_POST['order'])){
     $column = $_POST['order']['columns'];
      $order = $_POST['order']['dirs'];

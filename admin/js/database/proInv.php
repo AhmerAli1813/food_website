@@ -15,6 +15,10 @@ if(isset($_POST['search'])){
 }else{
     $search_value = "no Search";
 };
+if(isset ($_POST["find"] )){
+    $id =  $_POST["find"];
+ $sql .=" where inv_id = '$id'  ";
+ }
 $sql.=" GROUP BY inv_id ";
 // echo $sql;
 if(isset($_POST['order'])){
@@ -60,7 +64,7 @@ while($row = mysqli_fetch_assoc($run_query)){
     $sno++;
     $subarray = array();
     $subarray[] = $sno;
-    $subarray[] = "<a id='inv_id_print' data-inv-id ='{$row["inv_id"]}'>{$row["inv_id"]}</a>";
+    $subarray[] = "<a id='find_id' data-url='js/database/proSell.php' data-id ='{$row["inv_id"]}' data-inv-id ='{$row["inv_id"]}'>{$row["inv_id"]}</a>";
     $subarray[] = $row["item"];
     $subarray[] = $row["TQty"];
     $subarray[] = $row["tax"] ."%";

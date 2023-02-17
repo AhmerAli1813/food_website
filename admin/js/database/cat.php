@@ -14,6 +14,10 @@ if(isset($_POST['search'])){
 }else{
     $search_value = "no Search";
 };
+if(isset ($_POST["find"] )){
+    $id =  $_POST["find"];
+ $sql .=" where cat_id = '$id'  ";
+ }
 
 if(isset($_POST['order'])){
     $column = $_POST['order']['columns'];

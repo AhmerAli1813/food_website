@@ -6,7 +6,7 @@ if(isset($_POST["action"])){
       if($_POST["action"]  == "get"){
         $form ='';
           $cat_id = $_POST["id"];
-          $q=$conn->query("SELECT * FROM `sub_category` WHERE scat_id = $cat_id");
+          $q=$conn->query("SELECT * FROM `sub_category` WHERE scat_id = '$cat_id'");
           if(mysqli_num_rows($q)){
           
           $data=mysqli_fetch_assoc($q);
@@ -44,7 +44,7 @@ if(isset($_POST["action"])){
       }
       if($_POST["action"] == "del"){
               $id = $_POST["id"];
-              $q=$conn->query("DELETE FROM `sub_category` WHERE `scat_id` = $id");
+              $q=$conn->query("DELETE FROM `sub_category` WHERE `scat_id` = '$id' ");
               if($q){
                 echo json_encode( ["type"=>"success" , "msg"=>"delete Successfully"] , true);
               }else{
@@ -53,3 +53,4 @@ if(isset($_POST["action"])){
           }
 }
 
+  

@@ -195,68 +195,15 @@ function ad_head_content () {
  function carts_circle (){
   echo '
   <!-- cart container -->
-  <div class="chart-container container">
+  <div class="chart-container container mb-5">
       <div class="row">
           <div class="col-10 offset-1">
-              <div class="grid">
-                  <section>
-                    
-                    <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
-                      <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <circle class="circle-chart__circle" stroke="#00acc1" stroke-width="2" stroke-dasharray="40,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <g class="circle-chart__info">
-                        <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">40%</text>
-                        <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Yay 30% progress!</text>
-                      </g>
-                    </svg>
-                  </section>
-                
-                  <section>
-                    
-                    <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
-                     
-                      <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <circle class="circle-chart__circle circle-chart__circle" stroke="var(--bs-warning)"    
-                      stroke-width="2" stroke-dasharray="30,180" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <g class="circle-chart__info">
-                        <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">30%</text>
-                        <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">offline user</text>
-                      </g>
-                    </svg>
-                  </section>
-                
-                  <section>
-                  
-                    <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
-                     
-                      <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <circle class="circle-chart__circle circle-chart__circle" stroke="var(--first-color)"    
-                      stroke-width="2" stroke-dasharray="50" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <g class="circle-chart__info">
-                        <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">70%</text>
-                        <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Active user</text>
-                      </g>
-                    </svg>
-                  </section>
-                
-                  <section>
-                  
-                    <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
-                     
-                      <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <circle class="circle-chart__circle circle-chart__circle--negative" stroke="red"    
-                      stroke-width="2" stroke-dasharray="10,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-                      <g class="circle-chart__info">
-                        <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">-10%</text>
-                        <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Oh no :(</text>
-                      </g>
-                    </svg>
-                  </section>
+              <div class="grid" id="charts_row">
                 </div>
           </div>
       </div>
   </div>';
-}
+  }
 function   cards (){
               echo '
               <!-- card container -->
@@ -629,7 +576,102 @@ function formModals(){
           </div>
       </div>
     </div>
+    <div class="modal fade" id="stockInsertModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0.3rem 1rem !important;">
+                <h5 class="modal-title" id=""> ADD new Products</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <form  id="stockInsertForm" action="js/database/proStockUpdate.php" method="post"  accept-charset="multipart/form-data" >
+                                
+                                    <input type="hidden" name="action" value="insert">
+                            <div class="row">
 
+
+
+
+
+                              <div class="col-6">
+
+                            <div class="mb-2">
+                            <label for="" class="form-label">Category</label>
+                            <select class="form-select form-select-lg" name="Cat_id" id="stockCat_select_input" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" >
+
+                            </select>
+                            </div>
+                            </div>
+
+
+
+                            <div class="col-6">
+
+
+                            <div class="mb-2">
+                            <label for="" class="form-label">Sub Category</label>
+                            <select class="form-select form-select-lg " name="Scat_id" disabled id="StockScat_select_input" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;" >
+
+                            </select>
+                            </div>
+                            </div>
+                              
+                            <div class="mb-2 col-6">
+                            <label for="" class="form-label">product</label>
+                            <select class="form-select form-select-lg " name="p_id" disabled id="pro_select_input" style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;">
+
+                            </select>
+                            </div>
+                            <div class="col-3">
+
+                            <div class="mb-2">
+                            <label for="" class="form-label">Prize</label>
+                            <input type="tel" class="form-control" name="pPrize" >
+
+                            </div>
+                            </div>
+                            
+                            <div class="col-3">
+
+                            <div class="mb-2">
+                            <label for="" class="form-label">tax</label>
+                            <input type="tel" class="form-control" name="pTax" >
+
+                            </div>
+                            </div>
+                            
+                            <div class="col-3">
+
+                            <div class="mb-2">
+                            <label for="" class="form-label">Quantity</label>
+                            <input type="tel" class="form-control" name="pQty" >
+
+                            </div>
+                            </div>
+                            <div class="col-6">
+                                          <div class="input">
+                                  <label>date and time</label>
+                                  <input type="datetime-local" class="form-control" name="pDate" value="' . date("d-m-y") . '">
+                              </div>
+
+                            </div>
+
+                            <div class="mb-3 col-3">
+                            <label for="" class="form-label">status</label>
+                            <select class="form-select form-select-lg " name="pSts"  style="padding-top: 0.2rem !important;padding-bottom: 0.2rem !important;"> <option>show</option><option>hide</option> </select>
+                            </div>
+
+
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="productsSubmit" class="btn btn-primary">Save</button>
+                            </div>
+                            </div>
+                </form>
+        </div>
+    </div>
+</div>
+</div>
 
   ';
 }
