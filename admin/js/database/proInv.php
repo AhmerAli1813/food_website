@@ -76,7 +76,7 @@ while($row = mysqli_fetch_assoc($run_query)){
      $data[] = $subarray;
 };
 $col = [];
-$col[] = '<th  data-by="'.$order.'" data-table-th=""> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="inv_id"><b>invoices </b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th=""><b>Item</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th=""><b>Total Qnty</b> <i class="fas  fa-sort float-end text-muted"></i></th>';

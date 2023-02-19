@@ -9,7 +9,7 @@ if ($_POST["action"] == "add") {
    $qty = $_POST["qty"];
    $title = $_POST["title"];
    if (!isset($_SESSION["cart"][$pro_id])) {
-      $result = $conn->query("SELECT p_image ,p_title,p_prize FROM `product` WHERE p_id = $pro_id");
+      $result = $conn->query("SELECT p_image ,p_title,p_prize FROM `product` WHERE p_id = '$pro_id'");
       if(mysqli_num_rows($result) >0){
          $row = mysqli_fetch_assoc($result);
          $image = $row["p_image"];
@@ -41,16 +41,17 @@ if ($_POST["action"] == "add") {
                          }
                          
              
-
-      echo '<div class="alert alert-success" id="p_message" role="alert"> ' . $title . ' your add successfully </div>';
+                         echo json_encode(["type"=>"success" , "msg" =>"your product add successfully"] , true);
+      // echo '<div class="alert alert-success" id="p_message" role="alert"> ' . $title . ' your add successfully </div>';
    } else {
-      echo '<div class="alert alert-danger" id="p_message" role="alert"> your ' . $title . '  is already  added! </div>';
+      echo json_encode(["type"=>"error" , "msg" =>$title ."is already  added!"] , true);
+      // echo '<div class="alert alert-danger" id="p_message" role="alert"> your ' . $title . '  is already  added! </div>';
    }
 }
 //  cart count funtion
 if ($_POST["action"] == "count") {
    if (isset($_SESSION["cart"])) {
-      echo  '<span class="badge bg-success">' . count($_SESSION["cart"]) . '</span>';
+      echo  '<span class="badge bg">' . count($_SESSION["cart"]) . '</span>';
    } else {
       echo "";
    }
@@ -102,8 +103,8 @@ if ($_POST["action"] == "delete") {
       $id = $_POST["p_id"];
       if ($item["id"] == $id) {
          unset($_SESSION["cart"][$key]);
-         echo " All record have been deleted!";
-
+         // echo " All record have been deleted!";
+         echo json_encode(["type"=>"success" , "msg" =>"your product  successfully deleted" , "deleted"=>true] , true);
          $biil = 0;
          $output = '';
          if (isset($_SESSION["cart"])) {
@@ -147,7 +148,7 @@ if ($_POST["action"] == "buy") {
             $product_id = $item["id"];
              $qty = $item["qty"];
              $inv_id = $_SESSION["inv_id"];
-            $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = {$product_id}");
+            $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = '{$product_id}'");
             if ($q) {
                $result = mysqli_fetch_assoc($q);
                
@@ -162,7 +163,7 @@ if ($_POST["action"] == "buy") {
              $time = $now->format('Y-m-d h:i:s');
             
                     $q2 = $conn->query("INSERT INTO `card`(`inv_id`, `cat_id`, `pro_id`, `u_id`, `qty`, `prize`, `date`, `status`) 
-               VALUES('$inv_id',$cat_id,$product_id, $user_id,'$qty' , '$p_prize' , '$time', '$sts' ) ");
+               VALUES('$inv_id','$cat_id','$product_id', '$user_id','$qty' , '$p_prize' , '$time', '$sts' ) ");
                   
                if ($q2) {
                   unset($_SESSION["cart"]);
@@ -187,7 +188,7 @@ if ($_POST["action"] == "feedback") {
 
     
       $msg = $_POST["fb_msg"];
-      $q=$conn->query("INSERT INTO `feedback`( `inv_id`, `user_id`, `msg`, `date`) VALUES ('$inv_id',$u_id , '$msg',NOW())");
+      $q=$conn->query("INSERT INTO `feedback`( `inv_id`, `user_id`, `msg`, `date`) VALUES ('$inv_id','$u_id' , '$msg',NOW())");
       if($q >0){
          echo true;
          // header("location:index.php");

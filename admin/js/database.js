@@ -31,19 +31,21 @@ showTable();
           data : {action : "check" },
           dataType : "json",
           success: function (response) {
-            if(response.action == false){
+            if(response.login == false){
               data =`<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>`;
               
               
               console.log("please login kro");
+              alert("please login kro");
             }else{
-              if(response.role_id == 1){
+              if(response.data.role_id == 1){
                         console.log("welcome admin")
-                        $(".userImg").attr("src" , `../database/upload/${response.image}` )
+                        $(".userImg").attr("src" , `../database/upload/${response.data.image}` )
                         
-                        $(".userName").html(response.Name)
+                        $(".userName").html(response.data.Name)
                       }else{
                           console.log("u are not admin")
+                          alert("u are not admin")
     
                   }
                 }
@@ -92,6 +94,7 @@ let  data = {"action" : "charts"}
             console.log(response)
             if(res_id !=""){
            $(res_id).html(response.data); 
+           $(".sidebar-item #table").html(response.link);   
             }
             
           }
@@ -332,7 +335,7 @@ $(document).on("submit", `form`, function (e) {
 
           console.log(formModalNames);
               var formId = $(this).attr("id");
-              modalHide(formId);
+              modalHide(modalId);
           var Data = new FormData(document.getElementById(formId));
           console.log(Data)        ;
           $.ajax({
@@ -351,7 +354,7 @@ $(document).on("submit", `form`, function (e) {
                       message(data.type, data.msg);
                       cardsLoad();
                           showTable();
-                          modalHide(`#${modalId}`)
+                          
                   },
                   error: function (err)
                   {

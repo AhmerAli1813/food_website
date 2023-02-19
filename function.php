@@ -12,9 +12,9 @@ include "database/conf.php";
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> Food Website </title>
-        
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
         <!-- font awesome cdn link  -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
@@ -50,25 +50,6 @@ include "database/conf.php";
         <div class="icons">
             <i class="fas fa-bars" id="menu-bars"></i>
      
-                <div class="modal fade " id="MsgModel" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                    <p id="Model_txt"> hello this a msg</p>
-                    </div>
-                    <div class="modal-footer">
-                    
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                    </div>
-                </div>
-                </div>
-                </div>    
                 <a class="fas fa-search" id="search-icon"></a>
                 <a class="dropdown fas fa-tint" data-dropdown="#color-gallery">
                 
@@ -159,7 +140,29 @@ function search()
   </form>
     ';
 }
+function msgModals(){
+    echo '
 
+    <div class="modal fade " id="MsgModel" tabindex="1000" role="dialog">
+        <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+                  <div class="modal-body">
+                  <p id="Model_txt"></p>
+                  </div>
+                  <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                  </div>
+              </div>
+        </div>
+    </div>';
+}
 function search_result()
 {
     echo '
@@ -200,7 +203,7 @@ function loadtabel()
                     
                     <caption class="w-100">
                     <span  class= "ml-5">   Grand total : <b  id="crt_amt"></b> </span>
-                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn dpanel-btn"> lol buying</button>
+                     <button role="button" id="crt_inv_shw_btn"  class=" mr-5 float-end btn "> buying</button>
                      </caption>
                 </tbody>
          </table>
@@ -530,14 +533,14 @@ function footers()
     <!-- footer section ends -->
     <!-- Plugin js for this page -->
     
-
+    <script src="js/jquery.min.js"></script>
      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js "></script>
     
      <!-- End plugin js for this page -->
-     <script src="https://cdn.jsdelivr.net/npm/waitme@1.19.0/waitMe.min.js"></script>
+     
    
     <!-- custom js file link  -->
     <script type="module" src="js/script.js"></script>

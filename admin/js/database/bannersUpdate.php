@@ -28,7 +28,27 @@ $desc= mysqli_real_escape_string($conn, $_POST["bDesc"]);
 
 
                                         if($_POST["action"] == "insert"){
-                                            $q = $conn->query(" INSERT INTO `banner`(`u_id`, `cat_id`, `scat_id`,  `b_title`, `b_subtitle`, `b_desc`, `b_image`) VALUES($u_id,$cat_id , $scat_id ,'$title','$subtile' , '$desc' , '$img');");
+                                            // making invoice
+    $q2=$conn->query("SELECT MAX(b_id) as last_inv FROM `banner`");
+    if(mysqli_num_rows($q2) >0){
+
+                   $last = mysqli_fetch_assoc($q2);
+                 
+                            function increment($matches)
+                             {
+                                   if(isset($matches[1]))
+                                   {
+                                      $length = strlen($matches[1]);
+                                      return sprintf("%0".$length."d", ++$matches[1]);
+                                   }    
+                          }
+
+                             $new_id = $last['last_inv'];
+
+                       $new_id =  preg_replace_callback( "|(\d+)|", "increment", $new_id);
+         
+        }
+                                            $q = $conn->query(" INSERT INTO `banner`(`b_id`, `u_id`, `cat_id`, `scat_id`,  `b_title`, `b_subtitle`, `b_desc`, `b_image`) VALUES('$new_id','$u_id','$cat_id' , '$scat_id' ,'$title','$subtile' , '$desc' , '$img');");
                                                     if ($q) {
                                                         $data = array(
                                                             "type" => "success",
@@ -42,7 +62,8 @@ $desc= mysqli_real_escape_string($conn, $_POST["bDesc"]);
                                                     }
                                         }
                                         if($_POST["action"]=="update"){
-                                            $q2=$conn->query("UPDATE  `banner` SET  `cat_id` = $cat_id,`scat_id` = $scat_id,`u_id` = $u_id, `b_title` = '$title' , `b_subtitle` = '$subtile' , `b_desc` = '$desc' ,  `b_image` = '$img'  where b_id = '{$b_id}';");
+                                           $sql = "UPDATE  `banner` SET `b_id` = '$b_id' ,`cat_id` = '$cat_id',`scat_id` = '$scat_id',`u_id` = '$u_id', `b_title` = '$title' , `b_subtitle` = '$subtile' , `b_desc` = '$desc' ,  `b_image` = '$img'  where b_id = '{$b_id}';";
+                                            $q2=$conn->query($sql);
                                             if ($q2) {
                                                 $data = array(
                                                     "type" => "success",

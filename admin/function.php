@@ -118,17 +118,8 @@ function ad_headers(){
                               <a href="" class=""><i class="fas fa-table"></i></a>
                               <span class=" dropdown-toggle">Tables</span> 
                               <div class=" dropdown-menu  "  id="table">
-                                  <div class="d-flex-center">
-      
-                                      <i class="fas fa-dot-circle "></i>
-                                      <a class="dropdown-item" href="#">Action</a>
-                                  </div>
                                   
-                                  <div class="d-flex-center">
-      
-                                      <i class="fas fa-dot-circle "></i>
-                                      <a class="dropdown-item disabled" href="#">disable</a>
-                                  </div>
+                                  
                                   
                               </div>    
                           </li>
@@ -218,6 +209,9 @@ function tables(){
     echo ' <div class="container-fluid">
 
     <div class="card shadow mb-4" id="DpanelTable">
+    <div class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
         <div class="card-header d-flex justify-content-between py-3">
             <h6 class="m-0 font-weight-bold dpanel-text table_heading">User Data </h6>
             <div class="input-group d-flex-between  w-50 " >
@@ -678,7 +672,7 @@ function formModals(){
 function msgModals(){
           echo '
 
-          <div class="modal fade " id="MsgModel" tabindex="1000" role="dialog">
+          <div class="modal fade " id="MsgModel" tabindex="1062" role="dialog">
               <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

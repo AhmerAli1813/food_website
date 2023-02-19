@@ -62,6 +62,7 @@ while($row = mysqli_fetch_assoc($run_query)){
     $sno++;
     $subarray = array();
     $subarray[] = $sno;
+    $subarray[] = $row["scat_id"];
     $subarray[] = $row["cat_name"];
     $subarray[] = $row["scat_name"];
     $subarray[] = '<div class="form-check form-switch">
@@ -73,7 +74,8 @@ while($row = mysqli_fetch_assoc($run_query)){
      $data[] = $subarray;
 };
 $col = [];
-$col[] = '<th  data-by="'.$order.'" data-table-th="scat_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="scat_id"> <b>id</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="cat_id"><b>Category Name</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="scat_name"><b>Sub Category Name</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="status"><b>Status</b> <i class="fas  fa-sort float-end text-muted"></i></th>';

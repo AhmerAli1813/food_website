@@ -66,6 +66,7 @@ while($row = mysqli_fetch_assoc($run_query)){
     $sno++;
     $subarray = array();
     $subarray[] = $sno;
+    $subarray[] = $row["p_id"];
     $subarray[] =   "<img src='../images/{$row["p_image"]}' width='30px' style='border-radius:50%; ' alt='{$row["p_image"]}'>";
     $subarray[] = $row["p_title"];
     $subarray[] = $row["p_subtitle"];
@@ -79,7 +80,8 @@ while($row = mysqli_fetch_assoc($run_query)){
      $data[] = $subarray;
 };
 $col = [];
-$col[] = '<th  data-by="'.$order.'" data-table-th="p_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="p_id"> <b>id</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="p_image"><b>Images</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="p_title"><b>Title</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="p_subtitle"><b>Subtitle</b> <i class="fas  fa-sort float-end text-muted"></i></th>';

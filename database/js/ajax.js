@@ -5,14 +5,16 @@ $(document).ready(function () {
   OrderFormHtml();
   jsonFilesUpdate();
   function message( types, txt){
+   
+      $("#Model_txt").text(txt);
+      $("#MsgModel .modal-title").text(types);
+      $("#MsgModel").modal("show")
+      window.setTimeout(function(){
+        $('#MsgModel').modal('hide');
+     }, 2000)
   
-    $("#Model_txt").text(txt);
-    $(".modal-title").text(types);
-    $("#MsgModel").modal("show")
-    $("#MsgModel").delay(3000).modal("hide")
-
-  
-}
+    
+  }
 $(document).on("click" , ".cards_box" , function(){
       console.log($(this).data("tbl"));
 })
@@ -116,25 +118,26 @@ $(document).on("click" , ".cards_box" , function(){
       data : {action : "check" },
       dataType : "json",
       success: function (response) {
-        if(response.action == false){
+        console.log(response)
+        if(response.login == false){
           data =`<a href='login.php'  >Sign in</a> <a href='register.php'  >sign up</a>`;
           $("#adminLink").hide()
           console.log("false")
         }else{
-          if(response.role_id == 1){
+          if(response.data.role_id == 1){
                     $("#adminLink").show()
                   }else{
                 $("#adminLink").hide()
 
               }
-              
+                  let img = response.data.image , name = response.data.Name;
                     data = `<div class="dropdown">
                     <button class="btn dropdown-toggle " style="outline: none; border:none;" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <img id="user_img" class="card-img" src="database/upload/${response.image}"  alt="${response.Name}">
+                    <img id="user_img" class="card-img" src="database/upload/${img}"  alt="${name}">
                             </button>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 126px);">
                             <a class="dropdown-item" href="#">
-                            ${response.Name}
+                            ${name}
                               <i class="fas fa-circle text-success fa-sm fa-fw mr-2 text-gray-400"></i>
                           </a>
                             <a class="dropdown-item" href="#">
@@ -170,7 +173,6 @@ $(document).on("click" , ".cards_box" , function(){
   checkUserLogin();
   // cart ajax start
   $(document).on("click", "#CartBtn", function () {
-        
     var id = $(this).attr("data-id");
     var title = $("#title" + id).val();
     var image = $("#image" + id).val();
@@ -186,19 +188,17 @@ $(document).on("click" , ".cards_box" , function(){
       action: "add",
     };
 
-    if(qty ==-1){
-      alert("your value nagative");
-    }
-    if (qty <= 5 && qty>0) {
+    if(qty <0){
+      alert(" you can't select negative value");
+    }else
+    if (qty <= 5) {
       $.ajax({
         type: "POST",
         url: "database/cart.php",
         data: data,
-        datatype: "application/json",
+        dataType: "json",
         success: function (response) {
-          console.log(response)
-          // message("success" , response);
-          
+          message(response.type , response.msg);
           cartCount();
           loadcartTabel();
           grandTotal();
@@ -223,24 +223,28 @@ $(document).on("click" , ".cards_box" , function(){
   }
 
 $(document).on("click", "#crt_inv_shw_btn", function () {
-        // checkUserLogin();
-  // $.ajax({
-  //   type: "GET",
-  //   data: {action:"cart" },
-  //   dataType : "json",
-  //   url: "database/user_check_login.php",
-  //   success: function (response) {
-      
-  //    if (response.cart == false){
-  //     alert("please add some cart");
-  //    } else{
-  //     // window.location.href = "inv.php"
-  //    }
-  //     console.log(response)
-  //   },
-  // });
+        
+  $.ajax({
+    type: "GET",
+    data: {action:"check" },
+    dataType : "json",
+    url: "database/user_check_login.php",
+    success: function (response) {
+      if(response.login == true){
+        if(response.cart == true){
+          window.location.href = "inv.php"
+        }else{
+            alert("please select some cart")
+        }
+      }else{
+        alert("please login first");
+        window.location.href = "login.php"
+      } 
+        console.log(response)
+    }
+  });
 
-console.log("buyying button click")
+
 })
 
   //  showing  which  type of data user add to cart shopping
@@ -353,16 +357,16 @@ console.log("buyying button click")
       type: "POST",
       url: "database/cart.php",
       data: { p_id: id, action: "delete" },
-
+         dataType : "json", 
       success: function (response) {
         cartCount();
         grandTotal();
-
+        message(response.type , response.msg);
         $("#cart_data_show").html(response);
         $(".cart_tabel").show();
-        if ((response = "delete")) {
-          $(".cart_tabel").hide();
-        }
+        // if ((response.deleted == true)) {
+        //   $(".cart_tabel").hide();
+        // }
       },
       error: function (response) {},
     });

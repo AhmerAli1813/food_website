@@ -10,5 +10,5 @@ if(isset($_SESSION["role_id"])){
    }
 }else{
    
-    die("Connection False");
+   die("<script>alert(' please admin login first ')</script>");
 }

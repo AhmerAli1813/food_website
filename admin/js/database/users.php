@@ -76,7 +76,8 @@ while($row = mysqli_fetch_assoc($run_query)){
 
 
 $col = [];
-$col[] = '<th  data-by="'.$order.'" data-table-th="u_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="unique_id"> <b>id</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="Image"><b>Images</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="Name"><b>Name</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="email"><b>Email</b> <i class="fas  fa-sort float-end text-muted"></i></th>';

@@ -8,7 +8,7 @@ $count_all_rows = mysqli_num_rows($q);
 if(isset($_POST['search'])){
     $search_value = $_POST['search'];
     $sql .="WHERE ps_id LIKE '%{$search_value}%'";
-    $sql .="OR p_id LIKE '%{$search_value}%'";
+    $sql .="OR pro_id LIKE '%{$search_value}%'";
     $sql .="OR cat_id LIKE '%{$search_value}%'";
     $sql .="OR scat_id LIKE '%{$search_value}%'";
     $sql .="OR u_id LIKE '%{$search_value}%'";
@@ -86,7 +86,7 @@ while($row = mysqli_fetch_assoc($run_query)){
      $data[] = $subarray;
 };
 $col = [];
-$col[] = '<th  data-by="'.$order.'" data-table-th="pp_id"> <b>S No</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="pp_id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="ps_id"> <b>Invoice</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="pro_id"> <b>product </b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="cat_id"><b>category </b> <i class="fas  fa-sort float-end text-muted"></i></th>';

@@ -3,6 +3,7 @@ include "../../../database/conf.php";
 if($_POST["action"] == "cards"){
                 $f = [];
                 $output = "";
+                $link = "";
                 $q = $conn->query("SELECT COUNT(*) as user FROM `register` ");
                 if($q){
                         $row = mysqli_fetch_assoc($q);
@@ -150,10 +151,15 @@ if($_POST["action"] == "cards"){
                         </div>
                     </div>
                 </div>';
+                $link .= '<div  data-title="'.$row["name"].'" data-tbl="'.$row["table"].'" data-form-modal="'.$row["formModalId"].'" class=" d-flex-center cards_box " style="cursor: pointer">
+      
+                                <i class="fas '.$row["icons"].' "></i>
+                                <a class="dropdown-item" data-url="js/database/'.$row["table"].'">'.$row["name"].'</a>
+                            </div>';
 
 
                 }
-                echo json_encode(["type"=>"success" , "data" =>$output , ] , true);
+                echo json_encode(["type"=>"success" , "data" =>$output, "link"=>$link , "id"=>"table" ] , true);
 
 }
 if($_POST["action"] == "charts"){

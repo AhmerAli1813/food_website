@@ -10,5 +10,41 @@
         "tax": "3",
         "date": "2023-01-13 08:08:29.000000",
         "status": "show"
+    },
+    {
+        "cr_id": "23",
+        "inv_id": "inv-50002",
+        "cat_id": "cat-20004",
+        "pro_id": "p-10002",
+        "u_id": "2",
+        "qty": "1",
+        "prize": "110",
+        "tax": "3",
+        "date": "2023-02-18 08:31:05.000000",
+        "status": "purchasing"
+    },
+    {
+        "cr_id": "24",
+        "inv_id": "inv-50002",
+        "cat_id": "3",
+        "pro_id": "p-10003",
+        "u_id": "2",
+        "qty": "1",
+        "prize": "280",
+        "tax": "3",
+        "date": "2023-02-18 08:31:06.000000",
+        "status": "purchasing"
+    },
+    {
+        "cr_id": "25",
+        "inv_id": "inv-50002",
+        "cat_id": "cat-20005",
+        "pro_id": "p-10005",
+        "u_id": "2",
+        "qty": "1",
+        "prize": "150",
+        "tax": "3",
+        "date": "2023-02-18 08:31:06.000000",
+        "status": "purchasing"
     }
 ]
