@@ -1,7 +1,7 @@
 <?php
 include "../../../database/conf.php"; 
 
-$sql = "SELECT * FROM `pro_stock`  ";
+$sql = "SELECT ps_id,cat_id,scat_id, pro_id , u_id, SUM(qty) as qty ,prize ,tax , (tax/100 * SUM(qty * prize)) + SUM(qty * prize)  as TPrize ,date ,status  FROM `pro_stock`  ";
 $q = $conn->query($sql);
 $count_all_rows = mysqli_num_rows($q);        
 
@@ -24,6 +24,7 @@ if(isset ($_POST["find"] )){
     $id =  $_POST["find"];
  $sql .=" where ps_id = '$id'  ";
  }
+ $sql.=" GROUP BY pro_id ";
 if(isset($_POST['order'])){
     $column = $_POST['order']['columns'];
      $order = $_POST['order']['dirs'];
@@ -76,6 +77,7 @@ while($row = mysqli_fetch_assoc($run_query)){
     $subarray[] = $row["qty"];
     $subarray[] = $row["prize"];
     $subarray[] = $row["tax"];
+    $subarray[] = $row["TPrize"];
     $subarray[] = $row["date"];
     $subarray[] = '<div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" name="check" '.$checked.' >
@@ -92,9 +94,10 @@ $col[] = '<th  data-by="'.$order.'" data-table-th="pro_id"> <b>product </b> <i c
 $col[] = '<th  data-by="'.$order.'" data-table-th="cat_id"><b>category </b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="scat_id"><b>sub Category </b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="u_id"><b>user</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="'.$order.'" data-table-th="qty"><b>qunty</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="qty"><b>Total qty</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="prize"><b>Prize</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="tax"><b>tax</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+$col[] = '<th  data-by="'.$order.'" data-table-th="prize"><b>Total Prize</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th  data-by="'.$order.'" data-table-th="date"><b>date</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 $col[] = '<th >Action</th>';
 

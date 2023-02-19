@@ -202,7 +202,7 @@ function MyTable(type ,url ,data,dataType,res_id){
  function createTable(response , res_id){
   var tableRow = ``;
   if(response.type == "success"){
-    console.log(response.data.q) 
+    
     var Cols = response.data.col;
     var Rows = response.data.row;
     var tableCol =`<tr>`;
@@ -540,12 +540,13 @@ fetch("../database/js/json/product_json_file.json").then((response) => {
   throw new Error('Something went wrong');
 })
 .then((responseJson) => {
-  let options = `<option selected> select </option>`;
+  let options = `<option > select </option>`;
       
       for(let i=0; i<responseJson.length; i++){
           if(responseJson[i]["scat_id"] == scat_id){
-            console.log(responseJson[i]["scat_id"] +"=="+ scat_id)
-            options +=`<option value="${responseJson[i]["p_id"]}"> ${responseJson[i]["p_title"]}</option>`;
+            var  prize = responseJson[i]["p_prize"]
+            console.log(prize)
+            options +=`<option value="${responseJson[i]["p_id"]}" selected> ${responseJson[i]["p_title"]}</option>`;
           }
         
       };
@@ -555,6 +556,7 @@ $("#pro_select_input").removeAttr("disabled");
 $("#pro_select_input").html(options);  
 $("#EditPro_select_input").removeAttr("disabled");  
 $("#EditPro_select_input").html(options);  
+$("input[name='pPrize']").val(prize)
 })
 
   

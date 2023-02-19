@@ -1,6 +1,7 @@
 <?php
 include '../../../database/conf.php';
 include "AdminLoginCheck.php";
+// include "cash.php";
  $ps_id = (isset($_POST["psID"]) != "") ?  mysqli_real_escape_string($conn, $_POST["psID"]) : "";
  $scat_id=(isset($_POST["Scat_id"]) != "") ?  mysqli_real_escape_string($conn, $_POST["Scat_id"]) : "";
  $cat_id= mysqli_real_escape_string($conn, $_POST["Cat_id"]);
@@ -38,6 +39,10 @@ include "AdminLoginCheck.php";
         
        $q = $conn->query($sql);
                 if ($q) {
+                        //     $tPrize = $prize * $qty;
+                        //     $desc = "first time insert function is used";
+
+                        // cash_in($new_id , $tPrize , $desc);
                     $data = array(
                         "type" => "success",
                         "msg" => "your product successfully insert"
