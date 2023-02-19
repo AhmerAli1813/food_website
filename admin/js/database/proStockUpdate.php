@@ -29,13 +29,14 @@ include "AdminLoginCheck.php";
                                    }    
                           }
 
-                             $Ps_id = $last['last_inv'];
+                             $new_id = $last['last_inv'];
 
-                       $Ps_id =  preg_replace_callback( "|(\d+)|", "increment", $Ps_id);
+                       $new_id =  preg_replace_callback( "|(\d+)|", "increment", $new_id);
          
         }
-        $sql = "INSERT INTO `pro_stock`( `ps_id`, `cat_id`, `scat_id`, `pro_id`, `u_id`, `qty`, `prize`, `tax`, `date`, `status`) VALUES ('$ps_id','$cat_id' , '$scat_id', '$p_id', '$u_id','$qty','$prize' , '$tax','$date' , '$s')";
-        $q = $conn->query($sql);
+                $sql = "INSERT INTO `pro_stock`( `ps_id`, `cat_id`, `scat_id`, `pro_id`, `u_id`, `qty`, `prize`, `tax`, `date`, `status`) VALUES ('$new_id','$cat_id' , '$scat_id', '$p_id', '$u_id','$qty','$prize' , '$tax','$date' , '$s')";
+        
+       $q = $conn->query($sql);
                 if ($q) {
                     $data = array(
                         "type" => "success",

@@ -123,7 +123,7 @@ $form .= ' <form  id="stockEditForm" action="js/database/proStockUpdate.php" met
       }
       if($_POST["action"] == "del"){
               $id = $_POST["id"];
-              $q=$conn->query("DELETE FROM `product` WHERE `p_id` = '$id'");
+              $q=$conn->query("DELETE FROM `pro_stock` WHERE `ps_id` = '$id'");
               if($q){
                 echo json_encode( ["type"=>"success" , "msg"=>"delete Successfully"] , true);
               }else{
