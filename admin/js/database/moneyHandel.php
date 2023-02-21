@@ -17,7 +17,7 @@ if(isset($_POST["action"])){
             "date" => $time
         ];
             $_SESSION["money"][$id] = $data;
-            echo json_encode(["type"=>"success" , "your data add"] ,true);
+            echo json_encode(["type"=>"success" ,"msg"=> "add successfully"] ,true);
     }
     if ($_POST["action"] == "show") {
         $cash_in = 0;
@@ -65,12 +65,10 @@ $output = array(
      'start'=>false,
      'length'=>false, 
     'recordsTotal'=> false,
-    'recordsFiltered' =>false
+    'recordsFiltered' =>false,
+    "button" => true,
 );            echo json_encode(["type"=>"success" , "data" =>$output] , true);
+        }       
 
-
-
-        }
-        // echo $output;
-     }
+}
 }

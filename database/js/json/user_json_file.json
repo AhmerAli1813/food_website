@@ -48,18 +48,6 @@
         "number": "N\/A"
     },
     {
-        "u_id": "42",
-        "unique_id": "514652895",
-        "Name": "Dawood",
-        "email": "Dawood@user.in",
-        "password": "123",
-        "image": "pic.png",
-        "status": "signal_cellular_null",
-        "role_id": "2",
-        "address": "karachi",
-        "number": "N\/A"
-    },
-    {
         "u_id": "43",
         "unique_id": "87139959",
         "Name": "Muslim ",

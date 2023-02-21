@@ -303,9 +303,22 @@ function MyTable(type ,url ,data,dataType,res_id){
                 }
         $(`${res_id} table thead`).html(tableCol);
  $(`${res_id} table tbody`).html(tableRow);
+ if(filterRecords !=false){
   $(`${res_id} span.record`).html(`Showing ${filterRecords} records of ${total_records}`)    
- $(`${res_id} .pagination`).html(pageLink);
+ }
+ if(response.data.button == true){
+  var button = "";
+  var btn = response.data.buttonName;
+  for(var i =0; i<btn.length; i++){
+ console.log()
+ button += btn[i];
+ 
   
+  }
+ }
+;  
+ $(`${res_id} .pagination`).html(pageLink);
+ $(`${res_id} span.record`).html(button);
   }else{
     console.log("error")
   }

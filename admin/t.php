@@ -1,7 +1,7 @@
 <?php 
 session_start();
 // session_unset();
-echo "<pre> " ; print_r($_SESSION["money"]); echo "</pre>";
+// echo "<pre> " ; print_r($_SESSION["money"]); echo "</pre>";
 $cash_in = 0;
         $cash_out = 0;
         $refund = 0;
