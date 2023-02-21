@@ -73,7 +73,8 @@ foreach ($_POST["json_file"] as $key => $item) {
     } else {
       echo "product file is not created";
     };
-  } elseif ($item == "cartJson") {
+  }
+   elseif ($item == "cartJson") {
     $q6 = $conn->query("SELECT * FROM `card`");
 
     while ($result6 = mysqli_fetch_assoc($q6)) {
@@ -87,7 +88,23 @@ foreach ($_POST["json_file"] as $key => $item) {
     } else {
       echo "card file is not created";
     };
-  } else {
+  } 
+   elseif ($item == "stock") {
+    $q7 = $conn->query("SELECT * FROM `pro_stock` ");
+
+    while ($result7 = mysqli_fetch_assoc($q7)) {
+      $cartJson7[] = $result7;
+    }
+
+    $encode_data = json_encode($cartJson7, JSON_PRETTY_PRINT);
+    $filename = "pro_stock_json_file.json";
+    if (file_put_contents("js/json/{$filename}", $encode_data)) {
+      echo " stock file updated ";
+    } else {
+      echo "stock file is not created";
+    };
+  } 
+  else {
     break;
     die();
   };

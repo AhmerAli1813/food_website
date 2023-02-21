@@ -1,7 +1,7 @@
 <?php 
 function ad_headers(){
       include "../database/conf.php";
-    echo '<!DOCTYPE html>
+    echo '<html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
@@ -114,6 +114,13 @@ function ad_headers(){
                               <a href="" class=""><i class="fas fa-map-marked"></i></a>
                               <span class="">dashboard</span>     
                           </li>
+                          <li class="sidebar-item  cards_box " data-title="Account" data-tbl="moneyHandel.php" data-form-modal="moneyModal">
+                              
+                              <a href="money.php" class=""><i class="fas fa-money-bill "></i>
+                              
+                              </a>
+                              <span class="">Account</span>     
+                          </li>
                           <li class="sidebar-item dropdown position-relative" data-dropdown="#table">
                               <a href="" class=""><i class="fas fa-table"></i></a>
                               <span class=" dropdown-toggle">Tables</span> 
@@ -183,7 +190,7 @@ function ad_head_content () {
                   <section class="dpanel-body"> 
                   ';
  }        
- function carts_circle (){
+ function charts_circle (){
   echo '
   <!-- cart container -->
   <div class="chart-container container mb-5">
@@ -250,7 +257,7 @@ function tables(){
                 <tbody ></tbody>
                 </table>
                 <caption class=" "> <div class=" d-flex-between w-100">
-                <span class= "record">showing 5 record of 100</span>  <nav aria-label="Page navigation">
+                <span class= "record"></span>  <nav aria-label="Page navigation">
                 <ul class="pagination    ">
                   
                 </ul>
@@ -677,9 +684,9 @@ function msgModals(){
                     <div class="modal-content">
                         <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <a type="button" class="  close " data-dismiss="modal" aria-label="Close">
+                            <span class="dpanel-text">X</span>
+                        </a>
                         </div>
                         <div class="modal-body">
                         <p id="Model_txt"></p>

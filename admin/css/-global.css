@@ -246,7 +246,11 @@ th,td ,button,.btn {color: var(--text-color); text-transform: capitalize;}
     background-color: transparent   ;
   }
   .modal-title{text-transform: capitalize;}
+  .modal-content{ background: var(--body-color);}
   .border-left{
     border-left: 0.5rem solid var(--i) ;
     
+  }
+  #MsgModel{
+    z-index: 1062;
   }

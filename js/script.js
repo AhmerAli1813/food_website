@@ -2,20 +2,7 @@ let menu = document.querySelector('#menu-bars');
 let navbar = document.querySelector('.navbar');
 const header = document.querySelector("header");
 
-$('#loader').waitMe({
-  effect : 'bounce',
-  text : '',
-  bg : rgba(255,255,255,0.7),
-  color : '#000',
-  maxSize : '',
-  waitTime : -1,
-  textPos : 'vertical',
-  fontSize : '',
-  source : '',
-  onClose : function() {
-    
-  }
-  });
+
 
 
 // end here user image

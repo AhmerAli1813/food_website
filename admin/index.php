@@ -3,9 +3,10 @@ ad_headers();
 
 ad_head_content();
 search_modal();
-carts_circle();
+charts_circle();
 cards();
 msgModals();
 tables();
 formModals();
-ad_footers();
+ad_footers();?>
+<script src="../"></script>

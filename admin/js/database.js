@@ -4,6 +4,31 @@ $(document).ready(function () {
   chartLoad()
   checkUserLogin();
 showTable();
+jsonFilesUpdate();
+function jsonFilesUpdate() {
+  $.ajax({
+    type: "POST",
+    url: "../database/jsonFile.php",
+    data: {
+      json_file: [
+        "catJson",
+        "sctJson",
+        "userJson",
+        "bannerJson",
+        "productJson",
+        "cartJson",
+        "stock"
+      ],
+    },
+    success: function (response) {
+      console.log(response);
+    },
+
+    error: function (response) {
+      console.log(response);
+    },
+  });
+}
   $(document).on("click" , ".cards_box" , function(){
     let table = $(this).data("tbl");
     let title = $(this).data("title");
@@ -221,6 +246,7 @@ function MyTable(type ,url ,data,dataType,res_id){
     };
     
     // pagination show
+    
     let pageLink = "";
     let limit_per_page = response.data.length ,
           limit__per_pageLink = 5;
@@ -231,47 +257,50 @@ function MyTable(type ,url ,data,dataType,res_id){
     let total_page = Math.ceil((total_records/limit_per_page));
      window.localStorage.setItem("pageLength" , limit_per_page);
     // console.log(`totalRecords : ${total_records} TotalPage : ${total_page} limit per page : ${limit_per_page}  page no : ${(page_no)}  prev : ${(page_no -1)} next : ${(page_no  + 1)} `)
-    if(page_no >1){
-    pageLink += '<li class="page-item"><a class="page-link" id="pageNo" data-page-no="'+(page_no - 1)+'" >prev</a></li>'
-    }
-    var start = page_no-2,
-    end = page_no+2;
+    if(filterRecords !=false){
+                          if(page_no >1){
+                          pageLink += '<li class="page-item"><a class="page-link" id="pageNo" data-page-no="'+(page_no - 1)+'" >prev</a></li>'
+                          }
+                          var start = page_no-2,
+                          end = page_no+2;
 
-if(end>total_page){
-    start-=(end-total_page);   //{--------if total page value is greater then 5 then end subtract total page
-    end=total_page;                   // Example hy jani     
-                                      //  var page_no = 5;
-                                      //  var total_page = 10;
-                                      //  var start = page_no-2, //start = 3
-                                      //     end = page_no+2;    // end = 7 
-                                      // if(end>total_page){ //here total page is greater then end value condition true
-                                      //     start-=(end-total_page);   // now start value become  1 how? start -=  (7-10) = -3  -- become + start = 3  
-                                      //     end=total_page;            // now end value become is end = 10;
-                                      // }
-                                      // now we start  loop for( i = start (i = 3) or i > end ( 3 >10)  ) {......} 
-                                      // console.log(start , end)
-                                      // ---------}
-}
-if(start<=0){
-    end+=((start-1)*(-1));
-    start=1;
-}
+                          if(end>total_page){
+                          start-=(end-total_page);   //{--------if total page value is greater then 5 then end subtract total page
+                          end=total_page;                   // Example hy jani     
+                                                      //  var page_no = 5;
+                                                      //  var total_page = 10;
+                                                      //  var start = page_no-2, //start = 3
+                                                      //     end = page_no+2;    // end = 7 
+                                                      // if(end>total_page){ //here total page is greater then end value condition true
+                                                      //     start-=(end-total_page);   // now start value become  1 how? start -=  (7-10) = -3  -- become + start = 3  
+                                                      //     end=total_page;            // now end value become is end = 10;
+                                                      // }
+                                                      // now we start  loop for( i = start (i = 3) or i > end ( 3 >10)  ) {......} 
+                                                      // console.log(start , end)
+                                                      // ---------}
+                          }
+                          if(start<=0){
+                          end+=((start-1)*(-1));
+                          start=1;
+                          }
 
-end = end>total_page?total_page:end;
-    console.log(`end wali link ${end} start wali ${start}` )
-    for (let i = start; i <= end ; i++) {
-      if(i ==page_no){
-          var active = "active"; 
-      }else{
-        active = "";
-      }
+                          end = end>total_page?total_page:end;
+                          console.log(`end wali link ${end} start wali ${start}` )
+                          for (let i = start; i <= end ; i++) {
+                          if(i ==page_no){
+                          var active = "active"; 
+                          }else{
+                          active = "";
+                          }
 
-      pageLink += '<li class="page-item '+active+'"><a class="page-link" id="pageNo" data-page-no="'+i+'" >'+i+'</a></li>';
-    }
-    if(total_page > page_no){
-    pageLink += '<li class="page-item"><a class="page-link" id="pageNo" data-page-no="'+(page_no + 1)+'" >next</a></li>'
-    }
-
+                          pageLink += '<li class="page-item '+active+'"><a class="page-link" id="pageNo" data-page-no="'+i+'" >'+i+'</a></li>';
+                          }
+                          if(total_page > page_no){
+                          pageLink += '<li class="page-item"><a class="page-link" id="pageNo" data-page-no="'+(page_no + 1)+'" >next</a></li>'
+                          }
+                }else{
+                 console.log("no pagination") 
+                }
         $(`${res_id} table thead`).html(tableCol);
  $(`${res_id} table tbody`).html(tableRow);
   $(`${res_id} span.record`).html(`Showing ${filterRecords} records of ${total_records}`)    
@@ -335,7 +364,7 @@ $(document).on("submit", `form`, function (e) {
 
           console.log(formModalNames);
               var formId = $(this).attr("id");
-              modalHide(modalId);
+            
           var Data = new FormData(document.getElementById(formId));
           console.log(Data)        ;
           $.ajax({
@@ -349,7 +378,8 @@ $(document).on("submit", `form`, function (e) {
                   {
                     console.log(data);
                       if(data.type =="success"){
-                        $(`${ModalName}`).modal("hide");               
+                        // $(`${ModalName}`).modal("hide");   
+                          modalHide(modalId);            
                       }
                       message(data.type, data.msg);
                       cardsLoad();
@@ -463,6 +493,8 @@ MyTable("post" , "js/database/proInv.php" , data , "json" , "#DpanelTable")
 });
 $(document).on("click" , "#undo_btn" , ()=>{
   showTable();
+
+  moneyTableLoad();
 })
 function modalFire(id){
   $(id).modal("show"); 
@@ -471,10 +503,6 @@ function modalFire(id){
 function modalHide(id){
   $(id).modal("hide"); 
 }
-
-
-
-
 
 fetch("../database/js/json/Cat_Json_file.json").then((response) => {
   if (response.ok) {
@@ -564,9 +592,71 @@ $("input[name='pPrize']").val(prize)
 })
 
 
+// money handel fetch and ajax start here
 
+$(document).on("click" , "#find" , (e)=>{
+  e.preventDefault();
 
+  var id = $("#inv_id_f").val() , cash_type = $("#cash_type_f").val() , file_type = $("#file_type_f").val()  ;
+  console.log(`id  ${id}  cash_type ${cash_type} ,  file_type  ${file_type} `); 
+  
+  $("input[name = id]").val(id)
+  $("input[name = cash_type]").val(cash_type)
+  if(file_type == "sell"){
+    var fileName =   "cart_json_file.json"; 
+  }else if (file_type == "stock"){
+    fileName = "pro_stock_json_file.json";
+  }else{
+    message("alert" , "please select file type");
+  }
+  
+  $("input[name = cash_in]").attr("disabled" , false);
+  $("input[name = cash_out]").attr("disabled" , false);
+  $("input[name = refund]").attr("disabled" , false);
+  $("input[name = id]").attr("disabled" , false);
 
+  // $("#inv_id").val(id);
+fetch(`../database/js/json/${fileName}`).then((response) => {
+  if (response.ok) {
+    return response.json();
+  }
+  throw new Error('Something went wrong');
+})
+.then((responseJson) => {
+  
+      
+      for(let i=0; i<responseJson.length; i++){
+        if(responseJson[i]["pro_id"] == id){
+          
+          var prize = responseJson[i]["qty"] * responseJson[i]["prize"],
+          tPrize = ((responseJson[i]["tax"]/100 * prize) + prize);
+              if(cash_type == "cash-in"){
+                $("input[name = cash_in]").val(tPrize);
+                $("input[name = cash_out]").val("0");
+                $("input[name = refund]").val("0");
+        
+              }else  if(cash_type == "cash-out"){
+                  
+                $("input[name = cash_out]").val(tPrize);
+                $("input[name = cash_in]").val("0");
+                    $("input[name = refund]").val("0");
+              }else  if(cash_type == "refund"){
+                
+                $("input[name = refund]").val(tPrize);
+                $("input[name = cash_in]").val("0");
+                $("input[name = cash_out]").val("0");
+              }
+                
+          break;
+        }
+      };  
+})
+});
+
+function moneyTableLoad(data){
+  showTable({"action" : "show"})
+
+}
   } );//main jquery
   
   

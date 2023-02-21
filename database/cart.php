@@ -148,36 +148,45 @@ if ($_POST["action"] == "buy") {
             $product_id = $item["id"];
              $qty = $item["qty"];
              $inv_id = $_SESSION["inv_id"];
-            $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = '{$product_id}'");
+            $q = $conn->query("SELECT * FROM `product` WHERE `p_id` = '{$product_id}'") or die("product query failed");
             if ($q) {
                $result = mysqli_fetch_assoc($q);
                
                 $cat_id =  $result["cat_id"];
-               //  $scat_id =  $result["scat_id"];
-                $user_id = $_SESSION["u_id"];
+                $scat_id =  $result["scat_id"];
+                $user_id = $_SESSION["unique_id"];
                 $p_prize =  $result["p_prize"];
                 $title =  $result["p_title"];
-                $sts = "purchasing";
+                $sts = "pending";
                 date_default_timezone_set('Asia/Karachi');
                 $now = new DateTime();
              $time = $now->format('Y-m-d h:i:s');
-            
-                    $q2 = $conn->query("INSERT INTO `card`(`inv_id`, `cat_id`, `pro_id`, `u_id`, `qty`, `prize`, `date`, `status`) 
-               VALUES('$inv_id','$cat_id','$product_id', '$user_id','$qty' , '$p_prize' , '$time', '$sts' ) ");
+               $sql2 = "INSERT INTO `card`(`inv_id`, `cat_id`,  `scat_id` , `pro_id`, `u_id`, `qty`, `prize`, `date`, `status`) 
+                  VALUES('$inv_id','$cat_id', '$scat_id', '$product_id', '$user_id','$qty' , '$p_prize' , '$time', '$sts' ) ";
+                    $q2 = $conn->query($sql2);
                   
                if ($q2) {
+                  $sql1 = "SELECT `ps_id`, `qty` FROM `pro_stock` WHERE pro_id = '$product_id'";
+                              $q3 =$conn->query($sql1);
+                              if($q3){
+                                 $row2 = mysqli_fetch_assoc($q3);
+                                $psQty = $row2["qty"] - $qty;
+                                 $ps_id = $row2["ps_id"];
+                                $sql3 = "UPDATE `pro_stock` SET `qty`='$psQty',`date`='$time' WHERE `ps_id` = '$ps_id'";
+                                 $q4 = $conn->query($sql3) or die(json_encode(["type"=>"error" , "msg" =>"stock is not updated " ],true )); 
+                              }
                   unset($_SESSION["cart"]);
-                  echo '<div class="alert alert-success" id="p_message" role="alert">Thanks for punching ' . $item["title"] . '  </div>';
+                  echo json_encode(["type"=>"success" , "msg" =>"thanks for shopping " ],true );
                }else{
-                  echo "quey failed";
+                  echo json_encode(["type"=>"error" , "msg" =>"serve is down " ],true );
                }
             }
          }
       }else{
-         echo "addCart";
+         echo json_encode(["type"=>"error" , "msg" =>"your selected some cart "  ,"cart"=>false],true );
       }
    } else {
-      echo "login";
+      echo json_encode(["msg"=>"error" , "msg" =>"please login first "  , "login" =>false] ,true );
    }
 }
 //give feedback of product purchase

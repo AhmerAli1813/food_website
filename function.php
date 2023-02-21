@@ -53,20 +53,20 @@ include "database/conf.php";
                 <a class="fas fa-search" id="search-icon"></a>
                 <a class="dropdown fas fa-tint" data-dropdown="#color-gallery">
                 
+                            <div class="dropdown-menu" id="color-gallery">';
+                            $q=$conn->query("SELECT * FROM `colors`  ORDER  by clr_sts ASC") or die("<a>No color found</a>");
+                            if($q){
+                                while($row = mysqli_fetch_assoc($q)){
+                                echo  '<a class="dropdown-item color-item '.$row["clr_sts"].' "  data-color-sts = "'.$row["clr_sts"].'" data-color="'.$row["clr"].'"; data-hsl="'.$row["hsl"].'" data-color-alt="'.$row["color_alt"]
+                                .'" data-color-lighter="'.$row["color_lighter"].'" data-hsl="340" style="--clr:'.$row["clr"].';" href="#">
+                                        </a>';
+                            }
+                            } 
+                            
+                        echo' </div>
+                        </a>
+                   
 
-                   </a>
-                   <div class="dropdown-menu" id="color-gallery">';
-                   $q=$conn->query("SELECT * FROM `colors`  ORDER  by clr_sts ASC") or die("<a>No color found</a>");
-                   if($q){
-                         while($row = mysqli_fetch_assoc($q)){
-                         echo  '<a class="dropdown-item color-item '.$row["clr_sts"].' "  data-color-sts = "'.$row["clr_sts"].'" data-color="'.$row["clr"].'"; data-hsl="'.$row["hsl"].'" data-color-alt="'.$row["color_alt"]
-                         .'" data-color-lighter="'.$row["color_lighter"].'" data-hsl="340" style="--clr:'.$row["clr"].';" href="#">
-                               </a>';
-                   }
-                   } 
-                    
-                  echo' </div>
-  </a>
                 
                                            <a  id="CartCount" class="fas fa-shopping-cart cart_show"></a>
                             
@@ -117,7 +117,7 @@ function search()
             <input
               id="SearchInput"
               type="text"
-              class=""
+              class="text-white"
               placeholder="Search..."
              
             />
@@ -143,14 +143,14 @@ function search()
 function msgModals(){
     echo '
 
-    <div class="modal fade " id="MsgModel" tabindex="1000" role="dialog">
+    <div class="modal fade " id="MsgModel" tabindex="1062" role="dialog">
         <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
                   <h5 class="modal-title"></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
+                  <a type="button" class="  close " data-dismiss="modal" aria-label="Close">
+                      <span class="dpanel-text">X</span>
+                  </a>
                   </div>
                   <div class="modal-body">
                   <p id="Model_txt"></p>
@@ -170,7 +170,7 @@ function search_result()
          <div class="title-head">
          
         <h3 class="sub-heading"> your search data </h3>
-        <h1 class="heading"> favorite dishes </h1>
+        <h1 class="heading"> search dishes </h1>
         </div>   
 
             <div id="search_msg"></div>
@@ -438,39 +438,54 @@ function sign_in()
           <section class="sign-in">
             <div class="container">
                 <div class="signin-content d-md-flex">
-                    <div class="signin-image">
-                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="register.php" class="signup-image-link position-absolute ">Create an account <u class=" text-info ">Sign in</u> </a>
-                    </div>
-
+                <div class="row">
+                <div class="col-6">
+                 
+                                <div class="signin-image">
+                                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+                                        
+                                    </div>
+                            </div> 
+                            <div class="col-6">
+                            
                     <div class="signin-form">
-                        <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="login-form">
-                        <div class="alert alert-danger mb-2 " id="message" style="" role="alert"></div> 
-                            <div class="form-group">
-                                <label for="your_name"><i class="fas fa-user "></i></label>
-                                <input type="text" name="email" id="your_name" required placeholder="Enter your email"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="your_pass"><i class="fas fa-lock"></i></label>
-                                <input type="password" name="pass" id="your_pass" required placeholder="Password"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="button" role="button" name="signin" id="signin" onclick="login()" class="form-submit" value="Log in"/>
-                            </div>
-                        </form>
-                        <div class="social-login d-flex justify-content-between align-self-center">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials d-flex">
-                                <li class=" w-50 "><a class="d-flex" href="#"><i class="display-flex-center text-center zmdi zmdi-facebook"></i></a></li>
-                                <li class=" w-50 "><a class="d-flex" href="#"><i class="display-flex-center text-center zmdi zmdi-twitter"></i></a></li>
-                                <li class=" w-50 "><a class="d-flex" href="#"><i class="display-flex-center text-center zmdi zmdi-google"></i></a></li>
-                            </ul>
+                    <h2 class="form-title">Sign up</h2>
+                    <form method="POST" class="register-form" id="login-form">
+                    <div class="alert alert-danger mb-2 " id="message" style="" role="alert"></div> 
+                        <div class="form-group">
+                            <label for="your_name"><i class="fas fa-user "></i></label>
+                            <input type="text" name="email" id="your_name" required placeholder="Enter your email"/>
                         </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="fas fa-lock"></i></label>
+                            <input type="password" name="pass" id="your_pass" required placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="button" role="button" name="signin" id="signin" onclick="login()" class="form-submit" value="Log in"/>
+                        </div>
+                    </form>
+               
+                </div>
+                            </div>
+
+                
+                    <div class="col-6">
+                    <a href="register.php" class="signup-image-link position-absolute ">Create an account <u class=" text-info ">Sign in</u> </a>
+                    </div>
+                    <div class="col-6">
+                    <div class="social-login d-flex justify-content-between align-self-center">
+                    <span class="social-label">Or login with</span>
+                    <ul class="socials d-flex">
+                        <li class=" w-50 "><a class="d-flex" href="#"><i class="display-flex-center text-center zmdi zmdi-facebook"></i></a></li>
+                        <li class=" w-50 "><a class="d-flex" href="#"><i class="display-flex-center text-center zmdi zmdi-twitter"></i></a></li>
+                        <li class=" w-50 "><a class="d-flex" href="#"><i class="display-flex-center text-center zmdi zmdi-google"></i></a></li>
+                    </ul>
+                </div>
+                    </div>
                     </div>
                 </div>
             </div>

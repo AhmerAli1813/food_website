@@ -3,7 +3,7 @@ $(document).ready(function () {
   AllProduct();
   productOneWeekOld();
   OrderFormHtml();
-  jsonFilesUpdate();
+  // jsonFilesUpdate();
   function message( types, txt){
    
       $("#Model_txt").text(txt);
@@ -84,29 +84,7 @@ $(document).on("click" , ".cards_box" , function(){
     });
   }
 
-  function jsonFilesUpdate() {
-    $.ajax({
-      type: "POST",
-      url: "database/jsonFile.php",
-      data: {
-        json_file: [
-          "catJson",
-          "sctJson",
-          "userJson",
-          "bannerJson",
-          "productJson",
-          "cartJson",
-        ],
-      },
-      success: function (response) {
-        console.log(response);
-      },
-
-      error: function (response) {
-        console.log(response);
-      },
-    });
-  }
+  
 
   
   function checkUserLogin(res) {
@@ -402,21 +380,29 @@ $(document).on("click", "#crt_inv_shw_btn", function () {
       type: "POST",
       url: "database/cart.php",
       data: { action: "buy" },
+      dataType : "json",
       success: function (response) {
-        if (response == "login") {
+        message(response.type , response.msg);
+        if (response.login == false) {
           window.location.href = "login.php";
           console.log(response);
-        }else if(response == "addCart"){
+        }else if(response.cart == false){
                   mainLocation();
         } else {
           cartCount();
-         
-          $(".feedback").show("slow")
+         if(response.action == "success"){
+          alert("thanks for shopping");
+            mainLocation();
+
+         }
+          
+
           console.log(response);  
         }
       },
       error: function (response) {
         console.log(response);
+        console.log(response.responseText);
       },
     });
 
@@ -529,9 +515,14 @@ function ajax(url , data,result){
     $("#SearchInput").val($(this).text());
     $(".search-term").addClass("d-none");
   });
+  
   $(".search-btn").click(function (e) {
     e.preventDefault();
-     search_item() 
+     search_item() ;
+     $('#search_containers')[0].scrollIntoView({
+      behavior: 'smooth',block:'start'
+ });
+
     })
    function search_item (page) {
     

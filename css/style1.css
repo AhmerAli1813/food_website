@@ -166,9 +166,12 @@ header .icons #menu-bars{
     border-radius: 50%;
     object-fit: fill;
 }
-header .dropdown .card-text , header .dropdown .btn   {font-size:1.5rem; text-align: center;}
-header .dropdown-menu{transform: translate(-27%, 35%) !important;
+.dropdown.color-icons::before{
+    content: "\f043";
 }
+header .dropdown .card-text , header .dropdown .btn   {font-size:1.5rem; text-align: center;}
+/* header .dropdown-menu{transform: translate(-27%, 35%) !important; */
+/* } */
 #search-form {
     /* position: fixed; */
     margin: 0 auto;
@@ -319,6 +322,18 @@ padding: 0rem 3rem;
     position: relative;
     overflow: hidden;
     text-align: center;
+    z-index: 1;
+};
+
+.dishes .box-container .box::before{
+    content: "out of order";
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color:red;
+    top: 0;
+    left: 0;
 }
 /* .dishes .box-container form.box{
     width:300px ;
@@ -365,7 +380,7 @@ padding: 0rem 3rem;
 }
 
 .dishes .box-container .box h3{
-    color:var(--black);
+    color:var(--text-color);
     font-size: 2.5rem;
 }
 
@@ -387,8 +402,11 @@ padding: 0rem 3rem;
 .dishes .box-container  button,.btn{
     border-color: var(--first-color);
     color: var(--first-color);
+    cursor: pointer;
 }
-
+.dishes .box-container  button:disabled,.btn:disabled{
+    cursor: not-allowed !important;
+}
 .dishes .box-container  button:hover,.btn:hover{
     background-color: var(--first-color-alt);
     color: var(--first-color-lighter);
