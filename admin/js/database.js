@@ -5,6 +5,15 @@ $(document).ready(function () {
   checkUserLogin();
 showTable();
 jsonFilesUpdate();
+function response (res){
+  
+  if(res != undefined){
+  var a = res;
+  // console.log(a) 
+    return a;
+  }
+
+}
 function jsonFilesUpdate() {
   $.ajax({
     type: "POST",
@@ -119,8 +128,11 @@ let  data = {"action" : "charts"}
             console.log(response)
             if(res_id !=""){
            $(res_id).html(response.data); 
-           $(".sidebar-item #table").html(response.link);   
+           $(".sidebar-item #table").html(response.link);
+            
+           
             }
+            
             
           }
         });
@@ -214,9 +226,9 @@ function MyTable(type ,url ,data,dataType,res_id){
     url: url,
     data: data,
     dataType: dataType,
-    beforesend: function () {
-      
-    },
+    complete: function () {
+      $('#spinner-div').hide();//Request is complete so hide spinner
+  },
     success: function (response) {
           createTable(response , res_id)
       
@@ -225,9 +237,10 @@ function MyTable(type ,url ,data,dataType,res_id){
 };
 // table creating here
  function createTable(response , res_id){
+  
   var tableRow = ``;
   if(response.type == "success"){
-    
+   
     var Cols = response.data.col;
     var Rows = response.data.row;
     var tableCol =`<tr>`;
@@ -321,6 +334,7 @@ function MyTable(type ,url ,data,dataType,res_id){
  $(`${res_id} span.record`).html(button);
   }else{
     console.log("error")
+    
   }
  };
 
@@ -507,7 +521,7 @@ MyTable("post" , "js/database/proInv.php" , data , "json" , "#DpanelTable")
 $(document).on("click" , "#undo_btn" , ()=>{
   showTable();
 
-  moneyTableLoad();
+  MoneyEntryLoad();
 })
 function modalFire(id){
   $(id).modal("show"); 
@@ -666,10 +680,35 @@ fetch(`../database/js/json/${fileName}`).then((response) => {
 })
 });
 
-function moneyTableLoad(data){
-  showTable({"action" : "show"})
+$(document).on("click", ".MoneyQueryBtn", function (e) {
+  var t =  $(this).attr("data-crudType");
+  var data = {"action" : t};
+  $.post("js/database/moneyHandel.php", data,
+    function (data, textStatus, jqXHR) {
+      message(data.type , data.msg);
+      
+      showTable();
+     
+    },
+    "json"
+  );
+
+}); 
+
+
+function MoneyEntryLoad(data){
+  if(data == undefined){
+    showTable({"action" : "show"})
+  }else
+  {
+    showTable(data)
+  }
+  
 
 }
+MoneyEntryLoad();
+
+
   } );//main jquery
   
   

@@ -25,50 +25,54 @@ if(isset($_POST["action"])){
         $refund = 0;
         $output = '';
         if (isset($_SESSION["money"])) {
-           $sno = 1;
-           $data = array();
-           foreach ($_SESSION["money"] as $key  => $item) {
-              $cash_in += $cash_in + intval($item["cash in"]);
-              $cash_in += $cash_out + intval($item["cash out"]);
-              $refund += $refund + intval($item["cash in"]);
-              
-                    $sno++;
-                    $subarray = array();
-                    $subarray[] = $sno;
-                    $subarray[] = $item["id"];
-                    $subarray[] = $item["desc"];
-                    $subarray[] = $item["cash in"];
-                    $subarray[] = $item["cash out"];
-                    $subarray[] = $item["refund"];
-                    $subarray[] = $item["date"];
-                    $data[] = $subarray;
-                            
-           }
+            $sno = 1;
+            $data = array();
+            foreach ($_SESSION["money"] as $key  => $item) {
+                $cash_in += $cash_in + intval($item["cash in"]);
+                $cash_in += $cash_out + intval($item["cash out"]);
+                $refund += $refund + intval($item["cash in"]);
+                
+                        $sno++;
+                        $subarray = array();
+                        $subarray[] = $sno;
+                        $subarray[] = $item["id"];
+                        $subarray[] = $item["desc"];
+                        $subarray[] = $item["cash in"];
+                        $subarray[] = $item["cash out"];
+                        $subarray[] = $item["refund"];
+                        
+                        $data[] = $subarray;
+                                
+            }
            
 
-$col = [];
-$col[] = '<th  data-by="" data-table-th="id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="" data-table-th="inv_id"><b>invoices </b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="" data-table-th=""><b>Desc</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="" data-table-th=""><b>cash in</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+                $col = [];
+                $col[] = '<th  data-by="" data-table-th="id"> <b>#</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+                $col[] = '<th  data-by="" data-table-th="inv_id"><b>invoices </b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+                $col[] = '<th  data-by="" data-table-th=""><b>Desc</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+                $col[] = '<th  data-by="" data-table-th=""><b>cash in</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
 
-$col[] = '<th  data-by="" data-table-th=""><b>cash out</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="" data-table-th=""><b>refund</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-// $col[] = '<th  data-by="" data-table-th=""><b>Total Prize</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-$col[] = '<th  data-by="" data-table-th="date"><b>date</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-// $col[] = '<th  data-by="" data-table-th="status"><b>Status</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
-// $col[] = '<th >Action</th>';
+                $col[] = '<th  data-by="" data-table-th=""><b>cash out</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+                $col[] = '<th  data-by="" data-table-th=""><b>refund</b> <i class="fas  fa-sort float-end text-muted"></i></th>';
+                
 
-$output = array(
-    'row'=>$data,
-     'col'=>$col,
-     'start'=>false,
-     'length'=>false, 
-    'recordsTotal'=> false,
-    'recordsFiltered' =>false,
-    "button" => true,
-);            echo json_encode(["type"=>"success" , "data" =>$output] , true);
-        }       
+                $output = array(
+                    'row'=>$data,
+                    'col'=>$col,
+                    'start'=>false,
+                    'length'=>false, 
+                    'recordsTotal'=> false,
+                    'recordsFiltered' =>false,
+                    "button" => true,
+                    "buttonName" => "<a class='btn btn-success MoneyQueryBtn' data-crudType='insert'>Save</a> <a class='btn btn-warning me-2 ms-2 MoneyQueryBtn' data-crudType='modify'>Update</a> <a class='btn btn-danger MoneyQueryBtn'  data-crudType='remove'>clear</a>" 
+                );            echo json_encode(["type"=>"success" , "data" =>$output] , true);
+        }   else{
+            echo json_encode(["type" => "error" , "table" => false] , true);     
+        }    
 
-}
+    }
+    if($_POST["action"] == "remove"){
+        unset($_SESSION["money"]);
+        echo json_encode(["type" => "success" , "msg" => "successfully deleted " , "table" => false] , true);
+    }
 }

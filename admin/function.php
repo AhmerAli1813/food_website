@@ -216,9 +216,11 @@ function tables(){
     echo ' <div class="container-fluid">
 
     <div class="card shadow mb-4" id="DpanelTable">
-    <div class="spinner-border" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>
+                  <div id="spinner-div">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                  </div>
         <div class="card-header d-flex justify-content-between py-3">
             <h6 class="m-0 font-weight-bold dpanel-text table_heading">User Data </h6>
             <div class="input-group d-flex-between  w-50 " >
@@ -244,15 +246,7 @@ function tables(){
             <div class=" dpanel-text   mb-2  " id ="undo_btn" ><i class="fas fa-undo-alt"></i></div>
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
             <thead>
-                <tr>
-                <th>S No:</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Action</th>
-                </tr>
+                
                 </thead>
                 <tbody ></tbody>
                 </table>

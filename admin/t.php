@@ -50,3 +50,6 @@ $output = array(
     'recordsFiltered' =>false
 );            echo json_encode(["type"=>"success" , "data" =>$output] , true);
         }       
+
+        ?>
+        <div class="d" data-=""></div>
