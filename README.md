@@ -1,5 +1,5 @@
 # Food Website Documentation
-
+![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/HomePage.png?raw=true)
 ## Table of Contents
 1. Introduction
 2. Requirements
@@ -62,7 +62,7 @@ To run this food website, you need the following software and technologies:
 - Users can sign up for a new account and sign in using their email and password.
 - Passwords are securely hashed and stored in the database.
 - User sessions are managed to track authenticated users.
-
+![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/DisplayProducts.png?raw=true)
 ## 5. Shopping Cart
 
 - Users can add products to their shopping cart.
@@ -104,7 +104,7 @@ To run this food website, you need the following software and technologies:
 
 - Admins can manage website banners, including uploading images and specifying target URLs.
 - Banners can be linked to product categories or promotional pages.
-
+![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/AdminDashboard.png?raw=true)
 ## 13. Admin Panel
 
 ### 13.1 Orders
