@@ -62,9 +62,9 @@ To run this food website, you need the following software and technologies:
 - Users can sign up for a new account and sign in using their email and password.
 - Passwords are securely hashed and stored in the database.
 - User sessions are managed to track authenticated users.
-![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/DisplayProducts.png?raw=true)
-## 5. Shopping Cart
 
+## 5. Shopping Cart
+![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/DisplayProducts.png?raw=true)
 - Users can add products to their shopping cart.
 - The shopping cart allows users to adjust the quantity of items and remove products.
 - The total cost is dynamically updated in real-time.
@@ -104,9 +104,9 @@ To run this food website, you need the following software and technologies:
 
 - Admins can manage website banners, including uploading images and specifying target URLs.
 - Banners can be linked to product categories or promotional pages.
-![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/AdminDashboard.png?raw=true)
-## 13. Admin Panel
 
+## 13. Admin Panel
+![alt text](https://github.com/AhmerAli1813/food_website/blob/main/images/foodWebsiteImg/AdminDashboard.png?raw=true)
 ### 13.1 Orders
 
 - Admins can view and manage customer orders.
